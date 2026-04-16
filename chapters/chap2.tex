@@ -1,0 +1,502 @@
+\chapter{Basic group theory}
+
+\section{Structure preserving maps}
+
+\defn{Group homomorphism}{
+    Let \(G\) and \(H\) be groups. A \textbf{group homomorphism} is a map
+    \[
+        f : G \to H
+    \]
+    such that
+    \[
+        f(g_1 \circ_G g_2) = f(g_1) \circ_H f(g_2)
+        \qquad \forall g_1,g_2 \in G.
+    \]
+}
+
+\cor{
+    If \(f : G \to H\) is a group homomorphism, then
+    \[
+        f(e_G) = e_H.
+    \]
+}
+
+\cor{
+    If \(f : G \to H\) and \(\tilde{f} : H \to K\) are group homomorphisms, then
+    \[
+        \tilde{f} \circ f : G \to K
+    \]
+    is again a group homomorphism.
+}
+
+\cor{
+    If \(f : G \to H\) is a bijective group homomorphism, then
+    \[
+        f^{-1} : H \to G
+    \]
+    is also a group homomorphism.
+}
+
+\corp{
+    Every group homomorphism preserves inverses, i.e. if \(f : G \to H\) is a
+    group homomorphism, then
+    \[
+        f(g^{-1}) = f(g)^{-1}
+        \qquad \forall g \in G.
+    \]
+}{
+    Since \(g g^{-1} = e_G\), we get
+    \[
+        f(g)f(g^{-1}) = f(gg^{-1}) = f(e_G) = e_H.
+    \]
+    Similarly,
+    \[
+        f(g^{-1})f(g) = f(g^{-1}g) = f(e_G) = e_H.
+    \]
+    Hence \(f(g^{-1})\) is the inverse of \(f(g)\), so \(f(g^{-1}) = f(g)^{-1}\).
+}{}
+
+\defn{Group isomorphism}{
+    An invertible group homomorphism is called a \textbf{group isomorphism}.
+    If there exists a group isomorphism
+    \[
+        f : G \to H
+    \]
+    then we say that \(G\) and \(H\) are \textbf{isomorphic}.
+}
+
+\ex{
+    Examples of discrete groups:
+    \begin{itemize}
+        \item \((\mathbb{Z},+)\).
+        \item \((\mathbb{R},+)\) and \((\mathbb{C},+)\).
+        \item \((\mathbb{R}\setminus\{0\},\cdot)\) and \((\mathbb{C}\setminus\{0\},\cdot)\).
+        \item Let \(n \in \mathbb{N}_{>0}\). Then \(\mathbb{Z}/n\mathbb{Z}\) is the quotient of
+        \(\mathbb{Z}\) by the equivalence relation
+        \[
+            a \sim b
+            \qquad \Longleftrightarrow \qquad
+            a = b + kn
+            \quad \text{for some } k \in \mathbb{Z}.
+        \]
+        The equivalence class of \(a\) is \( [a] = \{ b \in \mathbb{Z} \mid b \sim a \} \), and
+        \(\mathbb{Z}/n\mathbb{Z}\) becomes a group with operation
+        \[
+            [a]\cdot[b] = [a+b].
+        \]
+        \item The permutation group \(S_n\), for \(n \in \mathbb{N}_{>0}\), is the
+        group of all permutations of \(\{1,2,\dots,n\}\). With composition as
+        multiplication, \(S_n\) forms a group, and \( |S_n| = n! \).
+
+        For example, in \(S_3\) let
+        \[
+            \sigma_1 = \permu{1,2,3}{3,2,1},
+            \qquad
+            \sigma_2 = \permu{1,2,3}{1,3,2}
+        \]
+        Then
+        \[
+            \sigma_2 \circ \sigma_1 = \permu{1,2,3}{3,1,2}.
+        \]
+    \end{itemize}
+}
+
+\ex{
+    Examples of continuous groups:
+    \begin{itemize}
+        \item The general linear group
+        \[
+            \mathrm{GL}(n,\mathbb{R})
+            =
+            \{ M : \mathbb{R}^n \to \mathbb{R}^n \mid M \text{ linear},\ \det M \neq 0 \}.
+        \]
+        \item The orthogonal group
+        \[
+            \mathrm{O}(n)
+            =
+            \{ M : \mathbb{R}^n \to \mathbb{R}^n \mid M \text{ linear},\ M^T M = I \}.
+        \]
+        Equivalently, \(M \in \mathrm{O}(n)\) iff \(\det M = \pm 1\).
+        \item More generally, let \(T_{ij} \in T\mathbb{R}^{n*} \otimes T\mathbb{R}^{n*}\) be a tensor.
+        Its symmetry group is
+        \[
+            \operatorname{Sym}(T_{ij})
+            =
+            \{ M^i{}_j \in \mathrm{GL}(n,\mathbb{R}) \mid T_{ij} = T_{ab} M^a{}_i M^b{}_j \}.
+        \]
+        If \(\langle v,w\rangle = T_{ij}v^i w^j\), this is equivalently the group preserving the
+        bilinear form defined by \(T\).
+
+        For
+        \[
+            T =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & -1 & 0 & 0 \\
+                0 & 0 & -1 & 0 \\
+                0 & 0 & 0 & -1
+            \end{pmatrix},
+        \]
+        one gets \(\operatorname{Sym}(T) = \mathrm{O}(1,3)\). For the standard symplectic form
+        \[
+            T =
+            \begin{pmatrix}
+                0 & I_n \\
+                -I_n & 0
+            \end{pmatrix},
+        \]
+        one gets the symplectic group.
+        \item An \textbf{affine transformation} is a map \(\mathbb{R}^n \to \mathbb{R}^n\) of the form
+        \[
+            x \mapsto Mx + T,
+            \qquad M \in \mathrm{GL}(n,\mathbb{R}),\ T \in \mathbb{R}^n.
+        \]
+        We denote the group of affine transformations by \(\operatorname{Aff}(\mathbb{R}^n)\).
+        \item If \(B \subseteq \mathbb{R}^n\), define
+        \[
+            \operatorname{Sym}(B)
+            =
+            \{ A \in \operatorname{Aff}(\mathbb{R}^n) \mid A(B) = B \}.
+        \]
+        For an equilateral triangle \(\Delta\), one has \(\operatorname{Sym}(\Delta) \cong S_3\).
+    \end{itemize}
+}
+
+\defn{Subgroup}{
+    Let \(G\) be a group. A \textbf{subgroup} \(H \leq G\) is a subset \(H \subseteq G\)
+    such that \(H\) is itself a group:
+    \begin{enumerate}
+        \item \(h \circ_G h' \in H\) for all \(h,h' \in H\),
+        \item if \(h \in H\), then \(h^{-1} \in H\).
+    \end{enumerate}
+}
+
+\ex{
+    Examples:
+    \begin{itemize}
+        \item \(\mathrm{SO}(n) \leq \mathrm{O}(n) \leq \mathrm{GL}(n)\).
+        \item \(S_2 \leq S_3 \leq S_4\).
+    \end{itemize}
+
+    This notation is slightly sloppy: strictly speaking, one should specify an
+    injective group homomorphism \(H \hookrightarrow G\). For example,
+    \[
+        H = \{ \sigma \in S_4 \mid \sigma(4) = 4 \}
+    \]
+    is isomorphic to \(S_3\).
+}
+
+\propp{
+    Let \(f : G \to H\) be a group homomorphism. Then the kernel of \(f\),
+    \[
+        \ker f := \{ g \in G \mid f(g) = e_H \} \leq G,
+    \]
+    is a subgroup. Likewise, the image of \(f\),
+    \[
+        \operatorname{im} f := \{ h \in H \mid \exists g \in G,\ f(g)=h \} \leq H,
+    \]
+    is a subgroup.
+}{
+    Let \(g_1,g_2 \in \ker f\). Then
+    \[
+        f(g_1 \circ g_2) = f(g_1)f(g_2) = e_H,
+    \]
+    so \(g_1 \circ g_2 \in \ker f\). Also,
+    \[
+        f(g^{-1}) = f(g)^{-1} = e_H
+    \]
+    for every \(g \in \ker f\), hence \(g^{-1} \in \ker f\). Therefore \(\ker f\) is a subgroup.
+
+    Now let \(h_1,h_2 \in \operatorname{im} f\). Then there exist \(g_1,g_2 \in G\) such that
+    \(f(g_1)=h_1\) and \(f(g_2)=h_2\). Hence
+    \[
+        h_1h_2 = f(g_1)f(g_2) = f(g_1 \circ g_2) \in \operatorname{im} f.
+    \]
+    Moreover, if \(h = f(g) \in \operatorname{im} f\), then
+    \[
+        h^{-1} = f(g)^{-1} = f(g^{-1}) \in \operatorname{im} f.
+    \]
+    Thus \(\operatorname{im} f\) is a subgroup.
+}
+
+\ex{
+    Let \(\Lambda \subseteq \mathbb{R}^n\) be a lattice. Then there is a group
+    homomorphism
+    \[
+        \operatorname{Sym}(\Lambda) \to \mathrm{O}(n),
+        \qquad
+        f(x)=Ax+b \mapsto A.
+    \]
+    The kernel is the group of translational symmetries of \(\Lambda\), and the
+    image is called the \textbf{point group}.
+}
+
+\ex{
+    There is a group homomorphism
+    \[
+        \operatorname{sign} : S_n \to \{\pm 1\}.
+    \]
+    It records whether a permutation is even or odd: even permutations are sent
+    to \(1\), odd permutations to \(-1\).
+
+    For example,
+    \[
+        \sigma = \permu{1,2,3,4}{2,4,1,3}
+        \qquad \Rightarrow \qquad
+        \operatorname{sign}(\sigma)=-1,
+    \]
+    while
+    \[
+        \tilde{\sigma} = \permu{1,2,3,4}{2,3,1,4}
+        \qquad \Rightarrow \qquad
+        \operatorname{sign}(\tilde{\sigma})=1.
+    \]
+}
+
+\defn{Alternating group}{
+    The \textbf{alternating group} \(A_n\) is the kernel of the sign homomorphism:
+    \[
+        A_n := \ker(\operatorname{sign}) \leq S_n.
+    \]
+    Equivalently, \(A_n\) is the subgroup of even permutations.
+}
+
+\ex{
+    For \(n=3\),
+    \[
+        A_3
+        =
+        \left\{
+            \permu{1,2,3}{1,2,3},
+            \permu{1,2,3}{2,3,1},
+            \permu{1,2,3}{3,1,2}
+        \right\}.
+    \]
+    Hence \(A_3\) has three elements and is isomorphic to \(\mathbb{Z}/3\mathbb{Z}\).
+}
+
+\section{Conjugacy Classes}
+
+\defn{Conjugation}{
+    Let \(G\) be a group and \(g \in G\). Define the group homomorphism
+    \[
+        \operatorname{Ad}_g : G \to G,
+        \qquad
+        h \mapsto ghg^{-1}.
+    \]
+    This is called \textbf{conjugation by \(g\)}.
+
+    Indeed,
+    \[
+        \operatorname{Ad}_g(e) = geg^{-1} = e,
+    \]
+    and
+    \[
+        \operatorname{Ad}_g(hh')
+        = ghh'g^{-1}
+        = ghg^{-1}gh'g^{-1}
+        = \operatorname{Ad}_g(h)\operatorname{Ad}_g(h').
+    \]
+}
+
+\defn{Conjugate Elements}{
+    Let \(h,h' \in G\). We say that \(h\) and \(h'\) are \textbf{conjugate} if
+    there exists \(g \in G\) such that
+    \[
+        h = gh'g^{-1} = \operatorname{Ad}_g(h').
+    \]
+}
+
+\propp{
+    Being conjugate is an equivalence relation on \(G\).
+}{
+    \begin{itemize}
+        \item Reflexivity: every element is conjugate to itself, since
+        \(h = ehe^{-1}\).
+        \item Symmetry: if \(h \sim h'\), so \(h = gh'g^{-1}\), then
+        \(h' = g^{-1}hg\), hence \(h' \sim h\).
+        \item Transitivity: if \(h_1 \sim h_2\) and \(h_2 \sim h_3\), say
+        \(h_1 = g_1 h_2 g_1^{-1}\) and \(h_2 = g_2 h_3 g_2^{-1}\), then
+        \[
+            h_1 = g_1 g_2 h_3 (g_1 g_2)^{-1},
+        \]
+        so \(h_1 \sim h_3\).
+    \end{itemize}
+}
+
+\defn{Conjugacy Classes}{
+    The equivalence classes of the conjugation relation are called
+    \textbf{conjugacy classes}. The set of all conjugacy classes is denoted
+    by \(\operatorname{conj}(G)\).
+}
+
+\ex{
+    The conjugacy classes of \(S_3\) are
+    \[
+        \begin{aligned}
+            \operatorname{conj}(S_3)
+            ={}& \left\{
+                \{e\},
+                \left\{
+                    \permu{1,2,3}{2,1,3},
+                    \permu{1,2,3}{3,2,1},
+                    \permu{1,2,3}{1,3,2}
+                \right\},
+            \right. \\
+            & \left.
+                \left\{
+                    \permu{1,2,3}{2,3,1},
+                    \permu{1,2,3}{3,1,2}
+                \right\}
+            \right\}.
+        \end{aligned}
+    \]
+}
+
+\defn{Abelian Group}{
+    A group \(G\) is called \textbf{abelian} if
+    \[
+        hg = gh
+        \qquad \forall h,g \in G.
+    \]
+}
+
+\cor{
+    \[
+        \operatorname{conj}(G) = G
+        \qquad \Longleftrightarrow \qquad
+        G \text{ is abelian.}
+    \]
+}
+
+\defn{Cycle}{
+    For \(1 \leq k \leq n\), let \(a_1,\dots,a_k \in \{1,2,\dots,n\}\) be pairwise
+    distinct. A \textbf{cycle} \((a_1,\dots,a_k)\) is the permutation
+    \[
+        a_1 \mapsto a_2,\quad a_2 \mapsto a_3,\quad \dots,\quad a_k \mapsto a_1,
+    \]
+    which acts as the identity on all other elements. We call \(k\) the
+    \textbf{length} of the cycle.
+}
+
+\ex{
+    To describe \(\operatorname{conj}(S_n)\), it is useful to use cycle type.
+
+    For \(\sigma \in S_n\), the \textbf{cycle type} of \(\sigma\) is the list of
+    lengths of the cycles in a disjoint cycle decomposition of \(\sigma\), written
+    in decreasing order. Thus the cycle type is a partition
+    \[
+        \lambda_1 \geq \cdots \geq \lambda_k > 0,
+        \qquad
+        \sum_{i=1}^k \lambda_i = n.
+    \]
+
+    For example, \((1\,3\,2)(4\,5) \in S_5\) has cycle type \((3,2)\).
+}
+
+\thmp{Conjugacy In \(S_n\)}{
+    Two permutations \(\sigma,\sigma' \in S_n\) are conjugate if and only if they
+    have the same cycle type.
+}{
+    Let \(\tau,\sigma \in S_n\). Then
+    \[
+        (\tau \sigma \tau^{-1})(\tau(i)) = \tau(\sigma(i)).
+    \]
+    So conjugation by \(\tau\) simply applies \(\tau\) to the entries in each cycle.
+    In particular,
+    \[
+        \tau (a_1\,\dots\,a_r)\tau^{-1}
+        =
+        (\tau(a_1)\,\dots\,\tau(a_r)).
+    \]
+    Hence conjugate permutations have the same cycle type.
+
+    Conversely, if \(\sigma\) and \(\sigma'\) have the same cycle type, then their
+    disjoint cycles can be matched cycle by cycle. Choosing \(\tau\) so that it
+    sends the entries of each cycle of \(\sigma\) to the corresponding entries of
+    the matching cycle of \(\sigma'\), we get
+    \[
+        \tau \sigma \tau^{-1} = \sigma'.
+    \]
+}
+
+\ex{
+    The conjugacy classes of \(S_4\) are in bijection with the partitions of \(4\):
+    \[
+        (1,1,1,1), \qquad (2,1,1), \qquad (3,1), \qquad (2,2), \qquad (4).
+    \]
+    Representatives are:
+    \begin{itemize}
+        \item \((1,1,1,1)\): \(e\),
+        \item \((2,1,1)\): a transposition, e.g. \((1\,2)\),
+        \item \((3,1)\): a \(3\)-cycle, e.g. \((1\,2\,3)\),
+        \item \((2,2)\): a product of two disjoint transpositions, e.g. \((1\,2)(3\,4)\),
+        \item \((4)\): a \(4\)-cycle, e.g. \((1\,2\,3\,4)\).
+    \end{itemize}
+}
+
+\section{Normal Subgroups}
+
+\defn{Normal Subgroup}{
+    A subgroup \(N \leq G\) is called \textbf{normal} if
+    \[
+        gng^{-1} \in N
+        \qquad \forall n \in N,\ \forall g \in G.
+    \]
+}
+
+\ex{
+    In \(S_3\), the subgroup
+    \[
+        \overline{N} = \{ e, (1\,2) \}
+    \]
+    is not normal, since
+    \[
+        (1\,3)(1\,2)(1\,3)^{-1} = (2\,3) \notin \overline{N}.
+    \]
+
+    On the other hand,
+    \[
+        N = \{ e, (1\,2\,3), (1\,3\,2) \}
+    \]
+    is a normal subgroup of \(S_3\).
+}
+
+\thmp{Quotient Group}{
+    Let \(N \leq G\) be a normal subgroup. Let \(G/N\) be the set of equivalence
+    classes for the relation \(g \sim gn\) for \(n \in N\). Then \(G/N\) is a group
+    with multiplication
+    \[
+        [g]\cdot[h] = [gh].
+    \]
+}{
+    We first check that the multiplication is well defined. If \(g' = gn_1\) and
+    \(h' = hn_2\) with \(n_1,n_2 \in N\), then
+    \[
+        g'h' = gn_1hn_2 = gh\,(h^{-1}n_1h)\,n_2.
+    \]
+    Since \(N\) is normal, \(h^{-1}n_1h \in N\), hence
+    \((h^{-1}n_1h)n_2 \in N\). Therefore \(g'h' \sim gh\), so
+    \([g'][h'] = [gh]\).
+
+    The group axioms are inherited from \(G\): associativity follows from that in
+    \(G\), the neutral element is \([e]\), and the inverse of \([g]\) is \([g^{-1}]\).
+
+    The classes \([g] = gN \subseteq G\) are also called \textbf{cosets}.
+}
+
+\ex{
+    Let \(\Lambda \subseteq \mathbb{R}^n\) be a lattice. Then the group of
+    translational symmetries of \(\Lambda\) is normal, and
+    \[
+        \operatorname{Sym}(\Lambda) / \operatorname{Trans}(\Lambda)
+    \]
+    is the point group.
+
+    Another important example is \(\mathbb{Z}^2 \leq \mathbb{R}^2\). Then
+    \(\mathbb{Z}^2\) is a normal subgroup of \((\mathbb{R}^2,+)\), and the quotient
+    \[
+        T^2 = \mathbb{R}^2 / \mathbb{Z}^2
+    \]
+    is the \(2\)-torus.
+}

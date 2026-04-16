@@ -1,0 +1,79 @@
+\documentclass[oneside]{book}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{environ}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\tcbuselibrary{theorems,skins,breakable}
+\usetikzlibrary{arrows.meta}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% Variables
+\def\notetitle{Groups and Lie Algebras Lecture Notes}
+\def\noteuniversity{LMU Munich}
+\def\notesemester{Summer Semester 2026}
+\def\notelecturer{Prof.\ Dr.\ Lukas M\"uller}
+\def\noteauthor{Jonas von Stein}
+\def\notedate{\today}
+
+% The theorem system and user-defined commands
+\input{theorems.tex}
+\input{commands.tex}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    \vspace*{4.4cm}
+
+    {\fontsize{28}{34}\selectfont\bfseries \notetitle \par}
+
+    \vspace{1.6cm}
+
+    {\Large Course held by \notelecturer \par}
+    \vspace{1cm}
+    {\Large Lecture notes by \noteauthor \par}
+    \vspace{1cm}
+    {\Large \notesemester \par}
+    \vspace{0.8cm}
+    {\Large \notedate \par}
+    \vspace{1.2cm}
+    \includegraphics[width=3.4cm]{img/lmu_siege1 Kopie.pdf}\par
+
+    \vfill
+
+    {\Large\scshape Ludwig-Maximilians-Universit\"at M\"unchen \par}
+\end{titlepage}
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\input{chapters/chap1.tex}
+\newpage
+\input{chapters/chap2.tex}
+
+
+\end{document}
