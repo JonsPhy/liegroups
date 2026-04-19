@@ -9,6 +9,7 @@
 %   Fact:           \fact
 %   Proof:          \pf
 %   Example:        \ex
+%   Exercise:       \ec (single answer), \ecs (with subtasks)
 %   Remark:         \rmk (sentence), \rmkb (block)
 % Suffix
 %   r:              Allow Theorem/Definition to be referenced, e.g. thmr
@@ -301,6 +302,95 @@
     \begin{example}
         #1
     \end{example}
+}
+
+% Exercise
+\newtcbtheorem[use counter from=mydefinition]{myexercise}{Exercise}
+{
+    enhanced,
+    breakable,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=green!20!white,
+    colback=green!10!white,
+}{exc}
+
+\newenvironment{exercisepf}{
+    {\noindent{\it \textbf{Answer:}}}
+    \tcolorbox[enhanced,breakable,colback=white,frame hidden,left=5mm,right=2mm,
+    top=1mm,bottom=1mm,boxsep=1mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+    borderline west={1mm}{0pt}{green!30!black!20}]
+}{
+    \textcolor{green!30!black!20}{\hbox{}\nobreak\hfill$\blacksquare$}
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\ec}{m+m+m}{
+    \begin{myexercise}{#1}{}
+        #2
+    \end{myexercise}
+
+    \begin{exercisepf}
+        #3
+    \end{exercisepf}
+}
+
+\newenvironment{exercisepartanswer}{
+    \par
+    \vspace{2pt}
+    {\noindent{\it \textbf{Answer:}}}
+    \tcolorbox[enhanced,breakable,colback=white,frame hidden,left=5mm,right=2mm,
+    top=1mm,bottom=1mm,boxsep=1mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=6pt,
+    borderline west={1mm}{0pt}{green!50!black!35}]
+}{
+    \textcolor{green!50!black!35}{\hbox{}\nobreak\hfill$\blacksquare$}
+    \endtcolorbox
+}
+
+\newlist{exerciseparts}{enumerate}{1}
+\setlist[exerciseparts]{
+    label=\textbf{\alph*)},
+    leftmargin=2.6em,
+    itemsep=1.1em,
+    topsep=0.8em,
+    parsep=0pt
+}
+
+\NewDocumentEnvironment{ecparts}{}{
+    \begin{exerciseparts}
+}{
+    \end{exerciseparts}
+}
+
+\NewDocumentCommand{\ecpart}{m+m}{
+    \item #1
+
+    \begin{exercisepartanswer}
+        #2
+    \end{exercisepartanswer}
+}
+
+\NewDocumentCommand{\ecs}{m+m+m}{
+    \begin{myexercise}{#1}{}
+        #2
+
+        \begin{ecparts}
+            #3
+        \end{ecparts}
+    \end{myexercise}
+}
+
+\NewDocumentEnvironment{chapterexercises}{}{
+    \section{Exercises}
+}{
 }
 
 % Remark

@@ -1,22 +1,29 @@
-# My LaTeX Math Notes Template
-My LaTeX template for math notes with stylized definitions, theorems and lemmas etc. from `tcolorbox`.
+# Groups and Lie Algebras Lecture Notes
 
-![Sample](img/sample.png)
+This project now follows the structure of `../mathtemplate/template`, with the existing lecture-note chapters copied into the template's `content/` directory.
 
-## Files
-* `main.tex` - the main tex file
-* `commands.tex` - for custom commands, e.g. `\newcommand{\ZZ}{\mathbb{Z}}`
-* `theorems.tex` - definition of theorem boxes
-* `other-templates/`
-  * `math-assignment-template.tex` - a minimal template for assignments
-  * `minimal.tex` - a self-contained, minimal template for notes
- 
-| ![Minimal](img/minimal.png) |
-|:--:|
-|`minimal.tex`|
- 
+## Structure
 
+* `main.tex` - main entry point
+* `.latexmkrc` - sends build artifacts to `out/`
+* `metadata.tex` - project metadata and title-page content
+* `style/project.sty` - packages, layout, headers, and shared defaults
+* `style/commands.tex` - personal math commands and helper macros
+* `style/theorems.tex` - theorem boxes and proof helpers
+* `content/` - chapter files
+* `ref/refs.bib` - bibliography database
+* `figures/` - figures and logos
 
-## References
-* https://www.ctan.org/tex-archive/macros/latex/contrib/tcolorbox
-* https://www.overleaf.com/latex/templates/math-notes-template/kfqdrzrzpvvk
+## Workflow
+
+1. Adjust the fields in `metadata.tex` if the course details change.
+2. Add new chapters in `content/`.
+3. Put bibliography entries into `ref/refs.bib`.
+4. Compile with `latexmk -pdf main.tex`.
+
+## Notes
+
+* The template uses `report` as a good middle ground for thesis-style documents and longer notes.
+* The theorem boxes from the notes project are included, but regular theorem environments still work.
+* `physics` is loaded because it appeared in your thesis workflow. If it ever clashes with a package in a future project, remove it centrally in `style/project.sty`.
+* Generated files such as `.aux`, `.bbl`, `.log`, and the final PDF are written to `out/`.
