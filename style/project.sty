@@ -1,8 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{style/project}[2026/04/16 Combined LaTeX project template]
 
+\newif\ifproject@noindent
+\project@noindentfalse
+
+\DeclareOption{noindent}{\project@noindenttrue}
+\DeclareOption{indent}{\project@noindentfalse}
+\ProcessOptions\relax
+
 % Language and typography
-\usepackage[english,ngerman]{babel}
+\usepackage[main=english,ngerman]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
@@ -21,15 +28,15 @@
 % Layout
 \usepackage[a4paper,margin=2.5cm,headheight=14pt]{geometry}
 \usepackage{setspace}
-\usepackage{parskip}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage{float}
 \usepackage{lscape}
 \usepackage{tabularx}
 \setstretch{1.1}
-\parindent0pt
-\parskip0.35em
+\usepackage{parskip}
+\parindent0cm
+\parskip0.2cm
 
 % Graphics
 \usepackage{graphicx}

@@ -353,6 +353,29 @@
     \]
 }
 
+\rmkb{
+    A useful way to think about conjugacy classes is that conjugation changes the
+    \emph{description} of an object, but not the underlying structure.
+
+    For matrices, if \(M \in \mathrm{GL}(n,\mathbb{R})\), then
+    \[
+        U M U^{-1}
+    \]
+    is the same linear map written in a different basis.
+
+    For permutations, if \(\sigma \in S_n\), then
+    \[
+        \tau \sigma \tau^{-1}
+    \]
+    simply relabels the elements of \(\{1,\dots,n\}\). This is why the conjugacy
+    classes in \(S_n\) are determined by cycle type.
+
+    Normal subgroups are exactly those subgroups that are stable under
+    conjugation: if \(N \trianglelefteq G\), then \(gng^{-1} \in N\) for all
+    \(g \in G\) and \(n \in N\). This stability is what makes the quotient
+    \(G/N\) well defined.
+}
+
 \defn{Abelian Group}{
     A group \(G\) is called \textbf{abelian} if
     \[
@@ -501,8 +524,313 @@
     is the \(2\)-torus.
 }
 
-\begin{chapterexercises}
-    \input{content/exercises/02_basic_group_theory}
-\end{chapterexercises}
+\thmp{Isomorphism Theorem}{
+    Let \(\varphi : G \to H\) be a group homomorphism.
+    \begin{enumerate}
+        \item The kernel \(\ker \varphi\) is a normal subgroup of \(G\).
+        \item The map
+        \[
+            \Psi : G/\ker \varphi \to \operatorname{im}\varphi,
+            \qquad
+            [g] \mapsto \varphi(g),
+        \]
+        is a well-defined group isomorphism.
+    \end{enumerate}
+}{
+    Let \(n \in \ker \varphi\) and \(g \in G\). Then
+    \[
+        \varphi(gng^{-1})
+        = \varphi(g)\varphi(n)\varphi(g)^{-1}
+        = \varphi(g)e_H\varphi(g)^{-1}
+        = e_H,
+    \]
+    so \(gng^{-1} \in \ker \varphi\). Hence \(\ker \varphi \trianglelefteq G\).
+
+    Now define
+    \[
+        \Psi([g]) := \varphi(g).
+    \]
+    To see that \(\Psi\) is well defined, let \(g' = gn\) with \(n \in \ker \varphi\). Then
+    \[
+        \varphi(g') = \varphi(gn) = \varphi(g)\varphi(n) = \varphi(g).
+    \]
+    Also,
+    \[
+        \Psi([g][h]) = \Psi([gh]) = \varphi(gh) = \varphi(g)\varphi(h)
+        = \Psi([g])\Psi([h]),
+    \]
+    so \(\Psi\) is a group homomorphism.
+
+    It is surjective by definition of \(\operatorname{im}\varphi\). Finally, if
+    \(\Psi([g]) = \Psi([g'])\), then
+    \[
+        \varphi(g) = \varphi(g')
+        \qquad \Longrightarrow \qquad
+        \varphi(g^{-1}g') = e_H,
+    \]
+    hence \(g^{-1}g' \in \ker \varphi\), so \(g' = g(g^{-1}g')\) and therefore
+    \([g] = [g']\). Thus \(\Psi\) is injective.
+}
+
+\ex{
+    Examples:
+    \begin{itemize}
+        \item If \(f : G \to H\) is surjective, then \(\operatorname{im} f = H\), so
+        the isomorphism theorem gives
+        \[
+            G / \ker f \cong H.
+        \]
+
+        \item Every finite abelian group \(A\) is a quotient of \(\mathbb{Z}^n\) for
+        some \(n\). Hence
+        \[
+            A \cong \mathbb{Z}^n / \ker f
+        \]
+        for a suitable surjective homomorphism \(f : \mathbb{Z}^n \to A\).
+
+        \item Let \(\Lambda \subseteq \mathbb{R}^n\) be a lattice. The homomorphism
+        \[
+            \operatorname{Sym}(\Lambda) \to \mathrm{O}(n),
+            \qquad
+            f(x) = Ax+b \mapsto A,
+        \]
+        has kernel \(\operatorname{Trans}(\Lambda)\). Therefore
+        \[
+            \operatorname{Sym}(\Lambda) / \operatorname{Trans}(\Lambda)
+            \cong
+            \operatorname{im} f,
+        \]
+        and \(\operatorname{im} f\) is the point group of \(\Lambda\).
+
+        \item The determinant defines a surjective homomorphism
+        \[
+            \det : \mathrm{GL}(n,\mathbb{R}) \to \mathbb{R}_{>0},
+        \]
+        where \(\mathbb{R}_{>0}\) is viewed as a group under multiplication, and
+        \[
+            \ker(\det) = \mathrm{SL}(n,\mathbb{R}).
+        \]
+        Hence
+        \[
+            \mathrm{GL}(n,\mathbb{R}) / \mathrm{SL}(n,\mathbb{R})
+            \cong
+            \mathbb{R}_{>0}.
+        \]
+    \end{itemize}
+}
+
+\section{Extensions}
+
+\defn{Exact Sequence}{
+    A sequence of groups and group homomorphisms
+    \[
+        \cdots \to G_i \xrightarrow{f_i} G_{i+1} \xrightarrow{f_{i+1}} G_{i+2} \to \cdots
+    \]
+    is called \textbf{exact} if
+    \[
+        \operatorname{im}(f_i) = \ker(f_{i+1})
+    \]
+    at every term.
+}
+
+\rmkb{
+    If \(N \trianglelefteq G\), then the quotient map
+    \[
+        \pi : G \to G/N,
+        \qquad
+        g \mapsto [g],
+    \]
+    fits into the exact sequence
+    \[
+        1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} G/N \to 1,
+    \]
+    where \(\iota : N \hookrightarrow G\) is the inclusion. Indeed,
+    \(\operatorname{im}(\iota) = N = \ker(\pi)\).
+
+    By the isomorphism theorem, any short exact sequence
+    \[
+        1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1
+    \]
+    identifies \(N\) with a normal subgroup of \(G\) and \(H\) with the quotient
+    \(G/N\).
+}
+
+\defn{Extension}{
+    An \textbf{extension} of a group \(H\) by a group \(N\) is a short exact sequence
+    \[
+        1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1.
+    \]
+}
+
+\defn{Split And Central Extensions}{
+    An extension
+    \[
+        1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1
+    \]
+    is called \textbf{split} if there exists a group homomorphism called a \textbf{section}
+    \[
+        s : H \to G
+    \]
+    such that
+    \[
+        \pi \circ s = \operatorname{id}_H.
+    \]
+
+    It is called \textbf{central} if
+    \[
+        \iota(n)g = g\iota(n)
+        \qquad \forall n \in N,\ \forall g \in G,
+    \]
+    i.e. if \(\iota(N)\) lies in the center \(Z(G)\) of \(G\).
+}
+
+\rmkb{
+    A split extension is the group-theoretic analogue of a trivial bundle. Indeed,
+    the map \(\pi : G \to H\) may be viewed as a bundle over \(H\) with fiber \(N\),
+    and a splitting \(s : H \to G\) with \(\pi \circ s = \operatorname{id}_H\) is a
+    global section. The existence of such a distinguished section means that the
+    extension can be reconstructed from \(N\) and \(H\) without any twisting; in
+    the simplest case one gets the direct product \(N \times H\), and more generally
+    a semidirect product.
+}
+
+\rmkb{
+    Central extensions are especially important in quantization. In classical
+    mechanics one often starts with a symmetry group acting on the phase space,
+    but after quantization the corresponding operators on the Hilbert space may
+    realize the symmetry only up to phases. These extra phase factors are encoded
+    by a central extension, typically by \(U(1)\) or \(\mathbb{R}\). In this sense,
+    central extensions measure the obstruction to lifting a classical symmetry
+    action to an honest linear action in quantum theory.
+}
+
+\ex{
+    Examples:
+    \begin{itemize}
+        \item The product group \(N \times H\) gives an extension
+        \[
+            1 \to N \to N \times H \to H \to 1,
+        \]
+        which is always split. If \(N\) is abelian, then this extension is also central.
+
+        \item The symmetry group of a lattice fits into an extension
+        \[
+            1 \to \operatorname{Trans}(\Lambda) \to \operatorname{Sym}(\Lambda)
+            \to \text{point group} \to 1.
+        \]
+
+        \item The Lorentz group fits into the extension
+        \[
+            1 \to \mathrm{SO}^+(3,1) \to \mathrm{O}(3,1) \to \mathbb{Z}_2 \times \mathbb{Z}_2 \to 1,
+        \]
+        which is split.
+
+        \item The Poincare group \(P\) fits into the extension
+        \[
+            1 \to \mathbb{R}^4 \to P \to \mathrm{O}(3,1) \to 1,
+        \]
+        which is split.
+
+        \item The sequence
+        \[
+            1 \to \mathbb{Z}_2 \to \mathbb{Z}_4 \to \mathbb{Z}_2 \to 1
+        \]
+        is a central extension, but it is not split.
+    \end{itemize}
+}
+
+\defn{Semidirect Product}{
+    Let \(\psi : H \to \operatorname{Aut}(N)\) be a group homomorphism. The
+    \textbf{semidirect product} \(N \rtimes_{\psi} H\) is the group whose underlying
+    set is \(N \times H\), with multiplication
+    \[
+        (n,h)\cdot(n',h')
+        :=
+        \bigl(n\,\psi(h)[n'],\,hh'\bigr).
+    \]
+
+    In this notation one may think of the relation
+    \[
+        hn = \psi(h)[n]\,h.
+    \]
+}
+
+\rmkb{
+    There is a canonical split extension
+    \[
+        1 \to N \xrightarrow{\iota} N \rtimes_{\psi} H \xrightarrow{\pi} H \to 1,
+    \]
+    where
+    \[
+        \iota(n) = (n,e_H),
+        \qquad
+        \pi(n,h) = h,
+        \qquad
+        s(h) = (e_N,h).
+    \]
+    Thus every semidirect product gives a split extension, and conversely every
+    split extension is isomorphic to a suitable semidirect product.
+}
+
+\thmp{Split Extensions And Semidirect Products}{
+    Let
+    \[
+        1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1
+    \]
+    be an extension, and let \(s : H \to G\) be a splitting. Then:
+    \begin{enumerate}
+        \item Conjugation by \(s(h)\) defines a group homomorphism
+        \[
+            \psi : H \to \operatorname{Aut}(N),
+            \qquad
+            h \mapsto \bigl(n \mapsto \iota^{-1}(s(h)\iota(n)s(h)^{-1})\bigr).
+        \]
+        \item The group \(G\) is isomorphic to the semidirect product
+        \[
+            N \rtimes_{\psi} H.
+        \]
+    \end{enumerate}
+}{
+    Since \(\iota(N)\trianglelefteq G\), conjugation by \(s(h)\) preserves
+    \(\iota(N)\), hence defines an automorphism of \(N\). This gives the map
+    \(\psi : H \to \operatorname{Aut}(N)\), and it is a group homomorphism because
+    conjugation is compatible with multiplication.
+
+    Define
+    \[
+        \Phi : N \rtimes_{\psi} H \to G,
+        \qquad
+        (n,h) \mapsto \iota(n)s(h).
+    \]
+    Using the definition of \(\psi\), one checks
+    \[
+        \Phi\bigl((n,h)(n',h')\bigr)
+        = \Phi(n,h)\Phi(n',h').
+    \]
+    Thus \(\Phi\) is a homomorphism.
+
+    It is surjective since every \(g \in G\) can be written as
+    \(g = \iota(n)s(h)\), where \(h = \pi(g)\) and \(n\) is determined by the fact
+    that \(g s(h)^{-1} \in \ker \pi = \iota(N)\). It is injective because
+    \(\iota(n)s(h) = e\) implies \(h = e\) after applying \(\pi\), and then \(n=e\).
+    Hence \(\Phi\) is an isomorphism.
+}
+
+\rmkb{
+    If an extension is both split and central, then the associated action
+    \(\psi : H \to \operatorname{Aut}(N)\) is trivial, because
+    \[
+        \iota(n)s(h) = s(h)\iota(n)
+        \qquad \forall n \in N,\ h \in H.
+    \]
+    Therefore
+    \[
+        N \rtimes_{\psi} H = N \times H,
+    \]
+    so every split central extension is in fact a direct product.
+}
+
+
+
 
 
