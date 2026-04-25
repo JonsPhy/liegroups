@@ -42,11 +42,13 @@
             N \subsetneq N' \subset G
         \]
         with \(N'\) normal implies \(N' = G\). Show that \(G/N\) is simple.}{
-            Consider a group homomorphism \(f:G/N \to H\) for some group \(H\). We show that \(f\) is either an injection or the constant map at the identity of \(H\). Let \(\pi: G \to G/N, \quad g \mapsto [g]\) the canonical projection. Since \(\pi\) is a group homomorphism, the composition \(f \circ \pi: G \to H\) is a group homomorphism. Consider \(g_1, g_2 \in G\) such that \(f\circ\pi (g_1) = f\circ\pi (g_2)\). Then \(f\circ\pi (g_2^{-1}g_1) = 1 \), and thus \(g_2^{-1} g_1 \in \ker f\circ\pi\).
-        }
+            Consider the canonical projection \(\pi: G \to G/N, \quad g \mapsto [g]\) and \(H \trianglelefteq G/N\). Then the preimage \(\pi^{-1}(H)\) is a normal subgroup of \(G\) since for \(g \in G\) and \(h \in \pi^{-1}(H)\) we have \(\pi(ghg^{-1}) = \pi(g)\pi(h)\pi(g^{-1}) \in H\) since H is normal. But \(N \subset \pi^{-1}(H)\) since \(\pi^{-1}(1) = N\). Thus either \(\pi^{-1}(H) = N\) or \(\pi^{-1}(H) = G\) by the maximality of \(N\). In the first case \(H = 1\) and in the second case \(H = G/N\). Therefore, \(G/N\) is simple.
+       }
 
         \ecpart{Show that a group with only two conjugacy classes is simple.}{
-
+            First we show that every normal subgroup \( N \trianglelefteq G\) is a union of conjugacy classes. Let \(h \in N\), since \(N\) is normal we have \(ghg^{-1} \in N \, \forall g\in G\), i.e. the conjugacy class of \(h\) is contained in \(N\). Therefore, \(N\) is the union of the conjugacy classes of its elements.
+            
+            For every group \([1] = \{1\} \in \operatorname{conj}(G)\). If \(G\) has only two conjugacy classes, then the second conjugacy class is \(G/\{1\}\). Every normal subgroup \(N \trianglelefteq G\) is a union of conjugacy classes, so either \(N \in \{\{1\}, G/\{1\}, G\}\). But \(G/\{1\}\) is not a subgroup of \(G\) since it does not contain the identity, so \(N \in \{\{1\}, G\}\) and thus \(G\) is simple.
         }
 
         \ecpart{Iterating the construction from c), we can assign to each finite
@@ -54,7 +56,14 @@
         \(G = \mathbb{Z}/12\mathbb{Z}\) that the simple groups appearing in this
         decomposition are independent of the choice of maximal normal subgroup
         (this is true for every finite group).}{
+            To iterate the construction we start with \(G \trianglerighteq G_1\) where \(G_1\) is a maximal normal subgroup of \(G\). Then \(G/G_1\) is simple and therefore of prime order. This is iterated by choosing a maximal normal subgroup \(G_2\) of \(G_1\) and so on until we reach the trivial group. The simple groups appearing in this decomposition are the quotients \(G/G_1, G_1/G_2, \ldots\). We show that for \(G = \mathbb{Z}/12\mathbb{Z}\) the simple groups appearing in this decomposition are independent of the choice of maximal normal subgroup.
+            Since \(G\) is abelian, every subgroup is normal. For \(\mathbb{Z}/k\mathbb{Z}\) to be a subgroup of \(\mathbb{Z}/12\mathbb{Z}\) we need \(k\) to divide \(12\). The divisors of \(12\) are \(1, 2, 3, 4, 6, 12\). For a subgroup to be maximal \(k\) needs to be a proper divisor of \(12\) such that there exists no proper divisor of \(12\) which is a multiple of \(k\). The maximal normal subgroups of \(\mathbb{Z}/12\mathbb{Z}\) are therefore \(\mathbb{Z}/4\mathbb{Z}\) and \(\mathbb{Z}/6\mathbb{Z}\).
 
+            Starting with \(G_1 = \mathbb{Z}/4\mathbb{Z}\) we have \(G/G_1 \cong \mathbb{Z}/3\mathbb{Z}\). The maximal proper divisor of \(4\) is \(2\) and thus \(G_2 = \mathbb{Z}/2\mathbb{Z}\) and therefore the second simple group is \(G_1/G_2 \cong \mathbb{Z}/2\mathbb{Z}\). Finally, the maximal proper divisor of \(2\) is \(1\) and thus \(G_3 = \{0\}\) and the third simple group is \(G_2/G_3 \cong \mathbb{Z}/2\mathbb{Z}\). Therefore the decomposition yields the simple groups \(\mathbb{Z}/3\mathbb{Z}, \mathbb{Z}/2\mathbb{Z}, \mathbb{Z}/2\mathbb{Z}\).
+
+            On the other hand, starting with \(G_1 = \mathbb{Z}/6\mathbb{Z}\) we have \(G/G_1 \cong \mathbb{Z}/2\mathbb{Z}\). The maximal proper divisors of \(6\) are \(2,3\) and thus \(G_2 = \mathbb{Z}/3\mathbb{Z}\) or \(G_2 = \mathbb{Z}/2\mathbb{Z}\). Therefore the second simple group is \(G_1/G_2 \cong \mathbb{Z}/2\mathbb{Z}\) or \(G_1/G_2 \cong \mathbb{Z}/3\mathbb{Z}\). Finally, the maximal proper divisor of \(3\) is \(1\) as it is of \(2\) and thus \(G_3 = \{0\}\) for both cases and the third simple group is \(G_2/G_3 \cong \mathbb{Z}/3\mathbb{Z}\) or \(G_2/G_3 \cong \mathbb{Z}/2\mathbb{Z}\). Therefore the decomposition yields the simple groups \(\mathbb{Z}/2\mathbb{Z}, \mathbb{Z}/2\mathbb{Z}, \mathbb{Z}/3\mathbb{Z}\).
+
+            Thus all possible decompositions of \(\mathbb{Z}/12\mathbb{Z}\) yield the same simple groups \(\mathbb{Z}/3\mathbb{Z}, \mathbb{Z}/2\mathbb{Z}, \mathbb{Z}/2\mathbb{Z}\).
         }
 
         \ecpart{The decomposition in e) is called the Jordan-H\"older
@@ -124,7 +133,18 @@
 
         Hint: Use the action of a group on itself by left multiplication.
     }{
+        Let \(G\) be a finite group. The action of \(G\) on itself by left multiplication is given by \(L_g[h] \equiv g \triangleright  h = gh \). Define the map \(\phi: G \to \operatorname{Sym}_G, \quad g \mapsto L_g\).
 
+        First we show that this is well defined, i.e. that \(L_g\) is a bijective homomorphism for every \(g \in G\). 
+        \begin{itemize}
+            \item \(L_g\) is a homomorphism: For \(h_1, h_2 \in G\) we have \(L_g[h_1h_2] = g(h_1h_2) = (gh_1)(gh_2) = L_g[h_1]L_g[h_2]\).
+            \item \(L_g\) is injective: For \(h_1, h_2 \in G\) such that \(L_g[h_1] = L_g[h_2]\) we have \(gh_1 = gh_2\) and thus \(h_1 = h_2\).
+            \item \(L_g\) is surjective: For \(h \in G\) we have \(L_g[g^{-1}h] = g(g^{-1}h) = h\).
+        \end{itemize}
+
+        Next we show that \(\phi\) is a homomorphism. For \(g_1, g_2, h \in G\) we have \[\phi(g_1g_2)[h] = L_{g_1g_2}[h] = (g_1g_2)h = g_1(g_2h) = L_{g_1}[L_{g_2}[h]] = (\phi(g_1)\circ \phi(g_2))[h]\]
+
+        Finally to show that \(\phi\) is an isomorphism we show that it is injective. For \(g_1, g_2 \in G\) such that \(\phi(g_1) = \phi(g_2)\) we have \(L_{g_1} = L_{g_2}\) and thus \(g_1h = g_2h\) for every \(h \in G\). In particular, for \(h = 1\) we have \(g_1 = g_2\). Therefore, \(\phi\) is an injection and thus \(G\) is isomorphic to a subgroup of \(\operatorname{Sym}_G\).
     }
 
 \end{document}
