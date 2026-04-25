@@ -1,0 +1,130 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\makeatletter
+\def\input@path{{../}{}}
+\makeatother
+\usepackage{style/project}
+
+% Exercise Sheet 02
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Groups and Lie Algebras: Exercise Sheet 2\par}
+    \vspace{0.5em}
+    {\color{gray!70}\rule{0.72\textwidth}{0.5pt}\par}
+\end{center}
+
+\setcounter{section}{2}
+
+    \ecs{Simple groups}{
+        A group \(G\) is called \textbf{simple} if it has exactly two normal
+        subgroups: the trivial subgroup \(\{1\}\) and \(G\) itself.
+    }{
+        \ecpart{Let \(G\) be a simple group and \(H\) a group. Show that every
+        group homomorphism from \(G\) to \(H\) is either an injection or the
+        constant map at the identity of \(H\). Show that any group \(G'\)
+        satisfying this property must be simple.}{
+            Let \(f:G \to H \) be a group homomorphism. Then by the isomophism theorem the kernel if \(f\) is a normal subgroup of \(G\), i.e. \(\ker f \in \{\{1\}, G\}\). If \(\ker f = G\) then \(f\) is the constant map at the identity of \(H\). 
+            To show that if \(\ker f = \{1\}\) impliels \(f\) is an injection consider \(g_1, g_2 \in G\) such that \(f(g_1)=f(g_2)\). Then \(f(g_2^{-1}g_1)=f(1) = 1\) and thus \(g_2^{-1}g_1 \in \ker f = \{1\}\) which implies \(g_1=g_2\).
+            
+            Conversely, let \(G^\prime\) be a group such that every group homomorphism \(h:G^\prime \to H\) for any group \(H\) is either an injection or the constant map at the identity of \(H\). Let \(N \leq G^\prime\) be a normal subgroup. Then there exists a group homomorphism \(f_1\) such that \(\ker f = N\). If \(f_1\) is an injection then \(\ker f = \{1\}\), and if \(f_1\) is the constant map at the identity of \(H\) then \(\ker f = G^\prime\). In either case \(N \in \{\{1\}, G^\prime\}\) and thus \(G^\prime\) is simple.
+            }
+
+        \ecpart{For which \(n \in \mathbb{N}\) is
+        \(\mathbb{Z}/n\mathbb{Z}\) simple?}{
+            Let \(N \leq \mathbb{Z}/n\mathbb{Z}\) be a normal subgroup. Since \(\mathbb{Z}/n\mathbb{Z}\) is abelian, every subgroup is normal. Since every subgroup of \(\mathbb{Z}/n\mathbb{Z}\) is of the form \(k\mathbb{Z}/n\mathbb{Z}\) for some \(k \in \mathbb{N}\) dividing \(n\). Therefore, \(\mathbb{Z}/n\mathbb{Z}\) is simple if and only if \(n\) has no divisors other than \(1\) and \(n\), i.e. if and only if \(n\) is prime.
+        }
+
+        \ecpart{Let \(G\) be a group and \(N \subset G\) a maximal normal
+        subgroup, i.e. \(N \neq G\) and
+        \[
+            N \subsetneq N' \subset G
+        \]
+        with \(N'\) normal implies \(N' = G\). Show that \(G/N\) is simple.}{
+            Consider a group homomorphism \(f:G/N \to H\) for some group \(H\). We show that \(f\) is either an injection or the constant map at the identity of \(H\). Let \(\pi: G \to G/N, \quad g \mapsto [g]\) the canonical projection. Since \(\pi\) is a group homomorphism, the composition \(f \circ \pi: G \to H\) is a group homomorphism. Consider \(g_1, g_2 \in G\) such that \(f\circ\pi (g_1) = f\circ\pi (g_2)\). Then \(f\circ\pi (g_2^{-1}g_1) = 1 \), and thus \(g_2^{-1} g_1 \in \ker f\circ\pi\).
+        }
+
+        \ecpart{Show that a group with only two conjugacy classes is simple.}{
+
+        }
+
+        \ecpart{Iterating the construction from c), we can assign to each finite
+        group \(G\) a sequence of simple groups. Show explicitly for
+        \(G = \mathbb{Z}/12\mathbb{Z}\) that the simple groups appearing in this
+        decomposition are independent of the choice of maximal normal subgroup
+        (this is true for every finite group).}{
+
+        }
+
+        \ecpart{The decomposition in e) is called the Jordan-H\"older
+        decomposition of \(G\). Show that there are non-isomorphic groups with
+        the same Jordan-H\"older decomposition.}{
+
+        }
+    }
+
+    \ec{Spontaneous symmetry breaking}{
+        It can happen that a quantum mechanical system is in a ground state
+        which does not preserve the symmetries of the system. In this case we
+        say the symmetry is \textit{spontaneously broken}.
+
+        Consider a particle on a circle with Hilbert space
+        \[
+            \mathcal{H} = L^2(\mathbb{R}/\mathbb{Z})
+        \]
+        and Hamiltonian
+        \[
+            \mathbb{H}
+            =
+            \frac{1}{2}\left(-i\partial_x - \frac{1}{2}\right)^2.
+        \]
+        Compute the eigenfunctions of \(\mathbb{H}\) and show that
+        \[
+            f(x) \mapsto f(-x)
+        \]
+        is a symmetry. What is the action of the symmetry when applied to the
+        eigenfunctions?
+    }{
+
+    }
+
+    \ecs{Symmetries of the Dodecahedron}{
+        In this exercise we study the symmetry group of the dodecahedron.
+    }{
+        \ecpart{Compute the size of the group of symmetries of the dodecahedron
+        using the orbit-stabilizer theorem.}{
+
+        }
+
+        \ecpart{What is the size of the group of rotational symmetries?}{
+
+        }
+
+        \ecpart{There are \(5\) cubes inside the dodecahedron which can be
+        rotated into each other and contain all its vertices. Show that there is
+        an injection from the group of rotational symmetries to \(S_5\).}{
+
+        }
+
+        \ecpart{Show that the image of the injection from c) is contained in the
+        alternating group \(A_5\).}{
+
+        }
+
+        \ecpart{Show that the group of symmetries of the dodecahedron is
+        \(A_5 \times \mathbb{Z}_2\).}{
+
+        }
+    }
+
+    \ec{Cayley's theorem}{
+        Show that every finite group is isomorphic to a subgroup of a symmetric
+        group.
+
+        Hint: Use the action of a group on itself by left multiplication.
+    }{
+
+    }
+
+\end{document}

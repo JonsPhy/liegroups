@@ -1,16 +1,22 @@
-% Exercise Sheet 01
-% Define each exercise as a command so it can be placed in any chapter.
-%
-% Suggested naming scheme:
-%   \sheetoneexone
-%   \sheetoneextwo
-%   \sheetoneexthree
-%
-% Then call the relevant commands inside:
-%   content/exercises/01_symmetries.tex
-%   content/exercises/02_basic_group_theory.tex
+\documentclass[a4paper,11pt,oneside]{article}
 
-\NewDocumentCommand{\sheetoneexone}{}{
+\makeatletter
+\def\input@path{{../}{}}
+\makeatother
+\usepackage{style/project}
+
+% Exercise Sheet 01
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Groups and Lie Algebras: Exercise Sheet 1\par}
+    \vspace{0.5em}
+    {\color{gray!70}\rule{0.72\textwidth}{0.5pt}\par}
+\end{center}
+
+\setcounter{section}{1}
+
     \ecs{The symmetric group \(S_n\)}{
         We have defined the symmetric group \(S_n\) as the group of permutations
         on the set \(\{1,2,\dots,n\}\). A permutation \(\sigma\) acts on elements
@@ -111,9 +117,7 @@
             Add your answer here.
         }
     }
-}
 
-\NewDocumentCommand{\sheetoneextwo}{}{
     \ec{Chinese remainder theorem}{
         Show that if \(a\) and \(b\) are coprime positive integers, then
         \[
@@ -128,9 +132,7 @@
     }{
 
     }
-}
 
-\NewDocumentCommand{\sheetoneexthree}{}{
     \ec{Automorphisms of \(\mathbb{Z}_n\)}{
         Let \(G\) be a group. Show that the set \(\operatorname{Aut}(G)\) of
         invertible group homomorphisms \(G \to G\) is a group. For \(n \in \mathbb{N}\)
@@ -163,9 +165,7 @@
         Thus \(f([\tilde{n}]) = f([n])\), but \([\tilde{n}] \neq [n]\). Hence, if
         \(f\) is invertible, \(k\) and \(n\) must be coprime.
         }
-}
 
-\NewDocumentCommand{\sheetoneexfour}{}{
     \ecs{The Lorentz group}{
         Recall that the Lorentz group \(O(3,1)\) is the group of linear
         transformations
@@ -361,4 +361,5 @@
             Add your answer here.
         }
     }
-}
+
+\end{document}

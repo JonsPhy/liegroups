@@ -357,7 +357,7 @@
 
 \newlist{exerciseparts}{enumerate}{1}
 \setlist[exerciseparts]{
-    label=\textbf{\alph*)},
+    label=\textcolor{green!45!black}{\textbf{\alph*)}},
     leftmargin=2.6em,
     itemsep=1.1em,
     topsep=0.8em,
@@ -381,16 +381,11 @@
 \NewDocumentCommand{\ecs}{m+m+m}{
     \begin{myexercise}{#1}{}
         #2
-
-        \begin{ecparts}
-            #3
-        \end{ecparts}
     \end{myexercise}
-}
 
-\NewDocumentEnvironment{chapterexercises}{}{
-    \section{Exercises}
-}{
+    \begin{ecparts}
+        #3
+    \end{ecparts}
 }
 
 % Remark

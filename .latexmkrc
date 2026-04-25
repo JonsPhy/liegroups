@@ -1,2 +1,3 @@
-$out_dir = 'out';
-$aux_dir = 'out';
+$out_dir = 'pdf';
+$aux_dir = 'aux';
+$pdf_mode = 1;

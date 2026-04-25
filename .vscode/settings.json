@@ -1,0 +1,27 @@
+{
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/pdf",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%WORKSPACE_FOLDER%/pdf",
+        "-auxdir=%WORKSPACE_FOLDER%/aux",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": [
+        "latexmk"
+      ]
+    }
+  ]
+}
