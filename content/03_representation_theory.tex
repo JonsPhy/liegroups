@@ -408,6 +408,8 @@
 
 \section{Actions of Groups on Vector Spaces}
 
+\subsection{Representations And Intertwiners}
+
 \rmkb{
     Recall that a \textbf{representation} of a group \(G\) on a vector space
     \(V\) is a group homomorphism
@@ -528,6 +530,8 @@
     \end{itemize}
 }
 
+\subsection{Irreducibility And Schur's Lemma}
+
 \defn{Subrepresentations And Irreducibility}{
     Let \((V,\rho)\) be a representation of a group \(G\).
 
@@ -586,3 +590,637 @@
     Thus \(\rho'(g)(v') \in \operatorname{im}(f)\), so
     \(\operatorname{im}(f)\) is a subrepresentation of \(V'\).
 }
+
+\lemp{Schur's Lemma}{
+    Let \((V,\rho)\) and \((V',\rho')\) be irreducible representations of a
+    group \(G\). Then every map of \(G\)-representations
+    \[
+        f : V \to V'
+    \]
+    is either the zero map or an isomorphism.
+
+    Moreover, if \(V\) and \(V'\) are finite-dimensional complex vector spaces,
+    then for any two isomorphisms of \(G\)-representations
+    \[
+        f,f' : V \to V'
+    \]
+    there exists \(\lambda \in \mathbb{C}\) such that
+    \[
+        f' = \lambda f.
+    \]
+}{
+    Let \(f : V \to V'\) be a map of \(G\)-representations. By the previous
+    proposition, \(\ker(f)\) is a subrepresentation of \(V\), and
+    \(\operatorname{im}(f)\) is a subrepresentation of \(V'\). Since \(V\) and
+    \(V'\) are irreducible, we have
+    \[
+        \ker(f) \in \{\{0\},V\},
+        \qquad
+        \operatorname{im}(f) \in \{\{0\},V'\}.
+    \]
+    If \(\operatorname{im}(f)=\{0\}\), then \(f=0\). Otherwise
+    \(\operatorname{im}(f)=V'\). In this case \(\ker(f) \neq V\), so
+    \(\ker(f)=\{0\}\). Hence \(f\) is both surjective and injective, and
+    therefore an isomorphism.
+
+    Now assume that \(V\) and \(V'\) are finite-dimensional complex vector
+    spaces, and let
+    \[
+        f,f' : V \to V'
+    \]
+    be isomorphisms of \(G\)-representations. Then
+    \[
+        f^{-1} \circ f' : V \to V
+    \]
+    is a map of \(G\)-representations. Since \(V\) is a finite-dimensional
+    complex vector space, \(f^{-1}\circ f'\) has an eigenvalue
+    \(\lambda \in \mathbb{C}\). Thus
+    \[
+        f^{-1}\circ f' - \lambda \operatorname{id}_V
+    \]
+    is not injective. By the first part, it cannot be an isomorphism, so it
+    must be the zero map. Therefore
+    \[
+        f^{-1}\circ f' = \lambda \operatorname{id}_V,
+    \]
+    and multiplying by \(f\) gives
+    \[
+        f' = \lambda f.
+    \]
+}
+
+\ex{
+    The second part of Schur's lemma need not hold over \(\mathbb{R}\).
+    Consider the representation of \(\mathbb{Z}_4\) on \(\mathbb{R}^2\) by
+    rotations:
+    \[
+        \rho([n])
+        =
+        \begin{pmatrix}
+            0 & 1 \\
+            -1 & 0
+        \end{pmatrix}^{n}.
+    \]
+    Then both
+    \[
+        \operatorname{id}_{\mathbb{R}^2}
+        \qquad\text{and}\qquad
+        \begin{pmatrix}
+            0 & 1 \\
+            -1 & 0
+        \end{pmatrix}
+        :
+        \mathbb{R}^2 \to \mathbb{R}^2
+    \]
+    are maps of \(\mathbb{Z}_4\)-representations. Indeed, both commute with
+    the action of the generator \([1]\), and hence with the action of every
+    element of \(\mathbb{Z}_4\).
+
+    However, these two maps are not scalar multiples of each other over
+    \(\mathbb{R}\), since the rotation matrix is not of the form
+    \(\lambda \operatorname{id}_{\mathbb{R}^2}\) for any
+    \(\lambda \in \mathbb{R}\). Thus the complex-vector-space assumption in
+    Schur's lemma is essential for the scalar uniqueness statement.
+}
+
+\rmkb{
+    From now on, unless stated otherwise, representations will be taken over
+    complex vector spaces.
+}
+
+\subsection{Central Elements And Abelian Groups}
+
+\corp{
+    Let \((V,\rho)\) be a finite-dimensional irreducible representation of a
+    group \(G\). Then every element of the center
+    \[
+        Z(G) := \{ c \in G \mid cg = gc \text{ for all } g \in G \}
+    \]
+    acts by a scalar. In other words, for every \(c \in Z(G)\) there exists
+    \(\lambda_c \in \mathbb{C}\) such that
+    \[
+        \rho(c) = \lambda_c \operatorname{id}_V.
+    \]
+}{
+    Let \(c \in Z(G)\). Then for every \(g \in G\),
+    \[
+        \rho(c) \circ \rho(g)
+        =
+        \rho(cg)
+        =
+        \rho(gc)
+        =
+        \rho(g) \circ \rho(c).
+    \]
+    Thus \(\rho(c) : V \to V\) is a map of \(G\)-representations. Since \(V\)
+    is a finite-dimensional complex vector space, \(\rho(c)\) has an
+    eigenvalue \(\lambda_c \in \mathbb{C}\). Then
+    \[
+        \rho(c) - \lambda_c \operatorname{id}_V
+    \]
+    is again a map of \(G\)-representations, but it is not injective. By
+    Schur's lemma it cannot be an isomorphism, so it must be the zero map.
+    Hence
+    \[
+        \rho(c) = \lambda_c \operatorname{id}_V.
+    \]
+}{}
+
+\ex{
+    Let \(G\) be an abelian group. Then
+    \[
+        Z(G) = G.
+    \]
+    Hence, if \((V,\rho)\) is a finite-dimensional irreducible representation
+    of \(G\), every element of \(G\) acts by a scalar.
+
+    Therefore every linear subspace of \(V\) is preserved by the action of
+    \(G\). Since \(V\) is irreducible, this is only possible when
+    \[
+        \dim V = 1.
+    \]
+    Thus such representations are one-dimensional. Equivalently, they are
+    homomorphisms
+    \[
+        \rho : G \to \mathbb{C}^{\times}.
+    \]
+
+    For example, let \(G = \mathbb{Z}_n\). If \([1]\) is the generator, then
+    \[
+        \rho([1])^n = \rho([0]) = 1.
+    \]
+    Hence \(\rho([1])\) must be an \(n\)-th root of unity. For
+    \(k \in \{0,1,\dots,n-1\}\), define
+    \[
+        \rho_k([1])
+        =
+        e^{2\pi i k/n}.
+    \]
+    Then
+    \[
+        \rho_k([a])
+        =
+        e^{2\pi i k a/n}
+    \]
+    defines a one-dimensional irreducible representation of \(\mathbb{Z}_n\),
+    and these are all of them.
+}
+
+\subsection{Building And Decomposing Representations}
+
+\defn{Constructions From Old Representations}{
+    Let \(G\) be a group, and let \((V_1,\rho_1)\) and \((V_2,\rho_2)\) be
+    representations of \(G\).
+
+    \begin{itemize}
+        \item The \textbf{direct sum representation} is
+        \[
+            (V_1 \oplus V_2,\rho_1 \oplus \rho_2),
+        \]
+        where
+        \[
+            (\rho_1 \oplus \rho_2)(g)(v_1,v_2)
+            :=
+            (\rho_1(g)v_1,\rho_2(g)v_2).
+        \]
+
+        \item The \textbf{tensor product representation} is
+        \[
+            (V_1 \otimes V_2,\rho_1 \otimes \rho_2),
+        \]
+        where on pure tensors
+        \[
+            (\rho_1 \otimes \rho_2)(g)(v_1 \otimes v_2)
+            :=
+            \rho_1(g)v_1 \otimes \rho_2(g)v_2,
+        \]
+        and then extended linearly.
+
+        \item The \textbf{dual representation} of \((V_1,\rho_1)\) is
+        \[
+            (V_1^*,\rho_1^*),
+            \qquad
+            V_1^* := \operatorname{Hom}(V_1,\mathbb{C}),
+        \]
+        where
+        \[
+            (\rho_1^*(g)f)(v)
+            :=
+            f\bigl(\rho_1(g^{-1})v\bigr).
+        \]
+
+        \item The \textbf{Hom representation} is the representation on
+        \(\operatorname{Hom}(V_1,V_2)\) defined by
+        \[
+            \rho(g) : \operatorname{Hom}(V_1,V_2)
+            \to
+            \operatorname{Hom}(V_1,V_2),
+        \]
+        with
+        \[
+            (\rho(g)F)(v)
+            :=
+            \rho_2(g)\Bigl(F\bigl(\rho_1(g^{-1})v\bigr)\Bigr).
+        \]
+    \end{itemize}
+}
+
+\propp{
+    The direct sum, tensor product, dual, and Hom constructions above define
+    representations of \(G\).
+}{
+    For the direct sum, one has
+    \[
+        (\rho_1 \oplus \rho_2)(e)(v_1,v_2)
+        =
+        (v_1,v_2),
+    \]
+    and
+    \[
+        (\rho_1 \oplus \rho_2)(gh)(v_1,v_2)
+        =
+        (\rho_1(g)\rho_1(h)v_1,\rho_2(g)\rho_2(h)v_2)
+        =
+        ((\rho_1 \oplus \rho_2)(g)(\rho_1 \oplus \rho_2)(h))(v_1,v_2).
+    \]
+
+    For the tensor product, the identity element acts as the identity. Moreover,
+    on pure tensors,
+    \[
+        (\rho_1 \otimes \rho_2)(gh)(v_1 \otimes v_2)
+        =
+        \rho_1(g)\rho_1(h)v_1 \otimes \rho_2(g)\rho_2(h)v_2,
+    \]
+    which is equal to
+    \[
+        ((\rho_1 \otimes \rho_2)(g)(\rho_1 \otimes \rho_2)(h))
+        (v_1 \otimes v_2).
+    \]
+    Since pure tensors span \(V_1 \otimes V_2\), this proves the representation
+    identity on the whole tensor product.
+
+    For the dual representation, let \(f \in V_1^*\) and \(v \in V_1\). Then
+    \[
+        (\rho_1^*(e)f)(v)
+        =
+        f(\rho_1(e^{-1})v)
+        =
+        f(v),
+    \]
+    and
+    \[
+        (\rho_1^*(gh)f)(v)
+        =
+        f(\rho_1((gh)^{-1})v)
+        =
+        f(\rho_1(h^{-1})\rho_1(g^{-1})v).
+    \]
+    On the other hand,
+    \[
+        (\rho_1^*(g)(\rho_1^*(h)f))(v)
+        =
+        (\rho_1^*(h)f)(\rho_1(g^{-1})v)
+        =
+        f(\rho_1(h^{-1})\rho_1(g^{-1})v).
+    \]
+    Hence \(\rho_1^*(gh)=\rho_1^*(g)\rho_1^*(h)\).
+
+    Finally, for the Hom representation, the identity element acts as the
+    identity. For \(F \in \operatorname{Hom}(V_1,V_2)\) and \(v \in V_1\), we
+    compute
+    \[
+        (\rho(gh)F)(v)
+        =
+        \rho_2(gh)F(\rho_1((gh)^{-1})v)
+        =
+        \rho_2(g)\rho_2(h)F(\rho_1(h^{-1})\rho_1(g^{-1})v).
+    \]
+    Also,
+    \[
+        (\rho(g)(\rho(h)F))(v)
+        =
+        \rho_2(g)\Bigl((\rho(h)F)(\rho_1(g^{-1})v)\Bigr)
+        =
+        \rho_2(g)\rho_2(h)F(\rho_1(h^{-1})\rho_1(g^{-1})v).
+    \]
+    Thus \(\rho(gh)=\rho(g)\rho(h)\), so this is a representation.
+}
+
+\rmkb{
+    Let \(V_1\) and \(V_2\) be finite-dimensional representations of \(G\).
+    Then there is a natural linear isomorphism
+    \[
+        \Phi : V_2 \otimes V_1^* \to \operatorname{Hom}(V_1,V_2),
+        \qquad
+        v_2 \otimes f \mapsto \bigl(v_1 \mapsto f(v_1)v_2\bigr).
+    \]
+    This is an isomorphism of representations. Indeed, for \(g \in G\),
+    \(v_1 \in V_1\), \(v_2 \in V_2\), and \(f \in V_1^*\), we have
+    \[
+        \Phi\bigl((\rho_2 \otimes \rho_1^*)(g)(v_2 \otimes f)\bigr)(v_1)
+        =
+        f(\rho_1(g^{-1})v_1)\rho_2(g)v_2.
+    \]
+    On the other hand,
+    \[
+        (\rho(g)\Phi(v_2 \otimes f))(v_1)
+        =
+        \rho_2(g)\Bigl(\Phi(v_2 \otimes f)(\rho_1(g^{-1})v_1)\Bigr)
+        =
+        f(\rho_1(g^{-1})v_1)\rho_2(g)v_2.
+    \]
+    Hence \(\Phi\) intertwines the two representations.
+}
+
+\defn{Indecomposable Representation}{
+    A representation \((V,\rho)\) of a group \(G\) is
+    \textbf{indecomposable} if it cannot be written as a direct sum of two
+    nonzero subrepresentations. In other words, there do not exist nonzero
+    subrepresentations \(W_1,W_2 \leq V\) such that
+    \[
+        V = W_1 \oplus W_2.
+    \]
+}
+
+\rmkb{
+    Every irreducible representation is indecomposable: if
+    \(V = W_1 \oplus W_2\) with \(W_1,W_2\) nonzero subrepresentations, then
+    \(W_1\) and \(W_2\) are proper nonzero subrepresentations of \(V\), so
+    \(V\) is not irreducible.
+
+    The converse is not true in general: an indecomposable representation can
+    still have nonzero proper subrepresentations.
+}
+
+\ex{
+    \begin{itemize}
+        \item Every one-dimensional representation is indecomposable, since a
+        one-dimensional vector space cannot be written as a direct sum of two
+        nonzero subspaces.
+
+        \item Consider the representation of \(\mathbb{Z}\) on
+        \(\mathbb{C}^2\) defined by
+        \[
+            \rho(1)
+            =
+            \begin{pmatrix}
+                1 & 1 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
+        Then the line
+        \[
+            W = \operatorname{span}\left\{
+                \begin{pmatrix}
+                    1 \\
+                    0
+                \end{pmatrix}
+            \right\}
+            \subseteq \mathbb{C}^2
+        \]
+        is a subrepresentation, so the representation is reducible.
+
+        However, it is indecomposable. Indeed, a decomposition into two
+        one-dimensional subrepresentations would give a basis of
+        \(\mathbb{C}^2\) consisting of eigenvectors of \(\rho(1)\). This would
+        make \(\rho(1)\) diagonalizable. But
+        \[
+            \begin{pmatrix}
+                1 & 1 \\
+                0 & 1
+            \end{pmatrix}
+        \]
+        is not diagonalizable; its only eigenspace is \(W\). Therefore this
+        representation is reducible but indecomposable.
+    \end{itemize}
+}
+
+\defn{Semisimple Representations}{
+    Let \((V,\rho)\) be a representation of a group \(G\). We say that \(V\) is
+    \textbf{semisimple}, or \textbf{completely reducible}, if every
+    subrepresentation \(W \leq V\) has a complementary subrepresentation.
+    That is, for every subrepresentation \(W \leq V\), there exists a
+    subrepresentation \(W' \leq V\) such that
+    \[
+        V = W \oplus W'.
+    \]
+
+    If \(V\) is finite-dimensional, this is equivalent to saying that
+    \[
+        V \cong \bigoplus_i W_i
+    \]
+    with each \(W_i\) irreducible.
+}
+
+\ex{
+    Recall that
+    \[
+        \mathrm{SU}(2)
+        =
+        \{ U \in \operatorname{Mat}(2 \times 2,\mathbb{C})
+        \mid U^\dagger U = 1,\ \det(U)=1 \}
+    \]
+    has a defining two-dimensional representation \(V_{1/2} = \mathbb{C}^2\).
+    For this representation one has
+    \[
+        V_{1/2} \otimes V_{1/2}
+        \cong
+        \operatorname{Sym}^2(V_{1/2})
+        \oplus
+        \bigwedge^2 V_{1/2}
+    \]
+    as representations.
+
+    More generally, the irreducible representations of \(\mathrm{SU}(2)\) are
+    indexed by
+    \[
+        j \in \frac{1}{2}\mathbb{N}_0,
+    \]
+    and are given by
+    \[
+        V_j := \operatorname{Sym}^{2j}(V_{1/2}).
+    \]
+    The tensor product decomposes according to the Clebsch-Gordan rule
+    \[
+        V_k \otimes V_\ell
+        \cong
+        \bigoplus_{j=|k-\ell|}^{k+\ell} V_j,
+    \]
+    where \(j\) increases in steps of \(1\). This is the representation
+    theoretic form of addition of angular momentum in quantum mechanics.
+
+    We will come back to this example later when discussing Lie groups.
+}
+
+\rmkb{
+    We want to show that, for finite groups, irreducible and indecomposable
+    representations are the same thing. Equivalently, every finite-dimensional
+    representation of a finite group should split as a direct sum of
+    irreducible representations.
+
+    The subtle point is that a subspace does not have a preferred complement
+    in general. For Hilbert spaces, however, there is a natural candidate: the
+    orthogonal complement. This motivates the following definition.
+}
+
+\defn{Unitary Representation}{
+    A \textbf{unitary representation} of a group \(G\) is a Hilbert space
+    \(\mathcal{H}\) together with a group homomorphism
+    \[
+        \rho : G \to U(\mathcal{H}),
+    \]
+    where \(U(\mathcal{H})\) denotes the group of unitary automorphisms of
+    \(\mathcal{H}\).
+}
+
+\propp{
+    Let \((V,\rho)\) be a finite-dimensional representation of a finite group
+    \(G\). Then there exists a positive Hermitian inner product on \(V\) such
+    that \(\rho\) is unitary. In other words, every finite-dimensional
+    representation of a finite group can be lifted to a unitary
+    representation.
+}{
+    Let
+    \[
+        \langle -,- \rangle
+    \]
+    be any positive Hermitian inner product on \(V\). Define a new inner
+    product by averaging over the group:
+    \[
+        \langle v,w\rangle_G
+        :=
+        \sum_{g \in G}
+        \langle \rho(g)v,\rho(g)w\rangle.
+    \]
+    Since \(G\) is finite, this sum is finite.
+
+    The form \(\langle -,-\rangle_G\) is again Hermitian and positive. Indeed,
+    each summand is Hermitian, and for \(v \neq 0\) one has
+    \[
+        \langle v,v\rangle_G
+        =
+        \sum_{g \in G}
+        \langle \rho(g)v,\rho(g)v\rangle
+        >
+        0,
+    \]
+    because every \(\rho(g)\) is invertible, so \(\rho(g)v \neq 0\).
+
+    It remains to check that the representation is unitary with respect to
+    this new inner product. Let \(h \in G\). Then
+    \[
+        \langle \rho(h)v,\rho(h)w\rangle_G
+        =
+        \sum_{g \in G}
+        \langle \rho(g)\rho(h)v,\rho(g)\rho(h)w\rangle
+    \]
+    and hence
+    \[
+        \langle \rho(h)v,\rho(h)w\rangle_G
+        =
+        \sum_{g \in G}
+        \langle \rho(gh)v,\rho(gh)w\rangle.
+    \]
+    As \(g\) runs through \(G\), so does \(gh\). Therefore, after the change of
+    variables \(g' = gh\),
+    \[
+        \langle \rho(h)v,\rho(h)w\rangle_G
+        =
+        \sum_{g' \in G}
+        \langle \rho(g')v,\rho(g')w\rangle
+        =
+        \langle v,w\rangle_G.
+    \]
+    Thus every \(\rho(h)\) preserves \(\langle -,-\rangle_G\), so \(\rho\) is
+    unitary.
+}
+
+\thmp{Maschke's Theorem}{
+    Every finite-dimensional representation of a finite group is completely
+    reducible.
+}{
+    Let \((V,\rho)\) be a finite-dimensional representation of a finite group
+    \(G\). By the previous proposition, we may choose a positive Hermitian
+    inner product
+    \[
+        \langle -,-\rangle_G
+    \]
+    on \(V\) such that \(\rho\) is unitary.
+
+    Let \(W \leq V\) be a subrepresentation. Define its orthogonal complement
+    with respect to this inner product by
+    \[
+        W^\perp
+        :=
+        \{ v \in V \mid \langle v,w\rangle_G = 0
+        \text{ for all } w \in W \}.
+    \]
+    Since \(V\) is finite-dimensional, we have a direct sum decomposition of
+    vector spaces
+    \[
+        V = W \oplus W^\perp.
+    \]
+
+    It remains to show that \(W^\perp\) is again a subrepresentation. Let
+    \(v \in W^\perp\), \(g \in G\), and \(w \in W\). Since \(\rho(g)\) is
+    unitary,
+    \[
+        \langle \rho(g)v,w\rangle_G
+        =
+        \langle \rho(g)v,\rho(g)\rho(g^{-1})w\rangle_G
+        =
+        \langle v,\rho(g^{-1})w\rangle_G.
+    \]
+    Because \(W\) is a subrepresentation, \(\rho(g^{-1})w \in W\). Since
+    \(v \in W^\perp\), this gives
+    \[
+        \langle \rho(g)v,w\rangle_G = 0.
+    \]
+    Hence \(\rho(g)v \in W^\perp\), so \(W^\perp\) is a subrepresentation.
+
+    Thus every subrepresentation \(W \leq V\) has a complementary
+    subrepresentation \(W^\perp\). Therefore \(V\) is completely reducible.
+}
+
+\corp{
+    Let \(G\) be a finite group. A finite-dimensional representation \(V\) of
+    \(G\) is indecomposable if and only if it is irreducible.
+    Equivalently, every finite-dimensional representation of \(G\) can be
+    written as
+    \[
+        V \cong \bigoplus_i N_i V_i,
+    \]
+    where each \(V_i\) is irreducible and \(N_i \geq 0\) is the multiplicity of
+    \(V_i\) in \(V\). Here
+    \[
+        N_i V_i := \underbrace{V_i \oplus \cdots \oplus V_i}_{N_i\text{ times}}.
+    \]
+}{
+    By Maschke's theorem, every finite-dimensional representation of \(G\) is
+    completely reducible.
+
+    We first prove the direct sum decomposition. If \(V=0\), there is nothing
+    to show. Otherwise, choose a nonzero subrepresentation \(W \leq V\) of
+    minimal dimension. Then \(W\) is irreducible: any nonzero proper
+    subrepresentation of \(W\) would contradict the minimality of \(W\).
+    By complete reducibility, there is a subrepresentation \(W' \leq V\) such
+    that
+    \[
+        V = W \oplus W'.
+    \]
+    Repeating this argument for \(W'\), and using finite-dimensionality, the
+    process terminates and gives a decomposition of \(V\) into irreducible
+    subrepresentations. Grouping isomorphic irreducible summands gives
+    \[
+        V \cong \bigoplus_i N_i V_i.
+    \]
+
+    Now suppose that \(V\) is indecomposable. In such a decomposition, there
+    can be only one irreducible summand and it can occur only once; otherwise
+    \(V\) would split as a direct sum of two nonzero subrepresentations. Hence
+    \(V\) is irreducible.
+
+    Conversely, every irreducible representation is indecomposable, as noted
+    above. Therefore indecomposable and irreducible representations agree for
+    finite groups.
+}{}
