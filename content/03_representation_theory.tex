@@ -1,4 +1,4 @@
-\chapter{Representation theory}
+\chapter{Representation Theory}
 
 \begin{center}
     \vspace{-15pt}
@@ -7,7 +7,7 @@
     {\color{gray!70}\rule{0.32\textwidth}{0.5pt}\par}
 \end{center}
 
-\section{Group actions on sets}
+\section{Group Actions On Sets}
 
 \defn{Group Actions On Sets}{
     Let \(G\) be a group and \(X\) a set.
@@ -406,7 +406,7 @@
     \end{enumerate}
 }
 
-\section{Actions of Groups on Vector Spaces}
+\section{Representations On Vector Spaces}
 
 \subsection{Representations And Intertwiners}
 
@@ -766,7 +766,7 @@
     and these are all of them.
 }
 
-\subsection{Building And Decomposing Representations}
+\subsection{Decomposition Of Representations}
 
 \defn{Constructions From Old Representations}{
     Let \(G\) be a group, and let \((V_1,\rho_1)\) and \((V_2,\rho_2)\) be
@@ -1224,3 +1224,579 @@
     above. Therefore indecomposable and irreducible representations agree for
     finite groups.
 }{}
+
+\ex{
+    Let
+    \[
+        \mathbb{Z}_n = \mathbb{Z}/n\mathbb{Z}
+    \]
+    be the cyclic group, thought of as \(n\) equally spaced points on a circle.
+    Consider the vector space of complex-valued functions
+    \[
+        \mathcal{O}(\mathbb{Z}_n)
+        :=
+        \{ f : \mathbb{Z}_n \to \mathbb{C} \}.
+    \]
+    The group \(\mathbb{Z}_n\) acts on this space by translations:
+    \[
+        (\rho([a])f)([x])
+        :=
+        f([x+a]).
+    \]
+
+    For \(k=0,1,\dots,n-1\), define
+    \[
+        f_k([x])
+        :=
+        e^{2\pi i kx/n}.
+    \]
+    These functions are eigenvectors for every translation, since
+    \[
+        (\rho([a])f_k)([x])
+        =
+        f_k([x+a])
+        =
+        e^{2\pi i k(x+a)/n}
+        =
+        e^{2\pi i ka/n} f_k([x]).
+    \]
+    Hence the line
+    \[
+        \mathbb{C}_k := \mathbb{C} f_k
+    \]
+    is a one-dimensional subrepresentation of \(\mathcal{O}(\mathbb{Z}_n)\).
+    Since the functions \(f_0,\dots,f_{n-1}\) form a basis of
+    \(\mathcal{O}(\mathbb{Z}_n)\), we get the decomposition
+    \[
+        \mathcal{O}(\mathbb{Z}_n)
+        =
+        \bigoplus_{k=0}^{n-1} \mathbb{C}_k
+        =
+        \bigoplus_{k=0}^{n-1} \mathbb{C} f_k.
+    \]
+    Thus the decomposition of the regular representation of
+    \(\mathbb{Z}_n\) is exactly the discrete Fourier transform.
+}
+
+\subsection{Character Theory}
+
+\defn{Characters And Class Functions}{
+    Let \((V,\rho)\) be a finite-dimensional representation of a group \(G\).
+    The \textbf{character} of \(V\) is the function
+    \[
+        \chi_V : G \to \mathbb{C},
+        \qquad
+        g \mapsto \operatorname{tr}_V(\rho(g)).
+    \]
+
+    A function \(f : G \to \mathbb{C}\) is called a \textbf{class function} if
+    it is invariant under conjugation, that is,
+    \[
+        f(hgh^{-1}) = f(g)
+        \qquad
+        \forall g,h \in G.
+    \]
+}
+
+\propp{
+    Characters are class functions.
+}{
+    Let \((V,\rho)\) be a finite-dimensional representation of \(G\). Then for
+    every \(g,h \in G\),
+    \[
+        \chi_V(hgh^{-1})
+        =
+        \operatorname{tr}_V(\rho(hgh^{-1}))
+        =
+        \operatorname{tr}_V(\rho(h)\rho(g)\rho(h^{-1})).
+    \]
+    Using cyclicity of the trace, this becomes
+    \[
+        \operatorname{tr}_V(\rho(h)\rho(g)\rho(h^{-1}))
+        =
+        \operatorname{tr}_V(\rho(g)\rho(h^{-1})\rho(h))
+        =
+        \operatorname{tr}_V(\rho(g)).
+    \]
+    Hence
+    \[
+        \chi_V(hgh^{-1}) = \chi_V(g),
+    \]
+    so \(\chi_V\) is invariant under conjugation.
+}
+
+\rmkb{
+    Since characters are class functions, it is enough to record their values
+    on the conjugacy classes of \(G\). A table whose rows are irreducible
+    characters and whose columns are conjugacy classes is called a
+    \textbf{character table}.
+}
+
+\ex{
+    The group \(S_3\) has three conjugacy classes, represented by
+    \[
+        1,
+        \qquad
+        (12),
+        \qquad
+        (123).
+    \]
+    It has three irreducible representations: the trivial representation, the
+    alternating representation, and the standard representation. Their
+    character table is
+    \[
+        \begin{array}{c|ccc}
+            S_3 & 1 & (12) & (123) \\
+            \hline
+            \chi_{\mathrm{triv}} & 1 & 1 & 1 \\
+            \chi_{\mathrm{alt}}  & 1 & -1 & 1 \\
+            \chi_{\mathrm{std}}  & 2 & 0 & -1
+        \end{array}
+    \]
+}
+
+\ex{
+    For \(\mathbb{Z}_3\), every conjugacy class consists of a single element.
+    The irreducible characters are indexed by \(k=0,1,2\). Their character
+    table is
+    \[
+        \begin{array}{c|ccc}
+            \mathbb{Z}_3 & [0] & [1] & [2] \\
+            \hline
+            k=0 & 1 & 1 & 1 \\
+            k=1 & 1 & e^{2\pi i/3} & e^{4\pi i/3} \\
+            k=2 & 1 & e^{4\pi i/3} & e^{8\pi i/3}
+        \end{array}
+    \]
+}
+
+\rmkb{
+    Characters behave well with respect to direct sums and tensor products:
+    \[
+        \chi_{V \oplus W} = \chi_V + \chi_W,
+        \qquad
+        \chi_{V \otimes W} = \chi_V \chi_W.
+    \]
+    The second identity follows from the fact that the trace of a tensor
+    product of linear maps is the product of the traces.
+}
+
+\ex{
+    For the standard representation of \(S_3\), the character is
+    \[
+        \chi_{\mathrm{std}} = (2,0,-1)
+    \]
+    on the conjugacy classes represented by \(1,(12),(123)\). Therefore
+    \[
+        \chi_{\mathrm{std} \otimes \mathrm{std}}
+        =
+        \chi_{\mathrm{std}}\chi_{\mathrm{std}}
+        =
+        (4,0,1).
+    \]
+    On the other hand,
+    \[
+        \chi_{\mathrm{std}}
+        +
+        \chi_{\mathrm{alt}}
+        +
+        \chi_{\mathrm{triv}}
+        =
+        (2,0,-1) + (1,-1,1) + (1,1,1)
+        =
+        (4,0,1).
+    \]
+    Hence the character table suggests the decomposition
+    \[
+        \mathrm{Std} \otimes \mathrm{Std}
+        \cong
+        \mathrm{Std} \oplus \mathrm{Alt} \oplus \mathrm{Triv}.
+    \]
+    In particular, the characters in the table are linearly independent.
+}
+
+\defn{Invariant Subspace}{
+    Let \(G\) be a group and let \((V,\rho)\) be a representation of \(G\).
+    The \textbf{subrepresentation of \(G\)-invariants} is
+    \[
+        V^G
+        :=
+        \{ v \in V \mid \rho(g)(v) = v \text{ for all } g \in G \}
+        \leq V.
+    \]
+}
+
+\rmkb{
+    The subspace \(V^G\) is the part of \(V\) on which \(G\) acts trivially.
+    Thus, for finite-dimensional representations of finite groups, one can
+    write
+    \[
+        V \cong \dim(V^G)\,\mathrm{Triv} \oplus V',
+    \]
+    where \(V'\) contains no copy of the trivial representation.
+
+    In particular, if \(V_i\) is irreducible but not trivial, then
+    \[
+        V_i^G = \{0\}.
+    \]
+}
+
+\propp{
+    Let \(G\) be a finite group and let \((V,\rho)\) be a representation of
+    \(G\). The map
+    \[
+        N_G : V \to V,
+        \qquad
+        v \mapsto \frac{1}{|G|}\sum_{g \in G}\rho(g)(v)
+    \]
+    is a projection operator onto \(V^G\). In other words,
+    \[
+        N_G \circ N_G = N_G,
+        \qquad
+        \operatorname{im}(N_G) = V^G.
+    \]
+}{
+    First we check that \(N_G\) intertwines the \(G\)-action. Let \(g \in G\)
+    and \(v \in V\). Then
+    \[
+        N_G(\rho(g)(v))
+        =
+        \frac{1}{|G|}\sum_{h \in G}\rho(hg)(v).
+    \]
+    As \(h\) runs through \(G\), so does \(h' = hg\). Therefore
+    \[
+        N_G(\rho(g)(v))
+        =
+        \frac{1}{|G|}\sum_{h' \in G}\rho(h')(v)
+        =
+        N_G(v).
+    \]
+    Also,
+    \[
+        \rho(g)(N_G(v))
+        =
+        \rho(g)\left(\frac{1}{|G|}\sum_{h \in G}\rho(h)(v)\right)
+        =
+        \frac{1}{|G|}\sum_{h \in G}\rho(gh)(v).
+    \]
+    Again, as \(h\) runs through \(G\), so does \(h' = gh\), and hence
+    \[
+        \rho(g)(N_G(v)) = N_G(v).
+    \]
+    Thus \(\operatorname{im}(N_G) \subseteq V^G\).
+
+    Conversely, if \(v \in V^G\), then \(\rho(g)(v)=v\) for every \(g \in G\).
+    Hence
+    \[
+        N_G(v)
+        =
+        \frac{1}{|G|}\sum_{g \in G}\rho(g)(v)
+        =
+        \frac{1}{|G|}\sum_{g \in G}v
+        =
+        v.
+    \]
+    Therefore \(V^G \subseteq \operatorname{im}(N_G)\), and so
+    \[
+        \operatorname{im}(N_G)=V^G.
+    \]
+
+    Finally, since \(N_G(v)\in V^G\) for every \(v\in V\), the previous
+    computation gives
+    \[
+        N_G(N_G(v)) = N_G(v).
+    \]
+    Thus \(N_G^2=N_G\), so \(N_G\) is a projection operator onto \(V^G\).
+}
+
+\corp{
+    Let \(G\) be a finite group and let \(V\) be a finite-dimensional
+    representation of \(G\). Then
+    \[
+        \dim(V^G)
+        =
+        \frac{1}{|G|}\sum_{g \in G}\chi_V(g).
+    \]
+    In particular, if \(V\) is irreducible and not trivial, then
+    \[
+        \sum_{g \in G}\chi_V(g) = 0.
+    \]
+}{
+    By the previous proposition, \(N_G\) is a projection onto \(V^G\). Thus,
+    with respect to a decomposition
+    \[
+        V \cong V^G \oplus \ker(N_G),
+    \]
+    the operator \(N_G\) has matrix
+    \[
+        \begin{pmatrix}
+            I_{\dim(V^G)} & 0 \\
+            0 & 0
+        \end{pmatrix}.
+    \]
+    Therefore
+    \[
+        \operatorname{tr}(N_G)=\dim(V^G).
+    \]
+    On the other hand,
+    \[
+        \operatorname{tr}(N_G)
+        =
+        \operatorname{tr}\left(
+            \frac{1}{|G|}\sum_{g \in G}\rho(g)
+        \right)
+        =
+        \frac{1}{|G|}\sum_{g \in G}\operatorname{tr}(\rho(g))
+        =
+        \frac{1}{|G|}\sum_{g \in G}\chi_V(g).
+    \]
+    This proves the formula. If \(V\) is irreducible and not trivial, then
+    \(V^G=\{0\}\), and hence the sum of the character values is zero.
+}{}
+
+\rmkb{
+    If \(V\) and \(W\) are representations of \(G\), then
+    \(\operatorname{Hom}(V,W)\) is again a representation. Its invariant
+    subspace is
+    \[
+        \operatorname{Hom}(V,W)^G
+        =
+        \{ f : V \to W \mid
+        f(\rho_V(g)v)=\rho_W(g)f(v)
+        \text{ for all } g \in G,\ v \in V \}.
+    \]
+    Thus \(\operatorname{Hom}(V,W)^G\) is precisely the space of maps of
+    \(G\)-representations from \(V\) to \(W\).
+}
+
+\corp{
+    Let \(V\) and \(W\) be irreducible finite-dimensional complex
+    representations of a finite group \(G\). Then
+    \[
+        \frac{1}{|G|}\sum_{g \in G}
+        \overline{\chi_V(g)}\,\chi_W(g)
+        =
+        \begin{cases}
+            1 & \text{if } V \cong W, \\
+            0 & \text{otherwise}.
+        \end{cases}
+    \]
+}{
+    By Schur's lemma,
+    \[
+        \operatorname{Hom}(V,W)^G
+        =
+        \begin{cases}
+            \mathbb{C} & \text{if } V \cong W, \\
+            \{0\} & \text{otherwise}.
+        \end{cases}
+    \]
+    Hence
+    \[
+        \dim \operatorname{Hom}(V,W)^G
+        =
+        \begin{cases}
+            1 & \text{if } V \cong W, \\
+            0 & \text{otherwise}.
+        \end{cases}
+    \]
+
+    Applying the previous corollary to the representation
+    \(\operatorname{Hom}(V,W)\), we get
+    \[
+        \dim \operatorname{Hom}(V,W)^G
+        =
+        \frac{1}{|G|}\sum_{g \in G}
+        \chi_{\operatorname{Hom}(V,W)}(g).
+    \]
+    Since
+    \[
+        \operatorname{Hom}(V,W) \cong V^* \otimes W,
+    \]
+    its character is
+    \[
+        \chi_{\operatorname{Hom}(V,W)}(g)
+        =
+        \chi_{V^*}(g)\chi_W(g)
+        =
+        \overline{\chi_V(g)}\,\chi_W(g).
+    \]
+    Therefore
+    \[
+        \frac{1}{|G|}\sum_{g \in G}
+        \overline{\chi_V(g)}\,\chi_W(g)
+        =
+        \begin{cases}
+            1 & \text{if } V \cong W, \\
+            0 & \text{otherwise}.
+        \end{cases}
+    \]
+}{}
+
+\corp{
+    The characters of irreducible finite-dimensional complex representations
+    of a finite group \(G\) are orthonormal with respect to the scalar product
+    \[
+        (F,H)
+        :=
+        \frac{1}{|G|}\sum_{g \in G}\overline{F(g)}H(g)
+    \]
+    on the space of class functions on \(G\).
+}{
+    This is exactly the previous corollary, written in the notation
+    \[
+        (\chi_V,\chi_W)
+        =
+        \frac{1}{|G|}\sum_{g \in G}
+        \overline{\chi_V(g)}\,\chi_W(g).
+    \]
+}{}
+
+\corp{
+    Every finite-dimensional representation \(V\) of a finite group \(G\) is
+    completely determined, up to isomorphism, by its character \(\chi_V\).
+    More precisely, if
+    \[
+        V \cong \bigoplus_i N_i V_i
+    \]
+    is a decomposition into irreducible representations, then
+    \[
+        N_i = (\chi_{V_i},\chi_V).
+    \]
+}{
+    By Maschke's theorem, write
+    \[
+        V \cong \bigoplus_i N_i V_i
+    \]
+    with the \(V_i\) irreducible. Then
+    \[
+        \chi_V = \sum_i N_i \chi_{V_i}.
+    \]
+    Taking the scalar product with \(\chi_{V_j}\), and using the
+    orthonormality of irreducible characters, gives
+    \[
+        (\chi_{V_j},\chi_V)
+        =
+        \sum_i N_i(\chi_{V_j},\chi_{V_i})
+        =
+        N_j.
+    \]
+    Thus the character determines all multiplicities \(N_i\), and hence
+    determines \(V\) up to isomorphism.
+}{}
+
+\rmkb{
+    Since irreducible characters are linearly independent, there can be only
+    finitely many irreducible representations of a finite group up to
+    isomorphism.
+}
+
+\ex{
+    Let
+    \[
+        D_4 = \langle r,s \mid r^4=s^2=1,\ srs=r^{-1}\rangle
+    \]
+    be the symmetry group of the square, where \(r\) is rotation by
+    \(90^\circ\), and \(s\) is a reflection. Its conjugacy classes are
+    \[
+        \{1\},
+        \qquad
+        \{r,r^3\},
+        \qquad
+        \{r^2\},
+        \qquad
+        \{s,sr^2\},
+        \qquad
+        \{sr,sr^3\}.
+    \]
+
+    The one-dimensional representations are homomorphisms
+    \[
+        \varphi : D_4 \to \mathbb{C}^{\times}.
+    \]
+    Since
+    \[
+        \varphi(r)
+        =
+        \varphi(srs)
+        =
+        \varphi(s)\varphi(r)\varphi(s)
+        =
+        \varphi(r)^{-1},
+    \]
+    we must have \(\varphi(r)=\pm 1\). Also, since \(s^2=1\), one has
+    \(\varphi(s)=\pm 1\). Thus the one-dimensional representations are
+    labelled by the choices
+    \[
+        (\varphi(r),\varphi(s))
+        \in
+        \{(1,1),(1,-1),(-1,1),(-1,-1)\}.
+    \]
+
+    There is also the standard two-dimensional representation
+    \[
+        D_4 \to \operatorname{GL}(\mathbb{R}^2),
+    \]
+    coming from the action of \(D_4\) on the square in the plane. Its character
+    is
+    \[
+        \chi_{\mathrm{std}} = (2,0,-2,0,0)
+    \]
+    on the conjugacy classes listed above. Since
+    \[
+        (\chi_{\mathrm{std}},\chi_{\mathrm{std}})
+        =
+        \frac{1}{8}(2^2+(-2)^2)
+        =
+        1,
+    \]
+    the standard representation is irreducible.
+
+    The character table is
+    \[
+        \begin{array}{c|ccccc}
+            D_4 & 1 & r & r^2 & s & sr \\
+            \hline
+            (1,1)     & 1 & 1  & 1  & 1  & 1  \\
+            (-1,1)    & 1 & -1 & 1  & 1  & -1 \\
+            (1,-1)    & 1 & 1  & 1  & -1 & -1 \\
+            (-1,-1)   & 1 & -1 & 1  & -1 & 1  \\
+            \mathrm{std} & 2 & 0  & -2 & 0  & 0
+        \end{array}
+    \]
+    Here the column labels stand for the conjugacy classes represented by
+    those elements.
+
+    Now consider \(\mathrm{std}\otimes \mathrm{std}\). Its character is the
+    pointwise product
+    \[
+        \chi_{\mathrm{std}\otimes \mathrm{std}}
+        =
+        \chi_{\mathrm{std}}\chi_{\mathrm{std}}
+        =
+        (4,0,4,0,0).
+    \]
+    The multiplicity of \(\mathrm{std}\) in this tensor product is
+    \[
+        (\chi_{\mathrm{std}},\chi_{\mathrm{std}\otimes \mathrm{std}})
+        =
+        \frac{1}{8}(2\cdot 4 + (-2)\cdot 4)
+        =
+        0.
+    \]
+    For each one-dimensional character \(\chi\), the values on the classes
+    represented by \(1\) and \(r^2\) are both \(1\), so
+    \[
+        (\chi,\chi_{\mathrm{std}\otimes \mathrm{std}})
+        =
+        \frac{1}{8}(4+4)
+        =
+        1.
+    \]
+    Therefore
+    \[
+        \mathrm{std}\otimes\mathrm{std}
+        \cong
+        (1,1)\oplus(-1,1)\oplus(1,-1)\oplus(-1,-1).
+    \]
+}

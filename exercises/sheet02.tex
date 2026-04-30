@@ -95,7 +95,40 @@
         is a symmetry. What is the action of the symmetry when applied to the
         eigenfunctions?
     }{
-
+        To find the eigenfunctions of \(\mathbb{H}\) we find the characteristic polynomial of \(\mathbb{H}\). For \(f \in \mathcal{H}\) we have
+        \[
+            \mathbb{H}f = \frac{1}{2}\left(-i\partial_x - \frac{1}{2}\right)^2f = \frac{1}{2}\left(-\partial_x^2 + i\partial_x + \frac{1}{4}\right)f = E f
+        \]
+        therefore the characteristic polynomial of \(\mathbb{H}\) with the ansatz \(f(x) = e^{\lambda x}\) is given by
+        \[
+            -\lambda^2 + i\lambda + \frac{1}{4} - 2E = 0
+        \]
+        The solutions of this polynomial are given by the pq formula
+        \[
+            \lambda = \frac i2 \pm \sqrt{-2E} = i\left(\frac 12 \pm \sqrt{2E}\right)
+        \]
+        and thus the eigenfunctions of \(\mathbb{H}\) are given by
+        \[
+            f(x) = Ae^{i\left(\frac 12 + \sqrt{2E}\right)x} + Be^{i\left(\frac 12 - \sqrt{2E}\right)x}
+        \]
+        for some \(A, B \in \mathbb{C}\). Since \(f\) is takes values on the circle, we have \(f(x) = f(x+2\pi)\) and thus
+        \begin{align*}
+            Ae^{i\left(\frac 12 + \sqrt{2E}\right)x} + Be^{i\left(\frac 12 - \sqrt{2E}\right)x} &= Ae^{i\left(\frac 12 + \sqrt{2E}\right)(x+2\pi)} + Be^{i\left(\frac 12 - \sqrt{2E}\right)(x+2\pi)} \\
+            &= Ae^{i\left(\frac 12 + \sqrt{2E}\right)x}e^{i\left(\frac 12 + \sqrt{2E}\right)2\pi} + Be^{i\left(\frac 12 - \sqrt{2E}\right)x}e^{i\left(\frac 12 - \sqrt{2E}\right)2\pi} \\
+        \end{align*}
+        and thus
+        \[
+            e^{i\left(\frac 12 + \sqrt{2E}\right)2\pi} = e^{i\left(\frac 12 - \sqrt{2E}\right)2\pi} = 1
+        \]
+        which implies \(\frac12 \pm \sqrt{2E} \in \mathbb{Z}\) and thus \(E = \frac{1}{2}\left(n \mp \frac{1}{2}\right)^2\) for some \(n \in \mathbb{Z}\). Therefore, the eigenfunctions of \(\mathbb{H}\) are given by
+        \[
+            f(x) = Ae^{inx} + Be^{-inx}
+        \]
+        for some \(A, B \in \mathbb{C}\) and \(n \in \mathbb{Z}\). The eigenfunctions of \(\mathbb{H}\) transform under parity as
+        \[
+            f(-x) = Ae^{-inx} + Be^{inx}
+        \]
+        which is still an eigenfunction of \(\mathbb{H}\) with the same eigenvalue \(E\). Therefore, the parity transformation is a symmetry of the system. 
     }
 
     \ecs{Symmetries of the Dodecahedron}{
@@ -103,22 +136,45 @@
     }{
         \ecpart{Compute the size of the group of symmetries of the dodecahedron
         using the orbit-stabilizer theorem.}{
-
+            Concider the faces of the dodecahedron. The orbit of a face are all the faces of the dodecahedron. Therefore \(\mid \mathcal{O}(F)\mid = 12\).
+            The stabilizer of a face is the symmetries of a pentagon, which consists of \(5\) rotations and \(5\) reflections, and thus \(\mid \operatorname{Stab}(F)\mid = 10\).
+            Therefore, by the orbit-stabilizer theorem, the size of the group of symmetries of the dodecahedron is given by \(\mid \operatorname{Sym}(\text{dodecahedron})\mid = \mid \mathcal{O}(F)\mid \cdot \mid \operatorname{Stab}(F)\mid = 12 \cdot 10 = 120\).
         }
 
         \ecpart{What is the size of the group of rotational symmetries?}{
-
+            The group of rotations is the subgroup which does not contain reflections. Since the group of symmetries of the dodecahedron contains \(5\) reflections for each face, the group of rotations contains \(5\) rotations for each face. Therefore, the size of the group of rotational symmetries is given by \(\mid \operatorname{Rot}(\text{dodecahedron})\mid = 12 \cdot 5 = 60\).
         }
 
         \ecpart{There are \(5\) cubes inside the dodecahedron which can be
         rotated into each other and contain all its vertices. Show that there is
         an injection from the group of rotational symmetries to \(S_5\).}{
-
+            To inscribe a cube into a dodecahedron, notice that the number of edges on a cube and the number of faces on a dodecahedron is 12. A cube is uniquely defined by a diagonal on a face of the dodecahedron. Since each face has 5 vertices there are 5 distinct cubes. Laber this cubes by \(\mathcal{C} = \{\mathcal{C}_1, \cdots , \mathcal{C}_5\}\). The group of rotation preserves the order of vertices and thus the cubes. Therefore, there is a group action of the rotational group on the set of cubes:
+            \[
+                \operatorname{Rot}_{12} \times \mathcal{C} \to \mathcal{C}, \quad (r, \mathcal{C}_i) \mapsto r\triangleright \mathcal{C}_i
+            \]
+            This induces a bijection \(\sigma(g) : \mathcal{C} \to \mathcal{C}\) which is isomorphic to a permutation of the set \(\{1, \cdots , 5\}\). Define the map 
+            \[\phi : \operatorname{Rot}_{12} \to S_5, \quad g \mapsto \sigma(g)\]
+            \(\phi\) is a homomorphism since for \(g_1, g_2 \in \operatorname{Rot}_{12}\) and \(\mathcal{C}_i \in \mathcal{C}\) we have
+            \begin{align*}
+                \phi(g_1g_2)(\mathcal{C}_i) &= \sigma(g_1g_2)(\mathcal{C}_i) \\
+                &= (g_1g_2)\triangleright \mathcal{C}_i \\
+                &= \sigma(g_1)(\sigma(g_2)(\mathcal{C}_i)) \\
+                &= (\sigma(g_1)\circ \sigma(g_2))(\mathcal{C}_i) \\
+                &= (\phi(g_1)\circ \phi(g_2))(\mathcal{C}_i)
+            \end{align*}
+            \(\phi\) is injective since for \(g_1, g_2 \in \operatorname{Rot}_{12}\) such that \(\phi(g_1) = \phi(g_2)\) we have:
+            \begin{align*}
+                \phi(g_1)(\mathcal{C}_i) &= \phi(g_2)(\mathcal{C}_i) \\
+                \sigma(g_1)(\mathcal{C}_i) &= \sigma(g_2)(\mathcal{C}_i) \\
+                g_1\triangleright \mathcal{C}_i &= g_2\triangleright \mathcal{C}_i \\
+                g_2^{-1}g_1\triangleright \mathcal{C}_i &= \mathcal{C}_i
+            \end{align*}
+            and therefore \(g_2^{-1}g_1\) is the identity. Thus \(g_1 = g_2\) and \(\phi\) is injective.
         }
 
         \ecpart{Show that the image of the injection from c) is contained in the
         alternating group \(A_5\).}{
-
+            
         }
 
         \ecpart{Show that the group of symmetries of the dodecahedron is
