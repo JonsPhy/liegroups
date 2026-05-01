@@ -1,0 +1,222 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\makeatletter
+\def\input@path{{../}{}}
+\makeatother
+\usepackage{style/project}
+
+% Exercise Sheet 03
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Groups and Lie Algebras: Exercise Sheet 3\par}
+    \vspace{0.5em}
+    {\color{gray!70}\rule{0.72\textwidth}{0.5pt}\par}
+\end{center}
+
+\setcounter{section}{3}
+
+    \ec{Some properties of characters}{
+        Let \(V\) and \(W\) be a finite dimensional representation of a finite
+        group \(G\) with characters \(\chi_V\) and \(\chi_W\). Compute the
+        character of the representations
+        \[
+            V \oplus W,\quad
+            V \otimes W,\quad
+            V^*,\quad
+            \operatorname{Hom}(V,W),\quad
+            \Lambda^2 V,\quad
+            \operatorname{Sym}^2 V.
+        \]
+    }{
+
+    }
+
+    \ecs{Quaternions}{
+        The quaternion group consists of \(8\) elements
+        \[
+            \pm 1,\quad \pm i,\quad \pm j,\quad \pm k.
+        \]
+        The defining relations are
+        \[
+            i^2 = j^2 = k^2 = -1,\qquad
+            i = jk = -kj,\qquad
+            j = ki = -ik,\qquad
+            k = ij = -ji.
+        \]
+    }{
+        \ecpart{First find \(1\) four-dimensional representations of \(Q_8\).}{
+            We start by writing the elements of \(Q_8\) as the vectors
+            \[
+                1 = \begin{pmatrix}1\\0\\0\\0\end{pmatrix},\quad
+                i = \begin{pmatrix}0\\1\\0\\0\end{pmatrix},\quad
+                j = \begin{pmatrix}0\\0\\1\\0\end{pmatrix},\quad
+                k = \begin{pmatrix}0\\0\\0\\1\end{pmatrix}
+            \]
+            We can then define a representation by left multiplication. To find the explicit form we use the above relations. 1 acts as the identity, so we start by considering the action of \(i\):
+            \[\rho(i) \cdot 1 = 1, \quad \rho(i) \cdot i = 1, \quad \rho(i) \cdot j = k, \quad \rho(i) \cdot k = -j \]
+            so we have
+            \[\rho(i) = \begin{pmatrix}
+                0 & -1 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & -1 \\
+                0 & 0 & 1 & 0
+            \end{pmatrix}\]
+            We can do the same for \(j\) and \(k\):
+            \[\rho(j) = \begin{pmatrix}
+                0 & 0 & -1 & 0 \\
+                0 & 0 & 0 & 1 \\
+                1 & 0 & 0 & 0 \\
+                0 & -1 & 0 & 0
+            \end{pmatrix}, \quad
+            \rho(k) = \begin{pmatrix}
+                0 & 0 & 0 & -1 \\
+                0 & 0 & -1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                1 & 0 & 0 & 0
+            \end{pmatrix}
+            \]
+            To check if this representation is irreducible, we compute the inner product of the character with itself:
+            \[
+                \langle \chi, \chi \rangle = \frac{1}{|Q_8|} \sum_{g \in Q_8} |\chi(g)|^2 = \frac18 (2\cdot4^2 + 6\cdot0^2) \neq 1
+            \]
+            This means this representation is not irreducible.
+        }
+
+        \ecpart{Find \(4\) one-dimensinal representations of \(Q_8\). Are they irreducible?}{
+            To find the one-dimensional representations, we find a homomorphism from \(Q_8\) to \(\mathbb{C}^\times\). 
+            We start by considering \(\rho(1) = 1 \) and \(\rho(-1)^2=\rho(1)=1\). This means \(\rho(-1) \in \{\pm1\}\). Similarly, we have \(\rho(i)^2 = \rho(j)^2 = \rho(k)^2 = \rho(-1)\). Thus if \(\rho(-1) = 1\) then we have \(\rho(i) = \rho(j) = \rho(k) \in \{ \pm1 \}\) and if \(\rho(-1) = -1\) then we have \(\rho(i), \rho(j), \rho(k) \in \{\pm i\}\).
+            From the relations above we can exclude \(\rho(-1) = -1 \) since \(\rho(i) = \rho(j)\rho(k) = \pm i^2 \notin \{\pm i\}\). Thus we can write down all one-dimensional representations by choosing \(\rho(i), \rho(j), \rho(k) \in \{\pm1\}\). But since \(\rho(k) = \rho(i)\rho(j)\), only four choices are possible. We can write them explicitly in the following table:
+            \[
+                \begin{array}{c|ccccc}
+                    & 1 & -1 & i & j & k\\
+                    \hline
+                    \rho_1 & 1 & 1 & 1 & 1 & 1 \\
+                    \rho_2 & 1 & 1 & -1 & -1 & 1 \\
+                    \rho_3 & 1 & 1 & -1 & 1 & -1 \\
+                    \rho_4 & 1 & 1 & 1 & -1 & -1
+                \end{array}
+            \]
+            They are all irreducible since they are one-dimensional.
+        }
+
+        \ecpart{There is also a \(2\)-dimensional irreducible representation.
+        To find it, think of quantum mechanics.}{
+            To find the 2 dimensional representation, we use the pauli matrices. The paulimatrices are unitary and self-adjoint, therefore we multiply them by \(i\) to get a representation of \(Q_8\):
+            \[\rho(i) = i\sigma_1 =
+            \begin{pmatrix}
+                i & 0 \\
+                0 & -i
+            \end{pmatrix}, \quad
+            \rho(j) = i\sigma_2 = 
+            \begin{pmatrix}
+                0 & 1 \\
+                -1 & 0
+            \end{pmatrix}, \quad
+            \rho(k) = i\sigma_3 = 
+            \begin{pmatrix}
+                0 & i \\
+                i & 0
+            \end{pmatrix}
+            \]
+            Again we check if this representation is irreducible by computing the inner product of the character with itself:
+            \[\langle \chi, \chi \rangle = \frac{1}{|Q_8|} \sum_{g \in Q_8} |\chi(g)|^2 = \frac18 (2\cdot2^2 + 6\cdot0^2) = 1\]
+            This means this representation is irreducible.
+        }
+
+        \ecpart{Are these all irreducible representations? Explain.}{
+            To check if wa have all irreducible representations, we use the following two facts:
+            \begin{itemize}
+                \item \(\mid \operatorname{Conj(G)}\mid = \sum_{\rho \,\text{irrep.}} 1\)
+                \item \(|G| = \sum_{\rho \,\text{irrep.}} (\dim \rho)^2\)
+            \end{itemize}
+            First we compute the conjugacy classes of \(Q_8\):
+            \[
+                \operatorname{Conj}(1) = \{g\in Q_8 \mid g=q1q^{-1}\} = \{1\} \\
+            \]
+            \[
+                \operatorname{Conj}(-1) = \{g\in Q_8 \mid g=q(-1)q^{-1}\} = \{-1\} \\
+            \]
+            Are trivialy given. From the defining relations we can also compute the conjugacy classes of \(i\), \(j\) and \(k\):
+            \[
+                i = jk \quad  j = ki \, \Longrightarrow \, -j = -ki = -kjk = kjk^{-1} \\
+            \]
+            Similarly we can compute all conjugations of \(i\), \(j\) and \(k\) and we find that
+            \[\operatorname{Conj}(i) = \{i, -i\}, \quad \operatorname{Conj}(j) = \{j, -j\}, \quad \operatorname{Conj}(k) = \{k, -k\}\]
+            So we have 5 conjugacy classes, which means we need 5 irreducible representations. Therefore the 4 one-dimensional representations and the 2-dimensional representation we found are all irreducible representations of \(Q_8\).
+
+            We can also derive the fact that the irreducible representations of \(Q_8\) are four 1-dimensional and one 2-dimensional representation using the second fact above. We have
+            \[|Q_8| = 8 = 2 \cdot 2^2 = 2^2 + 4 \cdot 1^2 = 8 \cdot 1^2\]
+            Since we need five irreducible representations, we can only have four 1-dimensional and one 2-dimensional representation.
+        }
+
+        \ecpart{Compute the character table.}{
+            We can now compute the character table of \(Q_8\) using the representations we found and the conjugacy classes:
+            \[
+                \begin{array}{c|ccccc}
+                    & \{1\} & \{-1\} & \{\pm i\} & \{\pm j\} & \{\pm k\}\\
+                    \hline
+                    \rho_1 & 1 & 1 & 1 & 1 & 1 \\
+                    \rho_2 & 1 & 1 & -1 & -1 & 1 \\
+                    \rho_3 & 1 & 1 & -1 & 1 & -1 \\
+                    \rho_4 & 1 & 1 & 1 & -1 & -1 \\
+                    \rho_5 & 2 & -2 & 0 & 0 & 0
+                \end{array}
+            \]
+        }
+    }
+
+    \ecs{The symmetric group \(S_4\) and its representations}{
+
+    }{
+        \ecpart{Determine the conjugacy classes of \(S_4\) and associate Young
+        diagrams and conjugacy classes.}{
+
+        }
+
+        \ecpart{There are two \(1\)-dimensional representations of \(S_4\).
+        What are they?}{
+
+        }
+
+        \ecpart{Consider the \(4\)-dimensional standard representation of
+        \(S_4\) on \(\mathbb{R}^4\). Decompose it into a \(3\)-dimensional
+        irreducible representation and a \(1\)-dimensional representation.}{
+
+        }
+
+        \ecpart{Take the tensor product of the \(3\)-dimensional representation
+        of the previous part and the alternating representation. It is again
+        irreducible. How many other irreducible representations are there? What
+        are their dimensions?}{
+
+        }
+
+        \ecpart{Write down the character table.}{
+
+        }
+    }
+
+    \ec{Particle in a box}{
+        The Hilbert space of a particle in a box of length \(l\) is
+        \(L^2([-l,l]^2)\) with the boundary conditions
+        \[
+            \psi|_{\partial[-l,l]^2} = 0
+        \]
+        and Hamiltonian
+        \[
+            \mathbb{H}
+            =
+            -\frac{\hbar^2}{2m}\left(\partial_x^2+\partial_y^2\right).
+        \]
+        Show that this system has \(D_4\) symmetry. Solve the Schr\"odinger
+        equation and find an energy level whose eigenfunctions transform in the
+        \(2\)-dimensional representation of \(D_4\). What is the lowest energy
+        level that does not transform in an irreducible representation of
+        \(D_4\).
+    }{
+
+    }
+
+\end{document}
