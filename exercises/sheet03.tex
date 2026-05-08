@@ -205,29 +205,98 @@
     }{
         \ecpart{Determine the conjugacy classes of \(S_4\) and associate Young
         diagrams and conjugacy classes.}{
-
+            The conjugacy classes of \(S_4\) are given by the cycle types:
+            \begin{itemize}
+                \item \((id) \, \Rightarrow \, (1,1,1,1)\)
+                \item \((12) \, \Rightarrow \, (2,1,1)\)
+                \item \((12)(34) \, \Rightarrow \, (2,2)\)
+                \item \((123) \, \Rightarrow \, (3,1)\)
+                \item \((1234) \, \Rightarrow \, (4)\)
+            \end{itemize}
+            The associated Young diagrams are:
+            \[
+                \ydiagram{4}, \quad
+                \ydiagram{3,1}, \quad
+                \ydiagram{2,2}, \quad
+                \ydiagram{2,1,1}, \quad
+                \ydiagram{1,1,1,1}
+            \]
         }
 
         \ecpart{There are two \(1\)-dimensional representations of \(S_4\).
         What are they?}{
-
+            A 1-dimensional representation is a homomorphism \(\rho : S_4 \to R^*\). Since \(\rho(id) = 1\) and \((ij)^2 = id\) where \((ij)\) is a transposition, we have \(\rho((ij))^2 = 1\) and thus \(\rho((ij)) \in \{\pm1\}\). Now concider how conjugation acts on a transposition:
+            \[\tau (ij) \tau^{-1} = (\tau(i)\tau(j))\]
+            Thus all transpositions are conjugate, therefore all transpositions must be mapped to the same element in \(\{\pm1\}\). Therefore we have two 1-dimensional representations, one where all transpositions are mapped to \(1\) and one where all transpositions are mapped to \(-1\). The first one is the trivial representation and the second one is the alternating representation.
         }
 
         \ecpart{Consider the \(4\)-dimensional standard representation of
         \(S_4\) on \(\mathbb{R}^4\). Decompose it into a \(3\)-dimensional
         irreducible representation and a \(1\)-dimensional representation.}{
-
+            The 4-dimensional standard representation \(\rho_{std} : S_4 \to \mathbb{R}^4\) is given by permuting the basis vectors:
+            \[\rho(\sigma) \triangleright e_i = e_{\sigma(i)}\]
+            This has a trivial representation as a subrepresentation, given by the vector \(v_0 = e_1 + e_2 + e_3 + e_4\). We thus need to find the orthogonal complement \(V_\bot\). A choice for this is the vector space:
+            \[V_\bot = \{x=(x_1,x_2,x_3,x_4)^T \mid x_1 + x_2 + x_3 + x_4 = 0 \}\]
+            This is an invariant subspace since permuting the components does not change the sum of the components. It is also a complement, which can be checked by considering the intersection of \(V_\bot\) and the trivial representation:
+            \[V_\bot \cap \operatorname{span}(v_0) = \{0\}\]
+            Therefore we have the decomposition \(\rho_{std} = \rho_{triv} \oplus \rho_\bot\).
+            To check if \(\rho_\bot\) is  irreducible, we compute the characters. Since the character of a direct sum is the sum of characters, we have \(\chi_{std} = \chi_{triv} + \chi_\bot\). The character of the trivial representations is \(\chi_{triv}(\sigma) = 0\) for all \(\sigma\).The character of the standard representation is given by the number of fixed elements of the permutation:
+            \begin{itemize}
+                \item \(\chi_{std}(id) = 4\)
+                \item \(\chi_{std}((12)) = 2\)
+                \item \(\chi_{std}((12)(34)) = 0\)
+                \item \(\chi_{std}((123)) = 1\)
+                \item \(\chi_{std}((1234)) = 0\)
+            \end{itemize}
+            The inner product of the character of \(\rho_\bot\) with itself is given by
+            \[\langle \chi_\bot, \chi_\bot \rangle = \frac{1}{|S_4|} \sum_{\sigma \in S_4} |\chi_\bot(\sigma)|^2 =\frac{1}{4!}(3^2 + 6 \cdot 1^2 + 3 \cdot (-1)^2) + 8 \cdot 0^2 + 6 \cdot (-1)^2) = 1\] 
+            Thus \(\rho_\bot\) is irreducible.
         }
 
         \ecpart{Take the tensor product of the \(3\)-dimensional representation
         of the previous part and the alternating representation. It is again
         irreducible. How many other irreducible representations are there? What
         are their dimensions?}{
-
+            The tensor product is given by:
+            \[\left( \mathbb{R}^* \otimes \mathbb{R}^3, \, (\rho_{alt} \otimes \rho_\bot) (g) = \rho_{alt}(g) \otimes \rho_\bot(g) \right) \]
+            The character of a tensor product is the product of the characters, so we have \(\chi_{alt \otimes \bot} = \chi_{alt} \cdot \chi_\bot\). The character of the alternating representation is given by the sign of the permutation:
+            \begin{itemize}
+                \item \(\chi_{alt}(id) = 1\)
+                \item \(\chi_{alt}((12)) = -1\)
+                \item \(\chi_{alt}((12)(34)) = 1\)
+                \item \(\chi_{alt}((123)) = 1\)
+                \item \(\chi_{alt}((1234)) = -1\)
+            \end{itemize}
+            Therefore we have:
+            \begin{itemize}
+                \item \(\chi_{alt \otimes \bot}(id) = 3\)
+                \item \(\chi_{alt \otimes \bot}((12)) = -1\)
+                \item \(\chi_{alt \otimes \bot}((12)(34)) = -1\)
+                \item \(\chi_{alt \otimes \bot}((123)) = 0\)
+                \item \(\chi_{alt \otimes \bot}((1234)) = 1\)
+            \end{itemize}
+            Since there are 5 conjugacy classes, there are 5 irreducible representations in total, we have found 4. There is another.
+            \begin{center}
+                \includegraphics[width=0.24\textwidth]{../figures/there_is_another_meme.jpg}
+            \end{center}
+            The dimension of the last representation can be computed using the fact that the sum of the squares of the dimensions of the irreducible representations is equal to the order of the group:
+            \[|S_4| = 4! = 24 = 3^2 + 3^2 + 1^2 + 1^2 + d^2\]
+            Therefore we have \(d = 2\).
         }
 
         \ecpart{Write down the character table.}{
-
+            We can conclude on the characters of the missing representation by writing down the character table and using the fact that the sum of the colu:
+            \[
+                \begin{array}{c|ccccc}
+                    & \{id\} & \{(12)\} & \{(12)(34)\} & \{(123)\} & \{(1234)\}\\   
+                    \hline
+                    \rho_{triv} & 1 & 1 & 1 & 1 & 1 \\
+                    \rho_{alt} & 1 & -1 & 1 & 1 & -1 \\
+                    \rho_\bot & 3 & 1 & -1 & 0 & -1 \\
+                    \rho_{\bot \otimes alt} & 3 & -1 & -1 & 0 & 1 \\
+                    \rho_{2d} & 2 & 0 & 2 & -1 & 0
+                \end{array}
+            \]
         }
     }
 
@@ -249,6 +318,25 @@
         level that does not transform in an irreducible representation of
         \(D_4\).
     }{
+        The symmetry group \(D_4\) contains rotations \(r\) and reflections \(s\) satisfying the relations \(r^4 = s^2 = e\) and \(srs = r^{-1}\). We find a representation of \(D_4\) on the Hilbert space by defining the action of \(r\) and \(s\) on the wavefunction \(\psi(x,y)\):
+        \[(r \triangleright \psi)(x,y) = \psi(-y,x), \quad (s \triangleright \psi)(x,y) = \psi(x,-y)\]
+        Which satisfies the relations above. To show that this is a symmetry of the system, we show that it commutes with the Hamiltonian. We show the following relations:
+        \[ \partial_x \psi(-y,x) = \left(\frac{\partial r(x)}{\partial x} \partial_x + \frac{\partial r(x)}{\partial y} \partial y \right) \psi(-y,x) = -\partial_y \psi(-y,x)\]
+        And similarly we can show that \(\partial_y \psi(-y,x) = \partial_x \psi(-y,x)\). Therefore we have
+        \[\mathbb{H} (r \triangleright \psi) = -\frac{\hbar^2}{2m} \left( \partial_x^2 + \partial_y^2 \right) \psi(-y,x) = -\frac{\hbar^2}{2m} \left( \partial_y^2 + \partial_x^2 \right) \psi(-y,x) = r \triangleright (\mathbb{H} \psi)\]
+        And therefore \( [\mathbb{H},r] = 0\).And mutatis mutandis we have \( [\mathbb{H},s] = 0\)
+
+        To solve the Schr\"odinger equation, we use separation of variables. We write \(\psi(x,y) = X(x)Y(y)\) and we find that \(X\) and \(Y\) satisfy the following equations:
+        \[-\frac{\hbar^2}{2m} X''(x) = E_x X(x), \quad -\frac{\hbar^2}{2m} Y''(y) = E_y Y(y)\]
+        With the boundary conditions \(X(-l) = X(l) = 0\) and \(Y(-l) = Y(l) = 0\). We take an trigonometric ansatz:
+        \[X(x) = A \sin(k_x x) + B \cos(k_x x), \quad Y(y) = C \sin(k_y y) + D \cos(k_y y)\]
+        Plugin this into the Schr\"odinger equation we find that \(E_x = \frac{\hbar^2 k_x^2}{2m}\) and \(E_y = \frac{\hbar^2 k_y^2}{2m}\). The boundary conditions read as follows:
+        \[X(-l) = -A \sin(k_x l) + B \cos(k_x l) = 0, \quad X(l) = A \sin(k_x l) + B \cos(k_x l) = 0\]
+        \[Y(-l) = -C \sin(k_y l) + D \cos(k_y l) = 0, \quad Y(l) = C \sin(k_y l) + D \cos(k_y l) = 0\]
+        From the first two equations we find that \(B = 0\) and \(k_x l = n_x \pi\) for some \(n_x \in \mathbb{Z}\). From the last two equations we find that \(D = 0\) and \(k_y l = n_y \pi\) for some \(n_y \in \mathbb{Z}\). Therefore we have
+        \[\psi_{n_x,n_y}(x,y) = A \sin\left(\frac{n_x \pi x}{l}\right) \sin\left(\frac{n_y \pi y}{l}\right)\]
+        With energy \(E_{n_x,n_y} = \frac{\hbar^2 \pi^2}{2m l^2} (n_x^2 + n_y^2)\). 
+        We find a 2-dimensional representation by considering the vector space spanned by
     }
 
 \end{document}

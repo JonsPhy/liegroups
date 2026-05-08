@@ -30,15 +30,17 @@
     colback=red!10!white,
 }{defn}
 
-\NewDocumentCommand{\defn}{m+m}{
-    \begin{mydefinition}{#1}{}
-        #2
+\NewDocumentCommand{\defn}{o m+m}{
+    \IfNoValueTF{#1}{\index{#2}}{\index{#1}}
+    \begin{mydefinition}{#2}{}
+        #3
     \end{mydefinition}
 }
 
-\NewDocumentCommand{\defnr}{mm+m}{
-    \begin{mydefinition}{#1}{#2}
-        #3
+\NewDocumentCommand{\defnr}{o mm+m}{
+    \IfNoValueTF{#1}{\index{#2}}{\index{#1}}
+    \begin{mydefinition}{#2}{#3}
+        #4
     \end{mydefinition}
 }
 

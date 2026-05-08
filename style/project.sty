@@ -24,6 +24,7 @@
 \usepackage{mathrsfs}
 \usepackage{physics}
 \usepackage{siunitx}
+\usepackage{ytableau}
 
 % Layout
 \usepackage[a4paper,margin=2.5cm,headheight=14pt]{geometry}
@@ -64,6 +65,27 @@
     citecolor=blue,
     filecolor=magenta,
     urlcolor=blue
+}
+\usepackage{makeidx}
+\makeindex
+\usepackage[
+    columns=2,
+    columnsep=2.5em,
+    rule=0.2pt,
+    font=small,
+    itemlayout=relhang,
+    justific=RaggedRight,
+    initsep=1.1em
+]{idxlayout}
+\renewcommand{\indexname}{Index of Definitions}
+\newcommand{\indexheading}[1]{%
+    \par\medskip
+    {\large\bfseries\color{red!60!black}#1}\par
+    \vspace{0.2em}
+}
+\setindexprenote{%
+    \small\color{black!65}
+    Definitions are collected automatically from the definition boxes.
 }
 \usepackage[nameinlink,noabbrev]{cleveref}
 

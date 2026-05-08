@@ -450,7 +450,7 @@
         \item Let \(V\) be a vector space. Every group \(G\) has the
         \textbf{trivial representation} on \(V\), defined by
         \[
-            \rho(g) = \operatorname{id}_V
+            \rho(g) = 1_V
             \qquad
             \forall g \in G.
         \]
@@ -458,9 +458,9 @@
         \item The group \(\mathbb{Z}_2 = \{[0],[1]\}\) acts on any vector space
         \(V\) by
         \[
-            \rho([0]) = \operatorname{id}_V,
+            \rho([0]) = 1_V,
             \qquad
-            \rho([1]) = -\operatorname{id}_V.
+            \rho([1]) = -1_V.
         \]
 
         \item The orthogonal group \(O(n)\) acts on \(\mathbb{R}^n\) by its
@@ -636,12 +636,12 @@
     complex vector space, \(f^{-1}\circ f'\) has an eigenvalue
     \(\lambda \in \mathbb{C}\). Thus
     \[
-        f^{-1}\circ f' - \lambda \operatorname{id}_V
+        f^{-1}\circ f' - \lambda 1_V
     \]
     is not injective. By the first part, it cannot be an isomorphism, so it
     must be the zero map. Therefore
     \[
-        f^{-1}\circ f' = \lambda \operatorname{id}_V,
+        f^{-1}\circ f' = \lambda 1_V,
     \]
     and multiplying by \(f\) gives
     \[
@@ -663,7 +663,7 @@
     \]
     Then both
     \[
-        \operatorname{id}_{\mathbb{R}^2}
+        1_{\mathbb{R}^2}
         \qquad\text{and}\qquad
         \begin{pmatrix}
             0 & 1 \\
@@ -678,7 +678,7 @@
 
     However, these two maps are not scalar multiples of each other over
     \(\mathbb{R}\), since the rotation matrix is not of the form
-    \(\lambda \operatorname{id}_{\mathbb{R}^2}\) for any
+    \(\lambda 1_{\mathbb{R}^2}\) for any
     \(\lambda \in \mathbb{R}\). Thus the complex-vector-space assumption in
     Schur's lemma is essential for the scalar uniqueness statement.
 }
@@ -699,7 +699,7 @@
     acts by a scalar. In other words, for every \(c \in Z(G)\) there exists
     \(\lambda_c \in \mathbb{C}\) such that
     \[
-        \rho(c) = \lambda_c \operatorname{id}_V.
+        \rho(c) = \lambda_c 1_V.
     \]
 }{
     Let \(c \in Z(G)\). Then for every \(g \in G\),
@@ -716,13 +716,13 @@
     is a finite-dimensional complex vector space, \(\rho(c)\) has an
     eigenvalue \(\lambda_c \in \mathbb{C}\). Then
     \[
-        \rho(c) - \lambda_c \operatorname{id}_V
+        \rho(c) - \lambda_c 1_V
     \]
     is again a map of \(G\)-representations, but it is not injective. By
     Schur's lemma it cannot be an isomorphism, so it must be the zero map.
     Hence
     \[
-        \rho(c) = \lambda_c \operatorname{id}_V.
+        \rho(c) = \lambda_c 1_V.
     \]
 }{}
 
@@ -1798,5 +1798,821 @@
         \mathrm{std}\otimes\mathrm{std}
         \cong
         (1,1)\oplus(-1,1)\oplus(1,-1)\oplus(-1,-1).
+    \]
+}
+
+\corp{
+    Let \(G\) be a finite group, and let
+    \(V_1,\dots,V_r\) be the irreducible finite-dimensional complex
+    representations of \(G\), up to isomorphism. Then the regular
+    representation decomposes as
+    \[
+        \mathbb{C}[G]
+        \cong
+        \bigoplus_{i=1}^r \dim(V_i)\,V_i.
+    \]
+    In particular,
+    \[
+        \sum_{i=1}^r \dim(V_i)^2 = |G|.
+    \]
+}{
+    Let \(\chi_{\mathrm{reg}}\) be the character of the regular representation
+    \(\mathbb{C}[G]\). In the basis \(\{e_h\}_{h\in G}\), the action is
+    \[
+        g\cdot e_h = e_{gh}.
+    \]
+    If \(g=e\), this is the identity on a vector space of dimension \(|G|\), so
+    \[
+        \chi_{\mathrm{reg}}(e)=|G|.
+    \]
+    If \(g\neq e\), then \(h\mapsto gh\) has no fixed points. Hence the matrix
+    of \(g\) in the basis \(\{e_h\}_{h\in G}\) is a permutation matrix with no
+    diagonal entries equal to \(1\), and therefore
+    \[
+        \chi_{\mathrm{reg}}(g)=0.
+    \]
+
+    By the previous corollary, the multiplicity of \(V_i\) in
+    \(\mathbb{C}[G]\) is
+    \[
+        (\chi_{V_i},\chi_{\mathrm{reg}})
+        =
+        \frac{1}{|G|}\sum_{g\in G}
+        \overline{\chi_{V_i}(g)}\chi_{\mathrm{reg}}(g).
+    \]
+    Since \(\chi_{\mathrm{reg}}\) vanishes away from \(\mathrm{id}\), this becomes
+    \[
+        (\chi_{V_i},\chi_{\mathrm{reg}})
+        =
+        \frac{1}{|G|}
+        \overline{\chi_{V_i}(\mathrm{id})}\,|G|
+        =
+        \dim(V_i).
+    \]
+    Thus
+    \[
+        \mathbb{C}[G]
+        \cong
+        \bigoplus_{i=1}^r \dim(V_i)\,V_i.
+    \]
+    Taking dimensions on both sides gives
+    \[
+        |G|
+        =
+        \dim\mathbb{C}[G]
+        =
+        \sum_{i=1}^r \dim(V_i)\dim(V_i)
+        =
+        \sum_{i=1}^r \dim(V_i)^2.
+    \]
+}{}
+
+\rmkb{
+    The previous corollary also gives a useful relation among the irreducible
+    characters. Since
+    \[
+        \chi_{\mathrm{reg}}
+        =
+        \sum_{i=1}^r \dim(V_i)\chi_{V_i},
+    \]
+    and since \(\chi_{\mathrm{reg}}(g)=0\) for every \(g\neq \mathrm{id}\), one has
+    \[
+        0
+        =
+        \sum_{i=1}^r \dim(V_i)\chi_{V_i}(g)
+        \qquad
+        \forall g\neq \mathrm{id}.
+    \]
+    Thus, once all irreducible characters except one are known, the remaining
+    one is determined on all non-identity conjugacy classes by this equation.
+    Its value at \(\mathrm{id}\) is its dimension, which is constrained by
+    \[
+        \sum_{i=1}^r \dim(V_i)^2 = |G|.
+    \]
+}
+
+\thmp{Irreducible Characters Form A Basis}{
+    Let \(G\) be a finite group. The characters of the irreducible
+    finite-dimensional complex representations of \(G\) form an orthonormal
+    basis of the vector space of class functions on \(G\).
+
+    In particular, the number of irreducible representations of \(G\), up to
+    isomorphism, is equal to the number of conjugacy classes of \(G\).
+}{
+    We already know that the irreducible characters are orthonormal. It remains
+    to show that they span the space of class functions.
+
+    Let \(\alpha : G \to \mathbb{C}\) be a class function such that
+    \[
+        (\alpha,\chi_V)=0
+    \]
+    for every irreducible representation \(V\). We will show that
+    \(\alpha=0\).
+
+    For an irreducible representation \((V,\rho)\), define
+    \[
+        \varphi_{\alpha,V}
+        :=
+        \sum_{g\in G}\alpha(g)\rho(g)
+        \in \operatorname{End}(V).
+    \]
+    Since \(\alpha\) is a class function, \(\varphi_{\alpha,V}\) commutes with the
+    \(G\)-action. Indeed, for \(h\in G\),
+    \[
+        \varphi_{\alpha,V}\rho(h)
+        =
+        \sum_{g\in G}\alpha(g)\rho(gh).
+    \]
+    Writing \(g'=h^{-1}gh\), this becomes
+    \[
+        \varphi_{\alpha,V}\rho(h)
+        =
+        \sum_{g'\in G}\alpha(hg'h^{-1})\rho(hg')
+        =
+        \rho(h)\sum_{g'\in G}\alpha(g')\rho(g')
+        =
+        \rho(h)\varphi_{\alpha,V}.
+    \]
+    Thus \(\varphi_{\alpha,V}\) is a map of \(G\)-representations
+    \(V\to V\). By Schur's lemma,
+    \[
+        \varphi_{\alpha,V} = \lambda_V 1_V
+    \]
+    for some \(\lambda_V\in\mathbb{C}\).
+
+    Taking traces gives
+    \[
+        \lambda_V
+        =
+        \frac{1}{\dim(V)}\operatorname{tr}(\varphi_{\alpha,V})
+        =
+        \frac{1}{\dim(V)}\sum_{g\in G}\alpha(g)\chi_V(g)
+        =
+        \frac{|G|}{\dim(V)}
+        \overline{(\alpha,\chi_{V^*})}
+        =
+        0.
+    \]
+    Here \(V^*\) is again irreducible, so the last equality follows from the
+    assumption on \(\alpha\). Hence \(\varphi_{\alpha,V}=0\) for every
+    irreducible representation \(V\).
+
+    Therefore, for any finite-dimensional representation \((W,\rho_W)\), one
+    has
+    \[
+        \sum_{g\in G}\alpha(g)\rho_W(g)=0,
+    \]
+    because \(W\) is a direct sum of irreducibles.
+
+    Apply this to the regular representation \(\mathbb{C}[G]\). The operators
+    \(\rho_{\mathrm{reg}}(g)\) are linearly independent: indeed,
+    \[
+        \rho_{\mathrm{reg}}(g)(e_{\mathrm{id}})=e_g.
+    \]
+    Hence
+    \[
+        \alpha(g)=0
+        \qquad
+        \forall g\in G.
+    \]
+    Thus \(\alpha=0\), and the irreducible characters span the class functions.
+
+    Since the irreducible characters form a basis, their number is the
+    dimension of the space of class functions. A class function is determined
+    by its values on conjugacy classes, so this dimension is the number of
+    conjugacy classes of \(G\).
+}
+
+\section{Representations Of \texorpdfstring{\(S_n\)}{Sn}}
+
+The irreducible representations of \(S_n\) are indexed by the conjugacy
+classes of \(S_n\), and hence by the partitions of \(n\).
+
+\defn{Partitions And Young Diagrams}{
+    A \textbf{partition} of \(n\) is a tuple
+    \[
+        \lambda = (\lambda_1,\dots,\lambda_k)
+    \]
+    such that
+    \[
+        n = \sum_{i=1}^k \lambda_i,
+        \qquad
+        \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_k > 0.
+    \]
+    We write \(\lambda \vdash n\).
+
+    A partition can be represented by a \textbf{Young diagram}: draw
+    \(\lambda_i\) boxes in the \(i\)-th row, aligned on the left.
+}
+
+\ex{
+    The partitions of \(3\) are
+    \[
+        (3),
+        \qquad
+        (2,1),
+        \qquad
+        (1,1,1).
+    \]
+    Their Young diagrams are
+    \[
+        \ydiagram{3}
+        \qquad
+        \ydiagram{2,1}
+        \qquad
+        \ydiagram{1,1,1}.
+    \]
+    Thus \(S_3\) has three irreducible representations, corresponding to these
+    three diagrams.
+}
+
+\defn{Associative Algebras}{
+    An \textbf{associative algebra} \((A,\mu,1)\) is a vector space \(A\)
+    equipped with a linear map
+    \[
+        \mu : A \otimes A \to A,
+        \qquad
+        a\otimes b \mapsto ab,
+    \]
+    and an element \(1\in A\) such that
+    \[
+        (ab)c = a(bc)
+        \qquad
+        \forall a,b,c\in A,
+    \]
+    and
+    \[
+        1a=a=a1
+        \qquad
+        \forall a\in A.
+    \]
+}
+
+\ex{
+    Let \(G\) be a group. The vector space \(\mathbb{C}[G]\), with basis
+    \[
+        \{e_g\}_{g\in G},
+    \]
+    is an associative algebra with multiplication
+    \[
+        e_g e_h = e_{gh},
+    \]
+    and unit
+    \[
+        1=e_{\mathrm{id}}.
+    \]
+    It is called the \textbf{group algebra} of \(G\).
+}
+
+\rmkb{
+    A representation
+    \[
+        \rho : G \to \operatorname{Aut}(V)
+    \]
+    induces a linear map
+    \[
+        \widehat{\rho} : \mathbb{C}[G] \to \operatorname{End}(V),
+        \qquad
+        e_g \mapsto \rho(g).
+    \]
+    In particular,
+    \[
+        \widehat{\rho}\left(\frac{1}{|G|}\sum_{g\in G} e_g\right)
+    \]
+    is the projection onto the trivial component of \(V\).
+}
+
+\defn{Tableaux}{
+    A \textbf{tableau} \(T\) on a given Young diagram with \(n\) boxes is a
+    numbering of its boxes by \(1,\dots,n\).
+
+    Associated to \(T\) are two subgroups of \(S_n\):
+    \[
+        P_T
+        :=
+        \{\sigma\in S_n \mid \sigma \text{ preserves the rows of } T\},
+    \]
+    and
+    \[
+        Q_T
+        :=
+        \{\sigma\in S_n \mid \sigma \text{ preserves the columns of } T\}.
+    \]
+}
+
+\ex{
+    For example, for the tableau
+    \[
+        T=
+        \begin{ytableau}
+            1 & 2 & 3 \\
+            4 & 5 \\
+            6 & 7
+        \end{ytableau}
+    \]
+    one has
+    \[
+        P_T \cong S_3\times S_2\times S_2,
+        \qquad
+        Q_T \cong S_3\times S_3\times S_1.
+    \]
+
+    We will suppress the tableau from the notation and write \(\lambda\) for
+    both a partition and a choice of tableau of shape \(\lambda\).
+}
+
+\defn{Young Symmetrizers}{
+    Let \(\lambda\vdash n\), and choose a tableau of shape \(\lambda\). Define
+    \[
+        a_\lambda
+        :=
+        \sum_{g\in P_\lambda} e_g
+        \in \mathbb{C}[S_n],
+    \]
+    and
+    \[
+        b_\lambda
+        :=
+        \sum_{g\in Q_\lambda}\operatorname{sign}(g)e_g
+        \in \mathbb{C}[S_n].
+    \]
+    The \textbf{Young symmetrizer} associated to \(\lambda\) is
+    \[
+        c_\lambda
+        :=
+        a_\lambda b_\lambda
+        \in \mathbb{C}[S_n].
+    \]
+}
+
+\ex{
+    For \(\lambda=(n)\), the Young diagram has one row. Hence
+    \[
+        P_\lambda=S_n,
+        \qquad
+        Q_\lambda=\{\mathrm{id}\},
+    \]
+    and so
+    \[
+        c_\lambda=a_\lambda.
+    \]
+    In this case
+    \[
+        \operatorname{im}((\cdot)c_\lambda)\cong \mathrm{Triv}.
+    \]
+
+    For \(\lambda=(1,\dots,1)\), the Young diagram has one column. Hence
+    \[
+        P_\lambda=\{\mathrm{id}\},
+        \qquad
+        Q_\lambda=S_n,
+    \]
+    and so
+    \[
+        a_\lambda=1,
+        \qquad
+        c_\lambda=b_\lambda.
+    \]
+    In this case
+    \[
+        \operatorname{im}((\cdot)c_\lambda)\cong \mathrm{Alt}.
+    \]
+}
+
+\defn{Representations From Young Symmetrizers}{
+    Let \(\lambda\vdash n\). Define
+    \[
+        V_\lambda
+        :=
+        \mathbb{C}[S_n]c_\lambda
+        =
+        \{a c_\lambda \mid a\in \mathbb{C}[S_n]\}
+        \leq \mathbb{C}[S_n].
+    \]
+    This is a representation of \(S_n\) by left multiplication:
+    \[
+        \rho(g) : V_\lambda \to V_\lambda,
+        \qquad
+        a c_\lambda \mapsto e_g a c_\lambda.
+    \]
+}
+
+\ex{
+    For \(S_3\), the three partitions give
+    \[
+        V_{\ydiagram{3}}
+        =
+        \mathbb{C}\bigl[
+            e_{\mathrm{id}}+e_{(12)}+e_{(23)}+e_{(13)}
+            +e_{(123)}+e_{(132)}
+        \bigr],
+    \]
+    and
+    \[
+        V_{\ydiagram{1,1,1}}
+        =
+        \mathbb{C}\bigl[
+            e_{\mathrm{id}}-e_{(12)}-e_{(23)}-e_{(13)}
+            +e_{(123)}+e_{(132)}
+        \bigr].
+    \]
+    For the tableau
+    \[
+        \begin{ytableau}
+            1 & 2 \\
+            3
+        \end{ytableau}
+    \]
+    one has
+    \[
+        c_\lambda
+        =
+        (e_{\mathrm{id}}+e_{(12)})(e_{\mathrm{id}}-e_{(13)})
+        =
+        e_{\mathrm{id}}+e_{(12)}-e_{(13)}-e_{(123)}.
+    \]
+    Hence
+    \[
+        V_{\ydiagram{2,1}}
+        =
+        \mathbb{C}[S_3]c_\lambda.
+    \]
+}
+
+\prop{
+    Let \(T,T'\) be Young tableaux of the same shape \(\lambda\). Then there
+    exists a unique \(g\in S_n\) such that
+    \[
+        T'=gT.
+    \]
+    If \(P,Q\) are the row and column subgroups associated to \(T\), and
+    \(P',Q'\) are the row and column subgroups associated to \(T'\), then
+    \[
+        P'=gPg^{-1},
+        \qquad
+        Q'=gQg^{-1}.
+    \]
+    Hence
+    \[
+        c_{\lambda,T'}
+        =
+        e_g c_{\lambda,T} e_{g^{-1}}.
+    \]
+    Therefore
+    \[
+        V_{\lambda,T}\to V_{\lambda,T'},
+        \qquad
+        a c_{\lambda,T}\mapsto a c_{\lambda,T}e_{g^{-1}}
+        =
+        a e_{g^{-1}} c_{\lambda,T'},
+    \]
+    is an isomorphism of \(S_n\)-representations.
+
+    Moreover,
+    \[
+        P\cap Q=\{\mathrm{id}\}.
+    \]
+    Thus, if
+    \[
+        g=pq=p'q',
+        \qquad
+        p,p'\in P,
+        \quad
+        q,q'\in Q,
+    \]
+    then
+    \[
+        p'^{-1}p=qq'^{-1}\in P\cap Q.
+    \]
+    Hence \(p=p'\) and \(q=q'\), so the decomposition \(g=pq\) is unique.
+    Consequently,
+    \[
+        c_{\lambda,T}
+        =
+        \sum_{g=pq}\operatorname{sign}(q)e_g.
+    \]
+}
+
+\propp{
+    For each Young tableau, the representation \(V_\lambda\) is irreducible.
+}{
+    Let \(v\in V_\lambda\). We want to understand \(c_\lambda v\). Write
+    \[
+        v=a c_\lambda.
+    \]
+    Then \(c_\lambda v=c_\lambda a c_\lambda\). Hence \(c_\lambda v\) solves
+    the equation
+    \[
+        e_p x e_q\operatorname{sign}(q)=x
+        \qquad
+        \forall p\in P,\ q\in Q.
+        \tag{1}
+    \]
+
+    Write
+    \[
+        x=\sum_{g\in S_n}n_g e_g.
+    \]
+    Equation (1) implies
+    \[
+        n_{pgq}=n_g\operatorname{sign}(q).
+    \]
+    If \(g\neq pq\), then let \(T'=gT\). Assume that there are integers
+    \(i<j\leq n\) such that \(i,j\) are in the same row of \(T\) and in the
+    same column of \(T'\). Then \(t=(ij)\in P\), and also
+    \[
+        t\in Q'=gQg^{-1}.
+    \]
+    Thus there is some \(q\in Q\) with \(t=gqg^{-1}\), and hence
+    \[
+        g=tgq^{-1}.
+    \]
+    Comparing coefficients gives
+    \[
+        n_g=-n_g,
+        \qquad
+        \text{so } n_g=0.
+    \]
+
+    Now let \(T,T'=gT\) be two Young tableaux such that no pair \(i,j\) is in
+    the same row of \(T\) and in the same column of \(T'\). Then there are
+    \(p\in P\) and \(q'\in Q'\) such that the first rows of \(pT\) and
+    \(q'T'\) agree. Continuing row by row, we get
+    \[
+        pT=q'T'=q'gT.
+    \]
+    Hence
+    \[
+        p=q'g.
+    \]
+    Since \(q'\in Q'=gQg^{-1}\), we can write \(q'=gqg^{-1}\) for some
+    \(q\in Q\). Therefore
+    \[
+        p=gq,
+        \qquad
+        g=pq^{-1}.
+    \]
+    It follows that the only possible non-zero coefficients are those with
+    \(g=pq\). Thus every solution of (1) is of the form
+    \[
+        x=n_1\sum_{g=pq}e_g\operatorname{sign}(q)
+        =
+        n_1 c_\lambda.
+    \]
+    Hence
+    \[
+        c_\lambda V_\lambda\subseteq \mathbb{C}[c_\lambda].
+    \]
+
+    Let \(W\subseteq V_\lambda\) be a subrepresentation. Then either
+    \[
+        c_\lambda W=0
+        \qquad\text{or}\qquad
+        c_\lambda W=\mathbb{C}[c_\lambda].
+    \]
+    In the second case, \(c_\lambda\in W\), and hence
+    \[
+        a c_\lambda\in W
+        \qquad
+        \forall a\in \mathbb{C}[S_n].
+    \]
+    Thus \(V_\lambda\subseteq W\), so \(W=V_\lambda\).
+
+    In the first case, choose a projection operator
+    \[
+        P_W:\mathbb{C}[S_n]\to \mathbb{C}[S_n]
+    \]
+    which projects onto \(W\). It satisfies
+    \[
+        e_gP_W(a)=P_W(e_ga).
+    \]
+    For \(a=1\), this gives
+    \[
+        e_gP_W(1)=P_W(e_g).
+    \]
+    Hence \(P_W\) is right multiplication by \(P_W(1)\). Since
+    \(P_W(1)\in W\), the assumption \(c_\lambda W=0\) gives
+    \[
+        P_W(c_\lambda)=c_\lambda P_W(1)=0.
+    \]
+    Therefore, for every \(a\in\mathbb{C}[S_n]\),
+    \[
+        P_W(a c_\lambda)=aP_W(c_\lambda)=0.
+    \]
+    Since \(W\subseteq V_\lambda\) and \(P_W\) is the identity on \(W\), we get
+    \(W=0\).
+
+    Thus the only subrepresentations are \(0\) and \(V_\lambda\).
+}
+
+\rmkb{
+    The proof shows that
+    \[
+        c_\lambda V_\lambda\neq 0.
+    \]
+}
+
+\thmp{Classification Of Irreducible Representations Of \texorpdfstring{\(S_n\)}{Sn}}{
+    For \(\lambda\neq\mu\), the representations \(V_\lambda\) and \(V_\mu\)
+    are not isomorphic.
+
+    Hence the \(V_\lambda\), where \(\lambda\vdash n\), form a complete set of
+    irreducible representations of \(S_n\).
+}{
+    Assume \(\lambda>\mu\), meaning that the first non-zero difference
+    \(\lambda_i-\mu_i\) is positive. We show that
+    \[
+        c_\lambda V_\mu=\{0\},
+        \qquad
+        c_\lambda V_\lambda\neq 0.
+    \]
+    The second statement was shown in the previous proof. For the first one,
+    it is enough to show that
+    \[
+        c_\lambda a c_\mu=0
+        \qquad
+        \forall a\in\mathbb{C}[S_n].
+    \]
+    Since
+    \[
+        c_\lambda a c_\mu
+        =
+        a_\lambda b_\lambda a a_\mu b_\mu,
+    \]
+    it is enough to prove
+    \[
+        a_\lambda x b_\mu=0
+        \qquad
+        \forall x\in\mathbb{C}[S_n].
+    \]
+
+    It suffices to take \(x=e_g\). Then
+    \[
+        a_\lambda e_g b_\mu
+        =
+        a_\lambda b_{gT_\mu}.
+    \]
+    Since \(\lambda>\mu\), there exist \(i,j\) which lie in the same row of
+    \(T_\lambda\) and in the same column of \(gT_\mu\). Let \(t=(ij)\). Then
+    \(t\in P_\lambda\), so
+    \[
+        a_\lambda e_t=a_\lambda,
+    \]
+    while \(t\) lies in the column group of \(gT_\mu\), so
+    \[
+        e_t b_{gT_\mu}=-b_{gT_\mu}.
+    \]
+    Therefore
+    \[
+        a_\lambda b_{gT_\mu}
+        =
+        a_\lambda e_t e_t b_{gT_\mu}
+        =
+        -a_\lambda b_{gT_\mu}.
+    \]
+    Hence
+    \[
+        a_\lambda b_{gT_\mu}=0.
+    \]
+    Thus \(c_\lambda V_\mu=\{0\}\).
+
+    Since \(c_\lambda V_\lambda\neq 0\), the representations
+    \(V_\lambda\) and \(V_\mu\) cannot be isomorphic. We have already shown
+    that every \(V_\lambda\) is irreducible, and there are as many partitions
+    \(\lambda\vdash n\) as conjugacy classes in \(S_n\). Therefore these
+    representations classify all irreducible representations of \(S_n\).
+}
+
+\subsection{Frobenius Formula}
+
+For
+\[
+    i=(i_1,\dots,i_n),
+    \qquad
+    \sum_{\alpha=1}^{n} i_\alpha \alpha=n,
+\]
+we denote by \(C_i\) the conjugacy class of \(S_n\) consisting of
+permutations with \(i_\alpha\) many \(\alpha\)-cycles.
+
+Let \(\lambda\vdash n\) be a partition with \(k\) rows. We work with
+polynomials in \(k\) variables
+\[
+    x_1,\dots,x_k.
+\]
+For \(1\leq j\leq n\), define
+\[
+    p_j(x)
+    :=
+    x_1^j+\cdots+x_k^j,
+\]
+and define
+\[
+    \Delta(x)
+    :=
+    \prod_{a<b}(x_a-x_b).
+\]
+For a polynomial \(Q(x)\) in \(x_1,\dots,x_k\), we denote by
+\[
+    [Q(x)]_{\ell_1,\dots,\ell_k}
+\]
+the coefficient of
+\[
+    x_1^{\ell_1}\cdots x_k^{\ell_k}.
+\]
+Here
+\[
+    \ell_1=\lambda_1+k-1,
+    \qquad
+    \ell_2=\lambda_2+k-2,
+    \qquad
+    \dots,
+    \qquad
+    \ell_k=\lambda_k.
+\]
+
+\thmp{Frobenius Formula}{
+    With the notation above,
+    \[
+        \chi_\lambda(C_i)
+        =
+        \left[
+            \Delta(x)
+            \prod_{j=1}^{n} p_j(x)^{i_j}
+        \right]_{\ell_1,\dots,\ell_k}.
+    \]
+}{
+    Look it up.
+}
+
+\ex{
+    Let \(n=5\), and let
+    \[
+        \lambda=(3,2)
+        =
+        \ydiagram{3,2}.
+    \]
+    Consider
+    \[
+        i=(0,1,1,0,0),
+    \]
+    so that
+    \[
+        (12)(345)\in C_i.
+    \]
+    Here \(k=2\), hence
+    \[
+        \ell_1=\lambda_1+1=4,
+        \qquad
+        \ell_2=\lambda_2=2.
+    \]
+    Therefore the Frobenius formula gives
+    \[
+        \chi_\lambda(C_i)
+        =
+        \left[
+            (x_1-x_2)(x_1^2+x_2^2)(x_1^3+x_2^3)
+        \right]_{4,2}
+        =
+        1.
+    \]
+}
+
+\rmkb{
+    The representation corresponding to
+    \[
+        \ydiagram{4,1}
+    \]
+    is the standard representation: \(S_n\) acts on \(\mathbb{C}^n\) by
+    permuting coordinates. This representation is not irreducible, since
+    \[
+        e_1+\cdots+e_n
+        \in
+        (\mathbb{C}^n)^{S_n}.
+    \]
+    The subspace
+    \[
+        V
+        :=
+        \left\{
+            (x_1,\dots,x_n)\in\mathbb{C}^n
+            \,\middle|\,
+            \sum_{i=1}^{n}x_i=0
+        \right\}
+    \]
+    is the standard \(S_n\)-representation.
+
+    More generally, the representation corresponding to
+    \[
+        (n-k,1,\dots,1)
+    \]
+    is
+    \[
+        \bigwedge^k V.
+    \]
+    If \(\lambda'\) denotes the conjugate partition, then
+    \[
+        V_\lambda
+        =
+        V_{\lambda'}\otimes\mathrm{Alt}.
     \]
 }
