@@ -25,6 +25,7 @@
 \usepackage{physics}
 \usepackage{siunitx}
 \usepackage{ytableau}
+\usepackage{slashed}
 
 % Layout
 \usepackage[a4paper,margin=2.5cm,headheight=14pt]{geometry}
@@ -43,7 +44,7 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,calc,cd}
+\usetikzlibrary{arrows.meta,calc,cd,hobby}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 
@@ -55,8 +56,43 @@
 \tcbuselibrary{theorems,skins,breakable}
 
 % Bibliography and links
-\usepackage[numbers,square]{natbib}
-\usepackage[hyphens]{url}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[
+    style=authoryear-comp,
+    sorting=nty,
+    backend=biber,
+    doi=true,
+    url=true,
+    isbn=false,
+    maxnames=4,
+    date=year,
+    natbib=true
+]{biblatex}
+% Suppress year from in-text citations; show only italic last name
+\renewbibmacro*{cite:labeldate+extradate}{}
+% Name format: family name only
+\DeclareNameFormat{lastonly}{\namepartfamily}
+\newcommand*{\mkbibparensit}[1]{\mkbibparens{\textit{#1}}}
+\DeclareCiteCommand{\parencite}[\mkbibparensit]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\printnames[lastonly]{labelname}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\DeclareCiteCommand{\cite}[\textit]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\printnames[lastonly]{labelname}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\DeclareCiteCommand{\textcite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\textit{\printnames[lastonly]{labelname}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+% Make \citep and \citet go through the same custom commands
+\AtBeginDocument{%
+  \let\citep\parencite
+  \let\citet\textcite
+}
 \def\UrlBreaks{\do\/\do-\do\_\do\.}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
@@ -198,9 +234,7 @@
 
 \newcommand{\printprojectbibliography}{
     \cleardoublepage
-    \addcontentsline{toc}{chapter}{Bibliography}
-    \bibliographystyle{\projectbibliographystyle}
-    \bibliography{\projectbibliographyfile}
+    \printbibliography[heading=bibintoc]
 
     \ifincludeauthordeclaration
         \cleardoublepage

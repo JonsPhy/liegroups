@@ -2,7 +2,7 @@
 
 \section{Homomorphisms And Isomorphisms}
 
-\defn{Group homomorphism}{
+\defn[group homomorphism]{Group homomorphism}{
     Let \(G\) and \(H\) be groups. A \textbf{group homomorphism} is a map
     \[
         f : G \to H
@@ -56,13 +56,13 @@
     Hence \(f(g^{-1})\) is the inverse of \(f(g)\), so \(f(g^{-1}) = f(g)^{-1}\).
 }{}
 
-\defn{Group isomorphism}{
+\defn[group isomorphism]{Group isomorphism}{
     An invertible group homomorphism is called a \textbf{group isomorphism}.
     If there exists a group isomorphism
     \[
         f : G \to H
     \]
-    then we say that \(G\) and \(H\) are \textbf{isomorphic}.
+    then we say that \(G\) and \(H\) are \textbf{isomorphic}\index{isomorphic groups}.
 }
 
 \ex{
@@ -146,7 +146,7 @@
             \end{pmatrix},
         \]
         one gets the symplectic group.
-        \item An \textbf{affine transformation} is a map \(\mathbb{R}^n \to \mathbb{R}^n\) of the form
+        \item An \textbf{affine transformation}\index{affine transformation} is a map \(\mathbb{R}^n \to \mathbb{R}^n\) of the form
         \[
             x \mapsto Mx + T,
             \qquad M \in \mathrm{GL}(n,\mathbb{R}),\ T \in \mathbb{R}^n.
@@ -164,7 +164,7 @@
 
 \section{Subgroups}
 
-\defn{Subgroup}{
+\defn[subgroup]{Subgroup}{
     Let \(G\) be a group. A \textbf{subgroup} \(H \leq G\) is a subset \(H \subseteq G\)
     such that \(H\) is itself a group:
     \begin{enumerate}
@@ -230,7 +230,7 @@
         f(x)=Ax+b \mapsto A.
     \]
     The kernel is the group of translational symmetries of \(\Lambda\), and the
-    image is called the \textbf{point group}.
+    image is called the \textbf{point group}\index{point group}.
 }
 
 \ex{
@@ -255,7 +255,7 @@
     \]
 }
 
-\defn{Alternating group}{
+\defn[alternating group]{Alternating group}{
     The \textbf{alternating group} \(A_n\) is the kernel of the sign homomorphism:
     \[
         A_n := \ker(\operatorname{sign}) \leq S_n.
@@ -279,7 +279,7 @@
 
 \section{Conjugacy Classes}
 
-\defn{Conjugation}{
+\defn[conjugation]{Conjugation}{
     Let \(G\) be a group and \(g \in G\). Define the group homomorphism
     \[
         \operatorname{Ad}_g : G \to G,
@@ -301,7 +301,7 @@
     \]
 }
 
-\defn{Conjugate Elements}{
+\defn[conjugate elements]{Conjugate Elements}{
     Let \(h,h' \in G\). We say that \(h\) and \(h'\) are \textbf{conjugate} if
     there exists \(g \in G\) such that
     \[
@@ -326,11 +326,13 @@
     \end{itemize}
 }
 
-\defn{Conjugacy Classes}{
+\defn[conjugacy classes]{Conjugacy Classes}{
     The equivalence classes of the conjugation relation are called
     \textbf{conjugacy classes}. The set of all conjugacy classes is denoted
     by \(\operatorname{conj}(G)\).
 }
+
+\newpage
 
 \ex{
     The conjugacy classes of \(S_3\) are
@@ -375,10 +377,10 @@
     Normal subgroups are exactly those subgroups that are stable under
     conjugation: if \(N \trianglelefteq G\), then \(gng^{-1} \in N\) for all
     \(g \in G\) and \(n \in N\). This stability is what makes the quotient
-    \(G/N\) well defined.
+    \(G/N\) well defined. This will be made precise in Section \ref{sec:normal_subgroups} .
 }
 
-\defn{Abelian Group}{
+\defn[abelian group]{Abelian Group}{
     A group \(G\) is called \textbf{abelian} if
     \[
         hg = gh
@@ -394,7 +396,7 @@
     \]
 }
 
-\defn{Cycle}{
+\defn[cycle]{Cycle}{
     For \(1 \leq k \leq n\), let \(a_1,\dots,a_k \in \{1,2,\dots,n\}\) be pairwise
     distinct. A \textbf{cycle} \((a_1,\dots,a_k)\) is the permutation
     \[
@@ -407,7 +409,7 @@
 \ex{
     To describe \(\operatorname{conj}(S_n)\), it is useful to use cycle type.
 
-    For \(\sigma \in S_n\), the \textbf{cycle type} of \(\sigma\) is the list of
+    For \(\sigma \in S_n\), the \textbf{cycle type}\index{cycle type} of \(\sigma\) is the list of
     lengths of the cycles in a disjoint cycle decomposition of \(\sigma\), written
     in decreasing order. Thus the cycle type is a partition
     \[
@@ -460,9 +462,9 @@
     \end{itemize}
 }
 
-\section{Normal Subgroups}
+\section{Normal Subgroups}\label{sec:normal_subgroups}
 
-\defn{Normal Subgroup}{
+\defn[normal subgroup]{Normal Subgroup}{
     A subgroup \(N \leq G\) is called \textbf{normal} if
     \[
         gng^{-1} \in N
@@ -487,7 +489,7 @@
     is a normal subgroup of \(S_3\).
 }
 
-\thmp{Quotient Group}{
+\thmp{Quotient Group}{\index{quotient group}
     Let \(N \leq G\) be a normal subgroup. Let \(G/N\) be the set of equivalence
     classes for the relation \(g \sim gn\) for \(n \in N\). Then \(G/N\) is a group
     with multiplication
@@ -507,7 +509,7 @@
     The group axioms are inherited from \(G\): associativity follows from that in
     \(G\), the neutral element is \([e]\), and the inverse of \([g]\) is \([g^{-1}]\).
 
-    The classes \([g] = gN \subseteq G\) are also called \textbf{cosets}.
+    The classes \([g] = gN \subseteq G\) are also called \textbf{cosets}\index{coset}.
 }
 
 \ex{
@@ -526,7 +528,7 @@
     is the \(2\)-torus.
 }
 
-\thmp{Isomorphism Theorem}{
+\thmp{Isomorphism Theorem}{\index{isomorphism theorem}
     Let \(\varphi : G \to H\) be a group homomorphism.
     \begin{enumerate}
         \item The kernel \(\ker \varphi\) is a normal subgroup of \(G\).
@@ -623,7 +625,7 @@
 
 \section{Extensions}
 
-\defn{Exact Sequence}{
+\defn[exact sequence]{Exact Sequence}{
     A sequence of groups and group homomorphisms
     \[
         \cdots \to G_i \xrightarrow{f_i} G_{i+1} \xrightarrow{f_{i+1}} G_{i+2} \to \cdots
@@ -657,19 +659,19 @@
     \(G/N\).
 }
 
-\defn{Extension}{
+\defn[extension]{Extension}{
     An \textbf{extension} of a group \(H\) by a group \(N\) is a short exact sequence
     \[
         1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1.
     \]
 }
 
-\defn{Split And Central Extensions}{
+\defn[split extension]{Split And Central Extensions}{
     An extension
     \[
         1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} H \to 1
     \]
-    is called \textbf{split} if there exists a group homomorphism called a \textbf{section}
+    is called \textbf{split} if there exists a group homomorphism called a \textbf{section}\index{section (of an extension)}
     \[
         s : H \to G
     \]
@@ -678,7 +680,7 @@
         \pi \circ s = \operatorname{id}_H.
     \]
 
-    It is called \textbf{central} if
+    It is called \textbf{central}\index{central extension} if
     \[
         \iota(n)g = g\iota(n)
         \qquad \forall n \in N,\ \forall g \in G,
@@ -741,7 +743,7 @@
     \end{itemize}
 }
 
-\defn{Semidirect Product}{
+\defn[semidirect product]{Semidirect Product}{
     Let \(\psi : H \to \operatorname{Aut}(N)\) be a group homomorphism. The
     \textbf{semidirect product} \(N \rtimes_{\psi} H\) is the group whose underlying
     set is \(N \times H\), with multiplication

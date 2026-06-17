@@ -31,14 +31,20 @@
 }{defn}
 
 \NewDocumentCommand{\defn}{o m+m}{
-    \IfNoValueTF{#1}{\index{#2}}{\index{#1}}
+    \IfNoValueTF{#1}{\index{#2}}{%
+        \def\defn@key{#1}\def\defn@nosig{-}%
+        \ifx\defn@key\defn@nosig\else\index{#1}\fi%
+    }%
     \begin{mydefinition}{#2}{}
         #3
     \end{mydefinition}
 }
 
 \NewDocumentCommand{\defnr}{o mm+m}{
-    \IfNoValueTF{#1}{\index{#2}}{\index{#1}}
+    \IfNoValueTF{#1}{\index{#2}}{%
+        \def\defn@key{#1}\def\defn@nosig{-}%
+        \ifx\defn@key\defn@nosig\else\index{#1}\fi%
+    }%
     \begin{mydefinition}{#2}{#3}
         #4
     \end{mydefinition}
@@ -73,7 +79,7 @@
 \newenvironment{thmpf}{
 	{\noindent{\it \textbf{Proof:}}}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{purple!20!white}]
 }{
@@ -114,7 +120,7 @@
 \newenvironment{lempf}{
 	{\noindent{\it \textbf{Proof:}}}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{violet!20!white}]
 }{
@@ -155,7 +161,7 @@
 \newenvironment{corpf}{
 	{\noindent{\it \textbf{Proof:}}}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{orange!20!white}]
 }{
@@ -196,7 +202,7 @@
 \newenvironment{proppf}{
 	{\noindent{\it \textbf{Proof:}}}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{yellow!30!white}]
 }{
@@ -238,7 +244,7 @@
 \newenvironment{clmpf}{
 	{\noindent{\it \textbf{Proof:}}}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{pink!30!white}]
 }{
@@ -292,7 +298,7 @@
     \noindent\textbf{Example.}
     \begin{tcolorbox}[
         blanker, breakable, left=5mm, parbox=false,
-        before upper={\parindent15pt},
+        before upper={\parindent0pt},
         after skip=10pt,
         borderline west={1mm}{0pt}{cyan!10!white}]
 }{
@@ -325,7 +331,7 @@
     {\noindent{\it \textbf{Answer:}}}
     \tcolorbox[enhanced,breakable,colback=white,frame hidden,left=5mm,right=2mm,
     top=1mm,bottom=1mm,boxsep=1mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=10pt,
     borderline west={1mm}{0pt}{green!30!black!20}]
 }{
@@ -349,7 +355,7 @@
     {\noindent{\it \textbf{Answer:}}}
     \tcolorbox[enhanced,breakable,colback=white,frame hidden,left=5mm,right=2mm,
     top=1mm,bottom=1mm,boxsep=1mm,parbox=false,
-    before upper={\parindent15pt},
+    before upper={\parindent0pt},
     after skip=6pt,
     borderline west={1mm}{0pt}{green!50!black!35}]
 }{
@@ -401,7 +407,7 @@
     \noindent\textbf{Remark.}
     \begin{tcolorbox}[
         blanker, breakable, left=5mm, parbox=false,
-        before upper={\parindent15pt},
+        before upper={\parindent0pt},
         after skip=10pt,
         borderline west={1mm}{0pt}{cyan!10!white}]
 }{

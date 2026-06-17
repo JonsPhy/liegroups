@@ -3,6 +3,7 @@
 \usepackage{style/project}
 
 \input{metadata}
+\addbibresource{\projectbibliographyfile.bib}
 
 \begin{document}
 
@@ -15,8 +16,12 @@
 \input{content/01_symmetries}
 \input{content/02_basic_group_theory}
 \input{content/03_representation_theory}
+\input{content/04_lie_groups}
+\input{content/05_representations_sun}
 
 \backmatter
+\printprojectbibliography
+
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Index}
