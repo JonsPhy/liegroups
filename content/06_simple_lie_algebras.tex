@@ -1,3 +1,1425 @@
 \chapter{Simple Lie algebras}
 
-a
+\section{Ideals, simple and semisimple Lie algebras}
+
+For finite groups, a normal subgroup $H \trianglelefteq G$ gives a quotient $G/H$, and passing
+to Lie algebras yields the analogous picture:
+\begin{center}
+\begin{tikzcd}[row sep=large, column sep=large]
+    H \arrow[r] & G \arrow[r] \arrow[d, dashed] & G/H \\
+    \mathfrak{h} \arrow[r] & \mathfrak{g} \arrow[r] & \mathfrak{g}/\mathfrak{h}
+\end{tikzcd}
+\end{center}
+
+Normality means $H$ is closed under conjugation. Differentiating the conjugation action shows
+that the corresponding condition on the Lie algebra is the bracket condition
+$[X, H] \in \mathfrak{h}$ for all $X \in \mathfrak{g}$ and $H \in \mathfrak{h}$. This motivates
+the following definition.
+
+\defn[ideal]{Ideal}{
+    Let $\mathfrak{g}$ be a Lie algebra. An \textbf{ideal} in $\mathfrak{g}$ is a subspace
+    $\mathfrak{h} \subseteq \mathfrak{g}$ such that
+    \[
+        [X, H] \in \mathfrak{h} \qquad \forall\, X \in \mathfrak{g},\ H \in \mathfrak{h}.
+    \]
+}
+
+\rmkb{
+    Every ideal is a Lie subalgebra.
+}
+
+\ex{
+    \begin{itemize}
+        \item $0 \subseteq \mathfrak{g}$ and $\mathfrak{g} \subseteq \mathfrak{g}$ are ideals.
+        \item Let $G$ be a Lie group and $H \trianglelefteq G$ a normal Lie subgroup. Then
+              $\mathfrak{h} = T_e H$ is an ideal in $\mathfrak{g} = T_e G$.
+        \item Any subspace of an abelian Lie algebra is an ideal.
+        \item The subspace $\mathfrak{g}' := [\mathfrak{g},\mathfrak{g}]$, spanned by all brackets
+              $[x,y]$ with $x, y \in \mathfrak{g}$, is an ideal.
+    \end{itemize}
+}
+
+\propp{
+    Let $\mathfrak{h} \leq \mathfrak{g}$ be an ideal. The vector space $\mathfrak{g}/\mathfrak{h}$
+    is a Lie algebra with bracket
+    \[
+        [x + \mathfrak{h},\, y + \mathfrak{h}] := [x,y] + \mathfrak{h}
+        \qquad \forall\, x, y \in \mathfrak{g}.
+    \]
+}{
+    The Lie algebra axioms are inherited from the bracket $[-,-]$ on $\mathfrak{g}$, so it only
+    remains to check that this bracket is well defined. Let $x' = x + H_x$ and $y' = y + H_y$,
+    with $H_x, H_y \in \mathfrak{h}$, be other representatives. Then
+    \begin{align*}
+        [x', y']
+        &= [x + H_x,\, y + H_y] \\
+        &= [x,y]
+           + \underbrace{[x, H_y]}_{\in\,\mathfrak{h}}
+           - \underbrace{[y, H_x]}_{\in\,\mathfrak{h}}
+           + \underbrace{[H_x, H_y]}_{\in\,\mathfrak{h}},
+    \end{align*}
+    where each of the last three terms lies in $\mathfrak{h}$ because $\mathfrak{h}$ is an ideal.
+    Hence $[x',y'] + \mathfrak{h} = [x,y] + \mathfrak{h}$, so the bracket does not depend on the
+    chosen representatives.
+}
+
+\rmkb{
+    This leads to an ``extension'' of Lie algebras:
+    \[
+        0 \;\longrightarrow\; \mathfrak{h} \;\longrightarrow\; \mathfrak{g}
+        \;\longrightarrow\; \mathfrak{g}/\mathfrak{h} \;\longrightarrow\; 0.
+    \]
+}
+
+\defn[simple Lie algebra]{Simple Lie algebra}{
+    A Lie algebra $\mathfrak{g}$ is \textbf{simple} if it is non-abelian and its only ideals
+    are $0$ and $\mathfrak{g}$.
+}
+
+\lem{}{
+    Let $\mathfrak{g}$ be a simple Lie algebra. Then $\mathfrak{g} = [\mathfrak{g},\mathfrak{g}]$.
+}
+
+\rmkb{
+    \textbf{Types of Lie algebras.}
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center)]
+        \node (simple) at (0,3.6) {\textbf{simple} $\mathfrak{g}$};
+        \node[align=left] (ss) at (0,1.9)
+            {\textbf{semi-simple:}\ $\bigoplus_i \mathfrak{g}_i$\\[2pt]
+             {\scriptsize with each $\mathfrak{g}_i$ simple}};
+        \node[align=left] (ab) at (6.5,2.7)
+            {\textbf{abelian:}\ $[X,Y]=0$\\[2pt]
+             {\scriptsize $\forall\, X,Y \in \mathfrak{g}$}};
+        \node[align=center] (red) at (3.4,-0.6)
+            {\textbf{reductive:}\ $A \oplus \mathfrak{g}$\\[2pt]
+             {\scriptsize $A$ abelian, $\mathfrak{g}$ semi-simple}};
+        \draw[->] (simple) -- (ss);
+        \draw[->] (ss.south) to[bend right=12] (red.west);
+        \draw[->] (ab.south) to[bend left=12] (red.east);
+    \end{tikzpicture}
+    \end{center}
+}
+
+\section{Cartan subalgebras and the root space decomposition}
+
+\defn[semi-simple element]{Semi-simple element}{
+    An element $X \in \mathfrak{g}$ is called \textbf{semi-simple} if
+    $[X, -] \colon \mathfrak{g} \to \mathfrak{g}$ is diagonalizable.
+}
+
+\defn[Cartan subalgebra]{Cartan subalgebra}{
+    A \textbf{Cartan subalgebra} $\mathfrak{h} \leq \mathfrak{g}$ is a maximal abelian
+    subalgebra whose elements are semi-simple. The dimension of $\mathfrak{h}$ is called the
+    \textbf{rank}\index{rank} of $\mathfrak{g}$.
+}
+
+\rmkb{
+    This is not unique, but the choice will not matter in the end.
+}
+
+\ex{
+    For $\mathfrak{sl}(N)$ the diagonal matrices form a Cartan subalgebra.
+}
+
+\defn[root space decomposition]{Root space decomposition}{
+    Let $\mathfrak{g}$ be a semi-simple Lie algebra and $\mathfrak{g}_0$ a Cartan subalgebra.
+    The decomposition of $\mathfrak{g}$ into simultaneous eigenspaces for the action of
+    $\mathfrak{g}_0$,
+    \[
+        \mathfrak{g} = \mathfrak{g}_0 \oplus \bigoplus_{\alpha \neq 0} \mathfrak{g}_\alpha,
+        \qquad
+        \mathfrak{g}_\alpha = \{ X \in \mathfrak{g} \mid [H,X] = \alpha(H)\,X \ \ \forall\, H \in \mathfrak{g}_0 \},
+    \]
+    with $\alpha \in \mathfrak{g}_0^*$, is called the \textbf{root space decomposition} of $\mathfrak{g}$.
+    The non-zero $\alpha$ appearing in this decomposition are the \textbf{roots}\index{root} of
+    $\mathfrak{g}$. The set of all roots of $\mathfrak{g}$,
+    \[
+        \Phi(\mathfrak{g}),
+    \]
+    is called the \textbf{root system}\index{root system} of $\mathfrak{g}$.
+}
+
+\rmkb{
+    \textbf{Facts about roots.}
+    \begin{itemize}
+        \item The roots span $\mathfrak{g}_0^*$.
+        \item The root spaces $\mathfrak{g}_\alpha$ are $1$-dimensional.
+        \item If $\alpha$ is a root, the only multiples of $\alpha$ which are also roots are
+              $\pm\alpha$.
+        \item There exists a basis $\{H_i\}_{i=1,\dots,\operatorname{rank}(\mathfrak{g})}$ of
+              $\mathfrak{g}_0$ such that for all roots $\alpha(H_i)$ is an integer.
+              \emph{(This we will show later.)}
+    \end{itemize}
+}
+
+\defn[Cartan-Weyl basis]{Cartan--Weyl basis}{
+    A basis of $\mathfrak{g}$ compatible with the root space decomposition,
+    \[
+        \{H_i\}_{i=1,\dots,\operatorname{rank}(\mathfrak{g})}
+        \;\cup\;
+        \{E^\alpha\}_{\alpha \in \Phi(\mathfrak{g})},
+    \]
+    is called a \textbf{Cartan--Weyl basis}.
+}
+
+\ex{
+    There are $3$ rank-$2$ simple Lie algebras,
+    \[
+        \mathfrak{sl}(3), \qquad
+        \mathfrak{so}(5) = \{ X \in \mathfrak{gl}(5) \mid X^T = -X \}, \qquad
+        \mathfrak{g}_2,
+    \]
+    with root systems
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=0.95]
+        % --- A_2 ---
+        \begin{scope}[shift={(0,0)}]
+            \filldraw (0,0) circle (1.6pt);
+            \foreach \a in {0,60,...,300}
+                \filldraw (\a:1) circle (1.6pt);
+            \node[align=center] at (0,-1.7) {$\mathfrak{sl}(3)\,/\,A_2$\\ $\dim = 8$};
+        \end{scope}
+        % --- B_2 ---
+        \begin{scope}[shift={(4.5,0)}]
+            \filldraw (0,0) circle (1.6pt);
+            \foreach \a in {0,90,180,270}
+                \filldraw (\a:1) circle (1.6pt);          % short roots
+            \foreach \a in {45,135,225,315}
+                \filldraw (\a:1.414) circle (1.6pt);       % long roots
+            \node[align=center] at (0,-1.7) {$\mathfrak{so}(5)\,/\,B_2$\\ $\dim = 10$};
+        \end{scope}
+        % --- G_2 ---
+        \begin{scope}[shift={(9,0)}]
+            \filldraw (0,0) circle (1.6pt);
+            \foreach \a in {0,60,...,300}
+                \filldraw (\a:1) circle (1.6pt);           % short roots
+            \foreach \a in {30,90,...,330}
+                \filldraw (\a:1.732) circle (1.6pt);       % long roots
+            \node[align=center] at (0,-1.7) {$\mathfrak{g}_2$\\ $\dim = 14$};
+        \end{scope}
+    \end{tikzpicture}
+    \end{center}
+
+    \emph{(To fully understand their geometry we will need more theory.)}
+
+    As for $\mathfrak{sl}(3)$ we find, using the Jacobi identity,
+    \begin{align*}
+        [H, [E^\alpha, E^\beta]]
+        &= -[E^\beta, [H, E^\alpha]] - [E^\alpha, [E^\beta, H]] \\
+        &= \big(\alpha(H) + \beta(H)\big)\,[E^\alpha, E^\beta],
+    \end{align*}
+    so the weight of $[E^\alpha, E^\beta]$ is $\alpha + \beta$.
+}
+
+\section{The Killing form and structure constants}
+
+\defn[Killing form]{Killing form}{
+    Let $\mathfrak{g}$ be a semi-simple Lie algebra. The \textbf{Killing form} is
+    \[
+        \kappa(X, Y) := \operatorname{Tr}_{\mathfrak{g}}\big( \mathrm{ad}_X \circ \mathrm{ad}_Y \big),
+        \qquad \mathrm{ad}_X = [X, -].
+    \]
+    It is symmetric because the trace is.
+}
+
+\rmkb{
+    \textbf{Facts.}
+    \begin{itemize}
+        \item The Killing form is non-degenerate and hence induces an isomorphism
+              $\mathfrak{g} \cong \mathfrak{g}^*$, an inner product on $\mathfrak{g}$, and one on
+              $\mathfrak{g}^*$.
+        \item Its restriction to any Cartan subalgebra $\mathfrak{g}_0$ is also non-degenerate.
+    \end{itemize}
+    Root diagrams are drawn in a way respecting this inner product.
+}
+
+\propp{
+    Root spaces for roots that do not sum to zero are orthogonal with respect to $\kappa$: if
+    $\alpha + \beta \neq 0$, then $\mathfrak{g}_\alpha \perp \mathfrak{g}_\beta$ as subspaces of
+    $\mathfrak{g}$.
+}{
+    Using the invariance $\kappa([X,Y],Z) = \kappa(X,[Y,Z])$, for $H \in \mathfrak{g}_0$,
+    \begin{align*}
+        \alpha(H)\,\kappa(E^\alpha, E^\beta)
+        = \kappa([H, E^\alpha], E^\beta)
+        = -\kappa([E^\alpha, H], E^\beta)
+        = -\beta(H)\,\kappa(E^\alpha, E^\beta).
+    \end{align*}
+    Since $\alpha \neq -\beta$ there is an $H \in \mathfrak{g}_0$ with
+    $\alpha(H) + \beta(H) \neq 0$, and hence $\kappa(E^\alpha, E^\beta) = 0$.
+}
+
+\defn[t-alpha]{Metric dual $t_\alpha$ of a root}{
+    Since $\kappa$ restricted to $\mathfrak{g}_0$ is non-degenerate, to each root
+    $\alpha \in \mathfrak{g}_0^*$ there is a unique element $t_\alpha \in \mathfrak{g}_0$ such that
+    \[
+        \kappa(t_\alpha, -) = \alpha(-).
+    \]
+}
+
+\lemp{}{
+    For each root $\alpha$,
+    \[
+        [E^\alpha, E^{-\alpha}] = \kappa(E^\alpha, E^{-\alpha})\, t_\alpha.
+    \]
+}{
+    We compute the pairing of both sides with $\kappa(H, -)$ for $H \in \mathfrak{g}_0$:
+    \begin{align*}
+        \kappa(H, [E^\alpha, E^{-\alpha}])
+        = \alpha(H)\,\kappa(E^\alpha, E^{-\alpha})
+        = \kappa(t_\alpha, H)\,\kappa(E^\alpha, E^{-\alpha}),
+    \end{align*}
+    using the invariance $\kappa([X,Y],Z) = \kappa(X,[Y,Z])$ for the first equality and
+    $\kappa(H, t_\alpha) = \alpha(H)$ for the second. Both sides thus have the same pairing with
+    every $\kappa(H, -)$, so by non-degeneracy of $\kappa$ they are equal.
+}
+
+\defn[inner product on Cartan dual]{Inner product on $\mathfrak{g}_0^*$}{
+    The Killing form induces an inner product on $\mathfrak{g}_0^*$ via
+    \[
+        (\alpha, \beta) := \kappa(t_\alpha, t_\beta) = \alpha(t_\beta).
+    \]
+}
+
+\propp{
+    For each root $\alpha$, set
+    \[
+        H^\alpha := \frac{2 t_\alpha}{(\alpha, \alpha)},
+    \]
+    and normalize $E^\alpha, E^{-\alpha}$ such that
+    $\kappa(E^\alpha, E^{-\alpha}) = \tfrac{2}{(\alpha,\alpha)}$. Then
+    \[
+        [E^\alpha, E^{-\alpha}] = H^\alpha, \qquad
+        [H^\alpha, E^\alpha] = 2 E^\alpha, \qquad
+        [H^\alpha, E^{-\alpha}] = -2 E^{-\alpha},
+    \]
+    so $(E^{\pm\alpha}, H^\alpha)$ generates an $\mathfrak{sl}(2)$-subrepresentation.
+}{
+    By definition of $t_\alpha$ we have $[t_\alpha, E^{\pm\alpha}] = (\pm\alpha)(t_\alpha)\,E^{\pm\alpha}
+    = \pm(\alpha,\alpha)\,E^{\pm\alpha}$. Together with the previous lemma,
+    \begin{align*}
+        [E^\alpha, E^{-\alpha}]
+            &= \kappa(E^\alpha, E^{-\alpha})\, t_\alpha
+             = \frac{2}{(\alpha,\alpha)}\, t_\alpha = H^\alpha, \\
+        [H^\alpha, E^\alpha]
+            &= \frac{2}{(\alpha,\alpha)}\,[t_\alpha, E^\alpha]
+             = \frac{2}{(\alpha,\alpha)}\,(\alpha,\alpha)\,E^\alpha = 2 E^\alpha, \\
+        [H^\alpha, E^{-\alpha}]
+            &= \frac{2}{(\alpha,\alpha)}\,[t_\alpha, E^{-\alpha}]
+             = -\frac{2}{(\alpha,\alpha)}\,(\alpha,\alpha)\,E^{-\alpha} = -2 E^{-\alpha}.
+    \end{align*}
+}
+
+\rmkb{
+    This constrains the representation theory so that we can essentially solve it, similar to
+    $\mathfrak{sl}(3)$.
+}
+
+In physics, Lie algebras $\mathfrak{g}$ are often encoded using a basis
+$\{T^a\}_{a=1,\dots,\dim\mathfrak{g}}$ of $\mathfrak{g}$. The Lie bracket can then be written
+explicitly as
+\[
+    [T^a, T^b] = \sum_{c=1}^{n} f^{ab}{}_{c}\, T^c.
+\]
+
+\defn[structure constants]{Structure constants}{
+    The coefficients $f^{ab}{}_{c}$ in the expansion
+    \[
+        [T^a, T^b] = \sum_{c=1}^{n} f^{ab}{}_{c}\, T^c
+    \]
+    of the Lie bracket in a basis $\{T^a\}$ are called \textbf{structure constants}. Antisymmetry of
+    the bracket and the Jacobi identity translate into
+    \[
+        f^{ab}{}_{c} = -f^{ba}{}_{c}
+        \qquad\text{and}\qquad
+        \sum_{d=1}^{n} \Big( f^{ab}{}_{d}\, f^{dc}{}_{e}
+            + f^{bc}{}_{d}\, f^{da}{}_{e}
+            + f^{ca}{}_{d}\, f^{db}{}_{e} \Big) = 0.
+    \]
+}
+
+\ex{
+    \begin{itemize}
+        \item $\mathfrak{sl}(2) = \operatorname{span}(\sigma_1, \sigma_2, \sigma_3)$ with
+              \[
+                  [\sigma_i, \sigma_j] = 2i\, \varepsilon_{ijl}\, \sigma_l
+                  \qquad\Longrightarrow\qquad
+                  f^{ij}{}_{l} = 2i\, \varepsilon_{ijl}.
+              \]
+        \item $\mathfrak{gl}(n)$ has the basis $\{E_{ij}\}$ with commutation relations
+              \[
+                  [E_{ij}, E_{kl}] = \delta_{jk}\, E_{il} - \delta_{li}\, E_{kj}
+              \]
+              \[
+                  \Longrightarrow\qquad
+                  f^{(ij)(kl)}{}_{(mn)}
+                      = \delta_{jk}\, \delta_{im}\, \delta_{ln}
+                      - \delta_{li}\, \delta_{km}\, \delta_{jn}.
+              \]
+    \end{itemize}
+}
+
+We want to compute the structure constants for the Cartan--Weyl basis
+$\{H^i\} \cup \{E^\alpha\}$.
+
+\propp{
+    In the Cartan--Weyl basis the structure constants are
+    \begin{align*}
+        f^{ij}{}_{k} = f^{ij}{}_{\alpha} = 0, \qquad
+        f^{i\alpha}{}_{\beta} = \alpha^i\, \delta_{\alpha\beta}
+            \quad\text{with } \alpha^i := \alpha(H^i),
+    \end{align*}
+    \[
+        f^{\alpha\beta}{}_{i} = \tilde{\alpha}_i\, \delta_{\alpha,-\beta},
+        \qquad
+        f^{\alpha\beta}{}_{\gamma} =
+        \begin{cases}
+            e_{\alpha,\beta}\, \delta_{\alpha+\beta,\gamma} & \text{if } \alpha+\beta \in \Phi, \\
+            0 & \text{else.}
+        \end{cases}
+    \]
+}{
+    Since the root spaces are one-dimensional, the non-trivial brackets are
+    \begin{align*}
+        [E^\alpha, E^\beta] &= e_{\alpha,\beta}\, E^{\alpha+\beta}
+            && \text{for } \alpha + \beta \in \Phi,\ e_{\alpha,\beta} \in \mathbb{C}, \\
+        [H^i, H^j] &= 0, \\
+        [H^i, E^\alpha] &= \alpha(H^i)\, E^\alpha = \alpha^i\, E^\alpha, \\
+        [E^\alpha, E^{-\alpha}] &= \kappa(E^\alpha, E^{-\alpha})\, t_\alpha
+            = \sum_i \tilde{\alpha}_i\, H^i
+            && \text{(defining } \tilde{\alpha}_i\text{)}, \\
+        [E^\alpha, E^\beta] &= 0 && \text{if } \alpha + \beta \neq 0
+            \text{ and } \alpha + \beta \notin \Phi.
+    \end{align*}
+    Reading off the coefficients of the basis elements yields the structure constants.
+}
+
+If we express the Killing form in this basis we find, using Exercise~1 on Sheet~10,
+\begin{equation*}
+    \kappa^{ab} =
+    \begin{cases}
+        \displaystyle\sum_{\alpha \in \Phi} \alpha^i \alpha^j
+            & \text{for } a = i,\ b = j, \\[2ex]
+        \Big( 2(\alpha, \tilde{\alpha}) + \sum_\gamma e_{\alpha,\gamma}\, e_{-\alpha,\alpha+\gamma} \Big)
+            \delta_{\alpha,-\beta}
+            & \text{for } a = \alpha,\ b = \beta, \\[1ex]
+        0 & \text{otherwise.}
+    \end{cases}
+    \tag{$*$}
+\end{equation*}
+
+\corp{
+    The inner product induced on $\mathfrak{g}_0^*$ is, for $\lambda, \mu \in \mathfrak{g}_0^*$,
+    \[
+        (\lambda, \mu) = \kappa(t_\lambda, t_\mu)
+            = \sum_{\alpha \in \Phi} (\alpha, \lambda)\,(\alpha, \mu).
+    \]
+    In particular,
+    \[
+        (\lambda, \lambda) = \sum_{\alpha \in \Phi} (\alpha, \lambda)^2
+            = \sum_{\alpha \in \Phi} \alpha(t_\lambda)^2.
+    \]
+}{
+    Writing $t_\lambda = \sum_i \tilde{\lambda}_i H^i$ and using the Cartan block of $(*)$,
+    \begin{align*}
+        (\lambda, \mu) = \kappa(t_\lambda, t_\mu)
+        = \sum_{\alpha \in \Phi} \sum_{i,j} \tilde{\lambda}_i\, \alpha^i\, \alpha^j\, \tilde{\mu}_j
+        = \sum_{\alpha \in \Phi} \alpha(t_\lambda)\, \alpha(t_\mu)
+        = \sum_{\alpha \in \Phi} (\alpha, \lambda)\,(\alpha, \mu),
+    \end{align*}
+    where $\sum_i \tilde{\lambda}_i\, \alpha^i = \sum_i \tilde{\lambda}_i\, \alpha(H^i) = \alpha(t_\lambda)
+    = (\alpha, \lambda)$.
+}{}
+
+\section{Simple roots, Dynkin diagrams and the classification}
+
+Recall that there exists a basis $\{H^i\}$ of $\mathfrak{g}_0$ such that
+$\alpha(H^i) = \alpha^i \in \mathbb{Z}$. By the Cartan block of $(*)$,
+\[
+    \kappa(H^i, H^i) = \sum_{\alpha \in \Phi} (\alpha^i)^2 > 0.
+\]
+Hence, on the real dual vector space spanned by the roots of $\mathfrak{g}$, the pairing
+$(\cdot,\cdot)$ is positive definite.
+
+\defn[root space]{Root space}{
+    The real vector space spanned by the roots of $\mathfrak{g}$, on which the induced pairing
+    $(\cdot,\cdot)$ is positive definite, is called the \textbf{root space} of $\mathfrak{g}$.
+}
+
+\rmkb{
+    The term ``root space'' is used for two different objects, which should not be confused:
+    \begin{enumerate}
+        \item the $1$-dimensional eigenspaces $\mathfrak{g}_\alpha$ appearing in the root space
+              decomposition $\mathfrak{g} = \mathfrak{g}_0 \oplus \bigoplus_\alpha \mathfrak{g}_\alpha$;
+        \item the real vector space just defined, on which $(\cdot,\cdot)$ is positive definite. It is
+              the dual of the real span of the basis $\{H^i\}$ of $\mathfrak{g}_0$, and it is the space
+              in which the roots and their diagrams live.
+    \end{enumerate}
+}
+
+\defn[positive roots]{Positive and negative roots}{
+    Let $\Phi \subseteq \mathfrak{g}_0^*$ be a root system associated to a semi-simple Lie algebra,
+    and let $\mathbb{H}$ be a hyperplane in the root space which does not contain any roots. It
+    divides the root space into two halves $V_+$ and $V_-$. The roots in $V_+$ are called
+    \textbf{positive roots}\index{root!positive} (with respect to the choice $(\mathbb{H}, V_+)$) and
+    denoted by $\Phi_+$; the roots in $V_-$ are called \textbf{negative roots}\index{root!negative}
+    and denoted by $\Phi_-$. In particular,
+    \[
+        \alpha \in \Phi_+ \quad\Longrightarrow\quad -\alpha \in \Phi_-.
+    \]
+}
+
+\ex{
+    For $A_2$, a hyperplane $\mathbb{H}$ avoiding all roots splits the root space into $V_+$ and
+    $V_-$. The two positive roots adjacent to $\mathbb{H}$ are the simple roots
+    $\alpha^{(1)}, \alpha^{(2)}$; the third positive root is their sum.
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=1.6]
+        \begin{scope}
+            \clip (-1.2,-1.2) rectangle (1.2,1.2);
+            \fill[blue!10] (-1.2,-1.2) rectangle (1.2,1.2);
+            \fill[green!14] (-2,1.155) -- (2,-1.155) -- (4,4) -- (-4,4) -- cycle;
+        \end{scope}
+        % hyperplane H (line through the origin at 150 degrees)
+        \draw[red, thick] (150:1.2) -- (330:1.2);
+        \node[red] at (330:1.33) {$\mathbb{H}$};
+        % roots
+        \foreach \a in {0,60,...,300} \filldraw (\a:1) circle (1.1pt);
+        % simple roots
+        \draw[->, thick, violet] (0,0) -- (0:1);
+        \draw[->, thick, violet] (0,0) -- (120:1);
+        \node[violet] at (0:1.0)[right] {\small$\alpha^{(1)}$};
+        \node[violet] at (120:1.0)[above left] {\small$\alpha^{(2)}$};
+        % region labels
+        \node[green!45!black] at (0.5,1) {$V_+$};
+        \node[blue!55!black] at (-0.8,-0.6) {$V_-$};
+        \node at (-1.2,1.05) {$A_2$};
+    \end{tikzpicture}
+    \end{center}
+
+    We can take as the functional $\ell$ (from the previous chapter) the distance to $\mathbb{H}$.
+}
+
+\defn[simple root]{Simple root}{
+    A \textbf{simple root} is a positive root which cannot be written as a linear combination of
+    other positive roots with positive coefficients.
+}
+
+\rmkb{
+    \textbf{Facts about simple roots.}
+    \begin{itemize}
+        \item They are the positive roots which are closest to $\mathbb{H}$.
+        \item The elements $H^{\alpha^{(i)}}$ for the simple roots generate $\mathfrak{g}_0$.
+        \item There are $r = \operatorname{rank}(\mathfrak{g}) = \dim(\mathfrak{g}_0^*)$ simple roots.
+        \item We denote by $\Phi_S$ the set of simple roots.
+    \end{itemize}
+}
+
+\defn[Cartan matrix]{Cartan matrix}{
+    Let $\Phi_S = (\alpha^{(1)}, \dots, \alpha^{(r)})$ be the set of simple roots of a semi-simple
+    Lie algebra $\mathfrak{g}$. The \textbf{Cartan matrix} of $\mathfrak{g}$ is the $r \times r$
+    matrix
+    \[
+        A^{ij} := 2\,\frac{(\alpha^{(i)}, \alpha^{(j)})}{(\alpha^{(j)}, \alpha^{(j)})},
+    \]
+    where $(\alpha^{(i)}, \alpha^{(j)}) = \cos\!\big(\angle(\alpha^{(i)}, \alpha^{(j)})\big)\,
+    \lvert \alpha^{(i)} \rvert\, \lvert \alpha^{(j)} \rvert$.
+}
+
+\ex{
+    The Cartan matrices of the three rank-$2$ simple Lie algebras. The simple roots are the violet
+    arrows; the angle between them and their relative lengths determine the matrix.
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=0.8]
+        \foreach \a in {0,60,...,300} \filldraw (\a:1) circle (1pt);
+        \draw[->, thick, violet] (0,0) -- (0:1);
+        \node[violet, right] at (0:1) {\scriptsize$\alpha^{(1)}$};
+        \draw[->, thick, violet] (0,0) -- (120:1);
+        \node[violet, above left] at (120:1) {\scriptsize$\alpha^{(2)}$};
+        \draw (0:0.35) arc (0:120:0.35);
+        \node at (60:0.6) {\scriptsize$120^\circ$};
+    \end{tikzpicture}
+    \qquad
+    $A_{A_2} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$
+    \end{center}
+    \vspace{1cm}
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=0.8]
+        \foreach \a in {0,90,180,270} \filldraw (\a:1) circle (1pt);
+        \foreach \a in {45,135,225,315} \filldraw (\a:1.414) circle (1pt);
+        \draw[->, thick, violet] (0,0) -- (0:1);
+        \node[violet, right] at (0:1) {\scriptsize$\alpha^{(1)}$};
+        \draw[->, thick, violet] (0,0) -- (135:1.414);
+        \node[violet, above left] at (135:1.414) {\scriptsize$\alpha^{(2)}$};
+    \end{tikzpicture}
+    \qquad
+    $A_{B_2} = \begin{pmatrix} 2 & -1 \\ -2 & 2 \end{pmatrix}$
+    \end{center}
+    \vspace{1cm}
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=0.8]
+        \foreach \a in {0,60,...,300} \filldraw (\a:1) circle (1pt);
+        \foreach \a in {30,90,...,330} \filldraw (\a:1.732) circle (1pt);
+        \draw[->, thick, violet] (0,0) -- (150:1.732);
+        \node[violet, above left] at (150:1.732) {\scriptsize$\alpha^{(1)}$};
+        \draw[->, thick, violet] (0,0) -- (0:1);
+        \node[violet, right] at (0:1) {\scriptsize$\alpha^{(2)}$};
+    \end{tikzpicture}
+    \qquad
+    $A_{\mathfrak{g}_2} = \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix}$
+    \end{center}
+}
+
+We can represent the data of the Cartan matrix by a \textbf{Dynkin diagram}: we draw a node for
+each simple root,
+\begin{center}
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+    \filldraw (0,0) circle (2pt); \node[below=4pt] at (0,0) {$\alpha^{(1)}$};
+    \filldraw (1.5,0) circle (2pt); \node[below=4pt] at (1.5,0) {$\alpha^{(2)}$};
+    \node at (2.6,0) {$\cdots$};
+    \filldraw (3.7,0) circle (2pt); \node[below=4pt] at (3.7,0) {$\alpha^{(r)}$};
+\end{tikzpicture}
+\end{center}
+and we draw $A^{ij}\, A^{ji}$ (no sum!) many edges between $\alpha^{(i)}$ and $\alpha^{(j)}$. We
+indicate by $>$ which of the two roots is longer (the arrow points towards the shorter root).
+
+\ex{
+    The Dynkin diagrams of the three rank-$2$ simple Lie algebras:
+
+    \begin{center}
+    \begin{tikzpicture}[baseline=(current bounding box.center), >=Stealth]
+        % A_2: single edge
+        \begin{scope}[shift={(0,0)}]
+            \node[left=10pt] at (0,0) {$A_2:$};
+            \filldraw (0,0) circle (2pt); \filldraw (1,0) circle (2pt);
+            \draw (0,0) -- (1,0);
+        \end{scope}
+        % B_2: double edge with arrow
+        \begin{scope}[shift={(3.5,0)}]
+            \node[left=10pt] at (0,0) {$B_2:$};
+            \filldraw (0,0) circle (2pt); \filldraw (1,0) circle (2pt);
+            \draw (0,0.06) -- (1,0.06);
+            \draw (0,-0.06) -- (1,-0.06);
+            \draw (0.42,0.16) -- (0.66,0) -- (0.42,-0.16);
+        \end{scope}
+        % G_2: triple edge with arrow
+        \begin{scope}[shift={(7,0)}]
+            \node[left=10pt] at (0,0) {$\mathfrak{g}_2:$};
+            \filldraw (0,0) circle (2pt); \filldraw (1,0) circle (2pt);
+            \draw (0,0.09) -- (1,0.09);
+            \draw (0,0) -- (1,0);
+            \draw (0,-0.09) -- (1,-0.09);
+            \draw (0.42,0.18) -- (0.66,0) -- (0.42,-0.18);
+        \end{scope}
+    \end{tikzpicture}
+    \end{center}
+}
+
+\rmkb{
+    \textbf{Facts about the Cartan matrix $A$.}
+    \begin{enumerate}[label=(\arabic*)]
+        \item $A^{ii} = 2$.
+        \item $A^{ij} = 0 \iff A^{ji} = 0$.
+        \item $A^{ij} \in \{0, -1, -2, -3\}$ for $i \neq j$.
+        \item $\displaystyle n^{ij} := A^{ij}\, A^{ji}
+              = \frac{4\,(\alpha^{(i)}, \alpha^{(j)})^2}{(\alpha^{(i)}, \alpha^{(i)})\,(\alpha^{(j)}, \alpha^{(j)})}
+              \in \{0, 1, 2, 3\}$,
+              corresponding respectively to the angles $90^\circ, 120^\circ, 135^\circ, 150^\circ$
+              between $\alpha^{(i)}$ and $\alpha^{(j)}$.
+    \end{enumerate}
+}
+
+\thmp{Classification of simple Lie algebras}{
+    Simple Lie algebras are fully characterized by their root system, or equivalently their
+    corresponding Dynkin diagram. The list of all allowed diagrams is:
+    \vspace{0.5cm}
+    \begin{center}
+    \begin{tikzpicture}[baseline=(current bounding box.center), >=Stealth, scale=0.9,
+                        every node/.style={font=\footnotesize}]
+        % ===== Row 1: A_n, B_n, C_n =====
+        % --- A_n ---
+        \begin{scope}[shift={(0,0)}]
+            \node[left] at (-0.2,0) {$A_n\colon$};
+            \draw (0,0)--(0.7,0); \node at (1.05,0) {$\cdots$}; \draw (1.4,0)--(2.1,0);
+            \foreach \x in {0,0.7,1.4,2.1} \filldraw (\x,0) circle (1.6pt);
+            \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0,-0.25) -- (2.1,-0.25);
+            \node at (1.05,-0.65) {$n \geq 1$};
+            \node at (1.05,-1.05) {$\mathfrak{sl}(n)$};
+        \end{scope}
+        % --- B_n ---
+        \begin{scope}[shift={(4.2,0)}]
+            \node[left] at (-0.2,0) {$B_n\colon$};
+            \draw (0,0)--(0.7,0); \node at (1.05,0) {$\cdots$}; \draw (1.4,0)--(1.5,0);
+            \draw (1.4,0.05)--(2.1,0.05); \draw (1.4,-0.05)--(2.1,-0.05);
+            \draw (1.66,0.16)--(1.84,0)--(1.66,-0.16);
+            \foreach \x in {0,0.7,1.4,2.1} \filldraw (\x,0) circle (1.6pt);
+            \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0,-0.25) -- (2.1,-0.25);
+            \node at (1.05,-0.65) {$n \geq 2$};
+            \node at (1.05,-1.05) {$\mathfrak{so}(2n{+}1, \mathbb{C})$};
+        \end{scope}
+        % --- C_n ---
+        \begin{scope}[shift={(8.8,0)}]
+            \node[left] at (-0.2,0) {$C_n\colon$};
+            \draw (0,0)--(0.7,0); \node at (1.05,0) {$\cdots$}; \draw (1.4,0)--(1.5,0);
+            \draw (1.4,0.05)--(2.1,0.05); \draw (1.4,-0.05)--(2.1,-0.05);
+            \draw (1.84,0.16)--(1.66,0)--(1.84,-0.16);
+            \foreach \x in {0,0.7,1.4,2.1} \filldraw (\x,0) circle (1.6pt);
+            \draw[decorate, decoration={brace, amplitude=4pt, mirror}] (0,-0.25) -- (2.1,-0.25);
+            \node at (1.05,-0.65) {$n \geq 3$};
+            \node at (1.05,-1.05) {$\mathfrak{sp}(2n, \mathbb{C})$};
+        \end{scope}
+        % ===== Row 2: D_n, E_6, E_7 =====
+        % --- D_n ---
+        \begin{scope}[shift={(0,-2.6)}]
+            \node[left] at (-0.2,0) {$D_n\colon$};
+            \draw (0,0)--(0.7,0); \node at (1.05,0) {$\cdots$}; \draw (1.4,0)--(2.0,0);
+            \draw (2.0,0)--(2.5,0.4); \draw (2.0,0)--(2.5,-0.4);
+            \foreach \x in {0,0.7,1.4,2.0} \filldraw (\x,0) circle (1.6pt);
+            \filldraw (2.5,0.4) circle (1.6pt); \filldraw (2.5,-0.4) circle (1.6pt);
+            \node at (1.0,-0.8) {$n \geq 4$};
+            \node at (1.0,-1.2) {$\mathfrak{so}(2n, \mathbb{C})$};
+        \end{scope}
+        % --- E_6 ---
+        \begin{scope}[shift={(4.6,-2.6)}]
+            \node[left] at (-0.2,0) {$E_6\colon$};
+            \foreach \x in {0,0.6,1.2,1.8,2.4} \filldraw (\x,0) circle (1.6pt);
+            \draw (0,0)--(2.4,0);
+            \draw (1.2,0)--(1.2,-0.6); \filldraw (1.2,-0.6) circle (1.6pt);
+        \end{scope}
+        % --- E_7 ---
+        \begin{scope}[shift={(8.6,-2.6)}]
+            \node[left] at (-0.2,0) {$E_7\colon$};
+            \foreach \x in {0,0.6,1.2,1.8,2.4,3.0} \filldraw (\x,0) circle (1.6pt);
+            \draw (0,0)--(3.0,0);
+            \draw (1.2,0)--(1.2,-0.6); \filldraw (1.2,-0.6) circle (1.6pt);
+        \end{scope}
+        % ===== Row 3: E_8, F_4, G_2 =====
+        % --- E_8 ---
+        \begin{scope}[shift={(0,-4.6)}]
+            \node[left] at (-0.2,0) {$E_8\colon$};
+            \foreach \x in {0,0.6,1.2,1.8,2.4,3.0,3.6} \filldraw (\x,0) circle (1.6pt);
+            \draw (0,0)--(3.6,0);
+            \draw (1.2,0)--(1.2,-0.6); \filldraw (1.2,-0.6) circle (1.6pt);
+        \end{scope}
+        % --- F_4 ---
+        \begin{scope}[shift={(5.2,-4.6)}]
+            \node[left] at (-0.2,0) {$F_4\colon$};
+            \filldraw (0,0) circle (1.6pt); \filldraw (0.7,0) circle (1.6pt);
+            \filldraw (1.4,0) circle (1.6pt); \filldraw (2.1,0) circle (1.6pt);
+            \draw (0,0)--(0.7,0); \draw (1.4,0)--(2.1,0);
+            \draw (0.7,0.05)--(1.4,0.05); \draw (0.7,-0.05)--(1.4,-0.05);
+            \draw (0.96,0.16)--(1.14,0)--(0.96,-0.16);
+        \end{scope}
+        % --- G_2 ---
+        \begin{scope}[shift={(9.2,-4.6)}]
+            \node[left] at (-0.2,0) {$\mathfrak{g}_2\colon$};
+            \filldraw (0,0) circle (1.6pt); \filldraw (0.9,0) circle (1.6pt);
+            \draw (0,0.09)--(0.9,0.09); \draw (0,0)--(0.9,0); \draw (0,-0.09)--(0.9,-0.09);
+            \draw (0.36,0.18)--(0.54,0)--(0.36,-0.18);
+        \end{scope}
+    \end{tikzpicture}
+    \end{center}
+}{
+    We will not prove this. For the proof, see \citep[Chapter~5]{BrockerRepresentationsCompactLieGroups2010}.
+}
+
+\section{Root strings and the Weyl group}
+
+However, we will explain how the Cartan matrix determines the Lie algebra. Given a collection of
+simple roots, all other roots are integer linear combinations of these.
+
+\defn[height of a root]{Height of a root}{
+    Given a collection of simple roots, every root is an integer linear combination of them. The
+    \textbf{height} of a root is the sum of the integer coefficients appearing in this combination.
+}
+
+This induces a grading
+\[
+    \mathfrak{g} = \bigoplus_{j \in \mathbb{Z}} \mathfrak{g}_{(j)},
+\]
+where $\mathfrak{g}_{(j)}$ is the space of elements of height $j$ (in particular
+$\mathfrak{g}_{(0)} = \mathfrak{g}_0$ is the Cartan subalgebra).
+
+\ex{
+    For $\mathfrak{sl}(3)$, with simple roots $E_{12}$ and $E_{23}$, the root space decomposition is
+    graded by height:
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=0.9]
+        % --- sl(3) root hexagon ---
+        \begin{scope}
+            \filldraw (0,0) circle (1.2pt);
+            \filldraw (30:1)  circle (1.2pt); \node[font=\scriptsize] at (30:1.38)  {$E_{13}$};
+            \filldraw (90:1)  circle (1.2pt); \node[font=\scriptsize] at (90:1.32)  {$E_{23}$};
+            \filldraw (150:1) circle (1.2pt); \node[font=\scriptsize] at (150:1.38) {$E_{21}$};
+            \filldraw (210:1) circle (1.2pt); \node[font=\scriptsize] at (210:1.38) {$E_{31}$};
+            \filldraw (270:1) circle (1.2pt); \node[font=\scriptsize] at (270:1.32) {$E_{32}$};
+            \filldraw (330:1) circle (1.2pt); \node[font=\scriptsize] at (330:1.38) {$E_{12}$};
+        \end{scope}
+        % --- height grading ---
+        \begin{scope}[shift={(5.2,0)}]
+            \draw[->] (-2.4,-0.9) -- (2.6,-0.9);
+            \foreach \j in {-2,-1,0,1,2}
+                \draw (\j,-0.8) -- (\j,-1.0) node[below, font=\scriptsize] {$\j$};
+            \node[font=\scriptsize] at (-2,-0.4) {$E_{31}$};
+            \node[font=\scriptsize] at (-1,-0.4) {$E_{32}$};
+            \node[font=\scriptsize] at (-1, 0.0) {$E_{21}$};
+            \node[font=\scriptsize] at ( 0,-0.4) {$H$};
+            \node[font=\scriptsize] at ( 1,-0.4) {$E_{12}$};
+            \node[font=\scriptsize] at ( 1, 0.0) {$E_{23}$};
+            \node[font=\scriptsize] at ( 2,-0.4) {$E_{13}$};
+        \end{scope}
+    \end{tikzpicture}
+    \end{center}
+}
+
+\rmkb{
+    There is always a root of highest height, the \textbf{highest root} $\theta$, with
+    $(\theta, \theta) \geq (\alpha, \alpha)$ for all roots $\alpha$. Sometimes one normalizes the
+    inner product $(\cdot, \cdot)$ such that $(\theta, \theta) = 2$.
+}
+
+Recall that for each root $\alpha$ we get an $\mathfrak{sl}_\alpha(2)$ Lie subalgebra
+$(E^\alpha, E^{-\alpha}, H^\alpha)$. We can use $\mathfrak{sl}(2)$ representation theory to
+constrain and construct the whole of $\mathfrak{g}$. Let $\alpha, \beta$ be roots and consider the
+root string.
+
+\defn[root string]{Root string}{
+    For roots $\alpha, \beta$, the \textbf{root string} of $\beta$ through $\alpha$ is
+    \[
+        \bigoplus_{m \in \mathbb{Z}} \mathfrak{g}_{m\alpha + \beta}.
+    \]
+}
+
+\propp{
+    The root string $\bigoplus_{m \in \mathbb{Z}} \mathfrak{g}_{m\alpha + \beta}$ is an irreducible
+    $\mathfrak{sl}_\alpha(2)$-module.
+}{
+    It is an $\mathfrak{sl}_\alpha(2)$-module by construction. Each summand
+    $\mathfrak{g}_{m\alpha + \beta}$ is an $H^\alpha$-weight space, all of distinct weight, and is
+    either $1$- or $0$-dimensional. A module with distinct one-dimensional weight spaces is
+    irreducible.
+}
+
+\lemp{}{
+    For two simple roots $\alpha^{(i)} \neq \alpha^{(j)}$, the difference
+    $\alpha^{(i)} - \alpha^{(j)}$ is never a root.
+}{
+    If $\alpha^{(i)} - \alpha^{(j)}$ were a root, then either it or its negative is positive, and
+    correspondingly
+    \[
+        \alpha^{(i)} = \alpha^{(j)} + \big(\alpha^{(i)} - \alpha^{(j)}\big)
+        \qquad\text{or}\qquad
+        \alpha^{(j)} = \alpha^{(i)} - \big(\alpha^{(i)} - \alpha^{(j)}\big)
+    \]
+    would express a simple root as a sum of two positive roots, contradicting simplicity.
+}
+
+Hence $E^{\alpha^{(i)}}$ and $E^{\alpha^{(j)}}$ are lowest weight vectors for each other's
+$\mathfrak{sl}(2)$. We also know their weights from the Dynkin diagram:
+\[
+    \alpha^{(i)}\big(H^{\alpha^{(j)}}\big)
+        = 2\,\frac{(\alpha^{(i)}, \alpha^{(j)})}{(\alpha^{(j)}, \alpha^{(j)})}
+        = A^{ij},
+\]
+which are negative integers. This allows us to construct the full root diagram from the simple
+roots.
+
+\ex{
+    For $B_2$, starting from the simple roots $\alpha^{(1)}$ (short) and $\alpha^{(2)}$ (long), the
+    $\mathfrak{sl}_{\alpha^{(1)}}(2)$-string through $\alpha^{(2)}$ generates the remaining positive
+    roots; the labels are the $H^{\alpha^{(1)}}$-weights.
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=1.3]
+        % roots
+        \foreach \p in {(1,0),(-1,0),(0,1),(0,-1)} \filldraw \p circle (1.1pt); % short
+        \foreach \p in {(1,1),(-1,1),(-1,-1),(1,-1)} \filldraw \p circle (1.1pt); % long
+        % simple roots
+        \draw[->, thick, violet] (0,0) -- (1,0);
+        \node[violet, below right] at (1,0) {\scriptsize$\alpha^{(1)}$};
+        \draw[->, thick, violet] (0,0) -- (-1,1);
+        \node[violet, above left] at (-1,1) {\scriptsize$\alpha^{(2)}$};
+        % alpha^(1)-string through alpha^(2): (-1,1) -> (0,1) -> (1,1)
+        \draw[->, orange, thick] (-0.85,1.05) -- (-0.15,1.05);
+        \draw[->, orange, thick] (0.15,1.05) -- (0.85,1.05);
+        \node[above, font=\scriptsize] at (-1,1.12) {$-2$};
+        \node[above, font=\scriptsize] at (0,1.12) {$0$};
+        \node[above, font=\scriptsize] at (1,1.12) {$+2$};
+    \end{tikzpicture}
+    \end{center}
+}
+
+\rmkb{
+    The root system is symmetric around the hyperplanes defined by
+    $\beta\big(H^{\alpha^{(i)}}\big) = 0$ in $\mathfrak{g}_0^*$.
+}
+
+\defn[Weyl group]{Weyl group}{
+    Let $\mathfrak{g}$ be a simple Lie algebra with simple roots $\alpha^{(i)}$. The
+    \textbf{Weyl group} $W(\mathfrak{g})$ is the subgroup of the linear automorphisms of the root
+    space generated by the reflections
+    \[
+        s_{\alpha^{(i)}}(\beta) = \beta - 2\,\frac{(\beta, \alpha^{(i)})}{(\alpha^{(i)}, \alpha^{(i)})}\,
+        \alpha^{(i)}.
+    \]
+}
+
+For each simple root $\alpha^{(i)}$ we obtain an $\mathfrak{sl}(2)$-triple
+$E^{\pm\alpha^{(i)}}, H^{\alpha^{(i)}}$. From the representation theory of $\mathfrak{sl}(2)$ we then
+know the following relations:
+\begin{itemize}
+    \item Serre relation
+    \[
+        \big[\underbrace{E^{\pm\alpha^{(i)}}, \big[\,\dots, \big[E^{\pm\alpha^{(i)}}}_{1 - A^{ij}},\,
+        E^{\alpha^{(j)}}\big]\,\big]\,\dots\big] = 0,
+    \]
+    \item $\big[H^{\alpha^{(i)}}, H^{\alpha^{(j)}}\big] = 0$,
+    \item $\big[E^{\alpha^{(i)}}, E^{-\alpha^{(j)}}\big] = \delta_{ij}\, H^{\alpha^{(i)}}$,
+    \item $\big[H^{\alpha^{(i)}}, E^{\pm\alpha^{(j)}}\big] = \pm A^{ij}\, E^{\pm\alpha^{(j)}}$.
+\end{itemize}
+These are called the \textbf{Chevalley relations}.
+
+\fact{
+    These are the only relations in $\mathfrak{g}$. Hence $\mathfrak{g}$ is generated by the
+    $E^{\pm\alpha^{(i)}}, H^{\alpha^{(i)}}$ modulo the Chevalley relations.
+}
+
+\ex{
+    Consider $A_2$ with Cartan matrix
+    \[
+        A = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix},
+    \]
+    and Chevalley generators $E^{\pm 1}, E^{\pm 2}, H^1, H^2$. The two remaining (non-simple) root
+    vectors are obtained by bracketing,
+    \[
+        E^{+12} := [E^1, E^2], \qquad E^{-12} := [E^{-1}, E^{-2}],
+    \]
+    corresponding to the roots $\pm(\alpha^{(1)} + \alpha^{(2)})$.
+
+    \begin{center}
+    \begin{tikzpicture}[>=Stealth, baseline=(current bounding box.center), scale=1.15]
+        \foreach \a/\lbl/\pos in {%
+            0/{E^{1}}/right, 60/{E^{12}}/{above right},
+            120/{E^{2}}/{above left}, 180/{E^{-1}}/left,
+            240/{E^{-12}}/{below left}, 300/{E^{-2}}/{below right}}
+            {\filldraw (\a:1.4) circle (1.3pt);
+             \node[\pos, font=\scriptsize] at (\a:1.4) {$\lbl$};}
+        \filldraw (0,0) circle (0.9pt);
+        \node[font=\scriptsize, below=1pt] at (0,0) {$H^1,H^2$};
+    \end{tikzpicture}
+    \end{center}
+
+    Every other bracket follows from the Jacobi identity and the Chevalley relations. For example,
+    \begin{align*}
+        [E^{-1}, E^{+12}]
+            &= [E^{-1}, [E^1, E^2]] \\
+            &= -[E^2, [E^{-1}, E^1]] - [E^1, \underbrace{[E^2, E^{-1}]}_{=\,0}] \\
+            &= [E^2, H^1] \\
+            &= -A^{12}\, E^2 = E^2.
+    \end{align*}
+    Carrying this out for all pairs yields the full commutation table of the Cartan--Weyl basis
+    (entries are $[\,\text{row}, \text{column}\,]$; the lower triangle follows by antisymmetry):
+    \begin{center}
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\arraycolsep}{4pt}
+    $\begin{array}{c|cccccccc}
+        [\,\cdot\,,\cdot\,] & H^1 & H^2 & E^1 & E^{-1} & E^2 & E^{-2} & E^{12} & E^{-12} \\
+        \hline
+        H^1    & 0 & 0 & 2E^1 & -2E^{-1} & -E^2 & E^{-2} & E^{12} & -E^{-12} \\
+        H^2    &   & 0 & -E^1 & E^{-1}   & 2E^2 & -2E^{-2} & E^{12} & -E^{-12} \\
+        E^1    &   &   & 0    & H^1      & E^{12} & 0      & 0      & E^{-2} \\
+        E^{-1} &   &   &      & 0        & 0    & E^{-12}  & E^2    & 0 \\
+        E^2    &   &   &      &          & 0    & H^2      & 0      & -E^{-1} \\
+        E^{-2} &   &   &      &          &      & 0        & -E^1   & 0 \\
+        E^{12} &   &   &      &          &      &          & 0      & -(H^1 + H^2) \\
+        E^{-12}&   &   &      &          &      &          &        & 0
+    \end{array}$
+    \end{center}
+}
+
+\section{Highest weight representations}
+
+\propp{
+    Let $(V, \rho)$ be a representation of a simple Lie algebra $\mathfrak{g}$. Then there exists a
+    decomposition
+    \[
+        V = \bigoplus_{\alpha \in \mathfrak{g}_0^*} V_\alpha
+    \]
+    such that
+    \[
+        H(v_\alpha) = \alpha(H)\, v_\alpha \qquad \forall\, H \in \mathfrak{g}_0
+        \text{ and } v_\alpha \in V_\alpha.
+    \]
+}{
+    The $H^{\alpha^{(i)}}$ form a basis of $\mathfrak{g}_0$. From the representation theory of
+    $\mathfrak{sl}(2)_{\alpha^{(i)}} \subseteq \mathfrak{g}$ we know that each $H^{\alpha^{(i)}}$ is
+    diagonalizable. As they mutually commute, they are simultaneously diagonalizable, which yields
+    the claimed decomposition into common eigenspaces.
+}
+
+\defn{Weight and weight vector}{
+    The elements of $V_\alpha$ are said to have \textbf{weight} $\alpha$, and the non-zero ones are
+    called \textbf{weight vectors}.
+    \index{weight}\index{weight!weight vector}
+}
+
+\propp{
+    Let $v_\alpha$ be a weight vector of weight $\alpha$ and $X \in \mathfrak{g}_\beta$. Then the
+    element $X v_\alpha$ has weight $\alpha + \beta$.
+}{
+    \begin{align*}
+        H\big(X v_\alpha\big) &= [H, X]\, v_\alpha + X\big(H v_\alpha\big) \\
+        &= (\alpha + \beta)(H)\, X v_\alpha,
+    \end{align*}
+    using $[H, X] = \beta(H)\, X$ (as $X \in \mathfrak{g}_\beta$) and $H v_\alpha = \alpha(H)\, v_\alpha$.
+}
+
+In particular every representation decomposes as $V = \bigoplus_\beta V_\beta$ over its weights
+$\beta$, and from the $\mathfrak{sl}(2)$-theory the eigenvalues $\beta\big(H^{\alpha^{(i)}}\big)$ are
+integers. Recalling
+\[
+    H^{\alpha^{(i)}} = \frac{2\, t_{\alpha^{(i)}}}{(\alpha^{(i)}, \alpha^{(i)})},
+    \qquad
+    \kappa\big(t_{\alpha^{(i)}}, -\big) = \alpha^{(i)}(-),
+\]
+this integrality condition reads
+\[
+    \beta\big(H^{\alpha^{(i)}}\big) = \frac{2\,(\beta, \alpha^{(i)})}{(\alpha^{(i)}, \alpha^{(i)})}
+    \in \mathbb{Z}.
+\]
+
+\defn{Weight lattice}{
+    The set of weights $\beta$ with $\beta\big(H^{\alpha^{(i)}}\big) \in \mathbb{Z}$ for all $i$ forms a
+    lattice, the \textbf{weight lattice} $\Lambda_W$ of $\mathfrak{g}$.
+    \index{weight!weight lattice}\index{lattice!weight lattice}
+}
+
+\defn{Fundamental weights}{
+    The weight lattice is generated by the \textbf{fundamental weights} $w^{(i)}$, defined by
+    \[
+        w^{(i)}\big(H^{\alpha^{(j)}}\big) = \delta_{ij}.
+    \]
+    \index{weight!fundamental weight}\index{fundamental weight}
+}
+
+The simple roots are expressed through the fundamental weights by the Cartan matrix,
+\[
+    \alpha^{(i)} = \sum_j A^{ij}\, w^{(j)}.
+\]
+To check this, note that $w^{(i)}\big(H^{\alpha^{(j)}}\big) = \delta_{ij}$ gives
+$(\alpha^{(k)}, w^{(j)}) = \delta_{jk}\,(\alpha^{(k)}, \alpha^{(k)})/2$, so
+\[
+    \Big(\alpha^{(k)}, \sum_j A^{ij}\, w^{(j)}\Big)
+        = A^{ik}\,\frac{(\alpha^{(k)}, \alpha^{(k)})}{2}
+        = (\alpha^{(k)}, \alpha^{(i)}).
+\]
+Since $(\cdot, \cdot)$ is non-degenerate and the $\alpha^{(k)}$ form a basis, this forces
+$\sum_j A^{ij} w^{(j)} = \alpha^{(i)}$. Inverting the Cartan matrix yields
+\[
+    w^{(i)} = \sum_j \big(A^{-1}\big)^{ij}\, \alpha^{(j)}.
+\]
+
+\ex{
+    For $A_2$ we have
+    \[
+        A = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}
+        \quad\Longrightarrow\quad
+        A^{-1} = \frac{1}{3}\begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix},
+    \]
+    so that
+    \[
+        w^{(1)} = \tfrac{1}{3}\big(2\alpha^{(1)} + \alpha^{(2)}\big),
+        \qquad
+        w^{(2)} = \tfrac{1}{3}\big(\alpha^{(1)} + 2\alpha^{(2)}\big).
+    \]
+    For $B_2$ we have
+    \[
+        A = \begin{pmatrix} 2 & -1 \\ -2 & 2 \end{pmatrix},
+    \]
+    so that
+    \[
+        w^{(1)} = \alpha^{(1)} + \tfrac{1}{2}\alpha^{(2)},
+        \qquad
+        w^{(2)} = \alpha^{(1)} + \alpha^{(2)}.
+    \]
+}
+
+Assume the hyperplane $\mathbb{H}$ does not intersect the weight lattice $\Lambda_W$. Then we can
+define $\ell(\beta)$ as the distance of a weight $\beta$ to $\mathbb{H}$.
+
+\defn{Highest weight vector}{
+    A \textbf{highest weight vector} $v \in V$ is a weight vector such that $\ell$ of its weight is
+    maximal.
+    \index{weight!highest weight}\index{highest weight vector}
+}
+
+\thm{}{
+    Let $\mathfrak{g}$ be a simple Lie algebra.
+    \begin{itemize}
+        \item The possible highest weights are the linear combinations of the fundamental weights
+        $w^{(i)}$ with non-negative integer coefficients. These are called the \textbf{dominant
+        weights}.
+        \item For each dominant weight $w$ there exists a unique irreducible finite-dimensional
+        representation of $\mathfrak{g}$ with highest weight $w$.
+        \item This representation is generated by acting with the negative root vectors on a highest
+        weight vector.
+    \end{itemize}
+    \index{weight!dominant weight}\index{dominant weight}
+}
+
+\ex{
+    We can again reconstruct the shape of the weight diagram using the Weyl group.
+    \begin{itemize}
+        \item For $B_2 = \mathfrak{so}(5)$ we get: $2w_1$ gives the adjoint representation, and
+        $w_1 + w_2$ gives a representation of dimension $16$, with weight diagram
+        \begin{center}
+        \begin{tikzpicture}[scale=0.5, >=Stealth, baseline=(current bounding box.center)]
+            % Weyl reflection hyperplanes
+            \draw[violet, thick] (-4,-4) -- (4,4);
+            \draw[violet, thick] (-4.3,0) -- (4.3,0);
+            % plus of dotted squares
+            \draw[orange, dotted, very thick] (-1,-1) rectangle (1,1);
+            \draw[orange, dotted, very thick] (-1,1) rectangle (1,3);
+            \draw[orange, dotted, very thick] (-1,-3) rectangle (1,-1);
+            \draw[orange, dotted, very thick] (1,-1) rectangle (3,1);
+            \draw[orange, dotted, very thick] (-3,-1) rectangle (-1,1);
+            % weights
+            \foreach \p in {(1,3),(-1,3),(1,-3),(-1,-3),(3,1),(3,-1),(-3,1),(-3,-1),%
+                             (1,1),(-1,1),(1,-1),(-1,-1)}
+                \filldraw \p circle (2.5pt);
+        \end{tikzpicture}
+        \end{center}
+        It has dimension $16$.
+
+        \item For $D_n$,
+        \begin{tikzpicture}[baseline=-2pt, >=Stealth]
+            \foreach \x in {0,0.55,1.65,2.2} \filldraw (\x,0) circle (1.4pt);
+            \draw (0,0)--(0.55,0);
+            \node at (1.1,0) {$\cdots$};
+            \draw (1.65,0)--(2.2,0);
+            \filldraw (2.75,0.32) circle (1.4pt);
+            \filldraw (2.75,-0.32) circle (1.4pt);
+            \draw (2.2,0)--(2.75,0.32);
+            \draw (2.2,0)--(2.75,-0.32);
+        \end{tikzpicture}
+        , there are $n$ fundamental weights corresponding to the $n$ nodes. The two end points of the
+        fork correspond to the two chiral spinor representations in $2n$ dimensions.
+
+        \item For $B_n$,
+        \begin{tikzpicture}[baseline=-2pt, >=Stealth]
+            \draw (0,0)--(0.55,0);
+            \node at (0.9,0) {$\cdots$};
+            \draw (1.25,0)--(1.35,0);
+            \draw (1.25,0.05)--(1.95,0.05); \draw (1.25,-0.05)--(1.95,-0.05);
+            \draw (1.51,0.16)--(1.69,0)--(1.51,-0.16);
+            \foreach \x in {0,0.55,1.25,1.95} \filldraw (\x,0) circle (1.4pt);
+        \end{tikzpicture}
+        , the representation corresponding to the last vertex is the spinor representation in $2n+1$
+        dimensions.
+
+        \item For $A_n$, the representations corresponding to the fundamental weights
+        $w_1, \dots, w_n$ are
+        \[
+            \mathbb{C}^{n+1},\quad \Lambda^2 \mathbb{C}^{n+1},\quad \Lambda^3 \mathbb{C}^{n+1},\quad
+            \dots,\quad \Lambda^n \mathbb{C}^{n+1}.
+        \]
+        The corresponding weights are $w_i = L_1 + \dots + L_i$, where
+        \[
+            L_i\big(\operatorname{diag}(a_{11}, \dots, a_{n+1,n+1})\big) = a_{ii}.
+        \]
+        Hence the dominant weights are of the form $\sum_{i=1}^n \lambda_i L_i$ with
+        $\lambda_1 \geq \lambda_2 \geq \dots \geq \lambda_n$, which we represent in terms of Young
+        diagrams:
+        \begin{center}
+        \begin{tikzpicture}[scale=0.5, baseline=(current bounding box.center)]
+            \draw (0,0) rectangle (5,-1);
+            \draw (0,-1) rectangle (3.5,-2);
+            \draw (0,-3) rectangle (1.5,-4);
+            \foreach \x in {1,2,3,4} \draw (\x,0)--(\x,-1);
+            \foreach \x in {1,2,3} \draw (\x,-1)--(\x,-2);
+            \draw (1,-3)--(1,-4);
+            \node at (0.75,-2.5) {$\vdots$};
+            \node[right] at (5.2,-0.5) {$\lambda_1$};
+            \node[right] at (3.7,-1.5) {$\lambda_2$};
+            \node[right] at (1.7,-3.5) {$\lambda_n$};
+        \end{tikzpicture}
+        \end{center}
+        For $\mathfrak{sl}(3)$ ($A_2$) we find
+        \[
+            \ydiagram{1} = \mathbf{3},
+            \qquad
+            \ydiagram{1,1} = \bar{\mathbf{3}},
+            \qquad
+            \ydiagram{2,1} = \mathbf{8}.
+        \]
+        \emph{(These are related to Schur functors.)}
+    \end{itemize}
+}
+
+\defn{Quadratic Casimir operator}{
+    Let $T^a$ be a basis of $\mathfrak{g}$ and $T_a$ the dual basis with respect to the Killing form
+    $\kappa$. Let $(V, \rho)$ be a finite-dimensional representation of $\mathfrak{g}$. The
+    endomorphism
+    \[
+        C_2 = \sum_a \rho(T_a) \circ \rho(T^a) : V \to V
+    \]
+    is called the \textbf{quadratic Casimir operator} for $V$.
+    \index{Casimir operator}\index{quadratic Casimir operator}
+}
+
+In the Cartan--Weyl basis we have
+\[
+    C_2 = \sum_{i \in \Phi_S} t_{w^{(i)}}\, H^{\alpha^{(i)}}
+        + \sum_{\alpha \in \Phi} \frac{(\alpha, \alpha)}{2}\, E^{-\alpha} E^{\alpha}
+        = \sum_{i \in \Phi_S} t_{w^{(i)}}\, H^{\alpha^{(i)}}
+        + \sum_{\alpha \in \Phi_+} (\alpha, \alpha)\, E^{-\alpha} E^{\alpha}
+        + \sum_{\alpha \in \Phi_+} t_\alpha,
+\]
+where $\Phi_S$ denotes the simple roots, and we used
+\[
+    \kappa\big(E^{\alpha}, E^{-\alpha}\big) = \frac{2}{(\alpha, \alpha)},
+    \qquad
+    H^{\alpha} := \frac{2\, t_\alpha}{(\alpha, \alpha)}.
+\]
+
+\ex{
+    For $\mathfrak{sl}(2)$ we have
+    \[
+        C_2 = \tfrac{1}{2} H^2 + EF + FE.
+    \]
+}
+
+\fact{
+    \begin{itemize}
+        \item $C_2$ commutes with the action of $\mathfrak{g}$. Hence it acts by a scalar in each
+        irreducible representation.
+        \item Let $V$ be a highest weight module of weight $\omega$. We can compute this scalar by
+        acting on a highest weight vector $v$:
+        \[
+            C_2 v = \bigg(
+                \underbrace{\sum_i \omega\big(t_{w^{(i)}}\big)\, \omega\big(H^{\alpha^{(i)}}\big)}_{=\,(\omega, \omega)}
+                + \; 0 \; + \sum_{\alpha \in \Phi_+} \omega(t_\alpha)
+            \bigg) v = (\omega, \omega + 2\rho)\, v,
+        \]
+        with $\rho = \frac{1}{2} \sum_{\alpha \in \Phi_+} \alpha$. The underbraced sum equals
+        $(\omega, \omega)$ because we sum over a dual basis, and the middle term vanishes since
+        $E^{\alpha} v = 0$ for all positive roots $\alpha$.
+        \emph{Up to normalization this is the angular momentum for $\mathfrak{sl}(2)$.}
+    \end{itemize}
+}
+
+We now explain how to compute the dimensions of the weight spaces. Let $V$ be a representation of
+$\mathfrak{g}$, decomposed as $V = \bigoplus_\mu V_\mu$, and set
+\[
+    m_\mu := \dim V_\mu \qquad \text{for all } \mu.
+\]
+For each positive root $\alpha$ we have $[E^{\alpha}, E^{-\alpha}] = H^{\alpha}$. We start by
+computing
+\[
+    \operatorname{tr}_{V_\mu}\!\big(E^{-\alpha} E^{\alpha}\big)
+        = \underbrace{\operatorname{tr}_{V_\mu}\!\big(E^{\alpha} E^{-\alpha}\big)}_{=\,\operatorname{tr}_{V_{\mu-\alpha}}(E^{-\alpha} E^{\alpha})}
+        - \underbrace{\operatorname{tr}_{V_\mu}\!\big(H^{\alpha}\big)}_{=\,\mu(H^{\alpha})\, m_\mu},
+\]
+so that
+\[
+    \operatorname{tr}_{V_{\mu-\alpha}}\!\big(E^{-\alpha} E^{\alpha}\big)
+        = \operatorname{tr}_{V_\mu}\!\big(E^{-\alpha} E^{\alpha}\big) + \mu(H^{\alpha})\, m_\mu.
+\]
+Moving up until we reach the largest $\mu + j\alpha$ on which $E^{\alpha}$ acts by $0$, we get
+\[
+    \operatorname{tr}_{V_\mu}\!\big(E^{-\alpha} E^{\alpha}\big)
+        = \sum_{j \geq 1} (\mu + j\alpha)(H^{\alpha})\, m_{\mu + j\alpha}.
+\]
+Note that if we sum over all positive roots $\alpha$ and multiply by $(\alpha, \alpha)$, this is the
+off-diagonal part of $C_2$. Since $C_2$ acts by $(\omega, \omega + 2\rho)$, we find
+\[
+    \sum_{\alpha \in \Phi_+} (\alpha, \alpha)\, \operatorname{tr}_{V_\mu}\!\big(E^{-\alpha} E^{\alpha}\big)
+        + m_\mu\, (\mu, \mu + 2\rho) = (\omega, \omega + 2\rho)\, m_\mu,
+\]
+and therefore, using $(\alpha, \alpha)(\mu + j\alpha)(H^{\alpha}) = 2(\mu + j\alpha, \alpha)$,
+\[
+    2 \sum_{\alpha \in \Phi_+} \sum_{j \geq 1} (\mu + j\alpha, \alpha)\, m_{\mu + j\alpha}
+        = m_\mu\big[(\omega, \omega + 2\rho) - (\mu, \mu + 2\rho)\big].
+\]
+This gives the \textbf{Freudenthal recursion formula}
+\[
+    \boxed{\;
+    m_\mu = \frac{2 \displaystyle\sum_{\alpha \in \Phi_+,\; j \geq 1} (\mu + j\alpha, \alpha)\, m_{\mu + j\alpha}}
+                 {(\omega, \omega + 2\rho) - (\mu, \mu + 2\rho)}
+    \;}
+\]
+
+\ex{
+    We apply this to the adjoint representation of $\mathfrak{so}(5)$, with highest weight
+    $\omega = w_1 + w_2$. Its weight diagram consists of the roots (each with multiplicity $1$)
+    together with the zero weight (multiplicity $2$):
+    \begin{center}
+    \begin{tikzpicture}[scale=1.1, >=Stealth, baseline=(current bounding box.center)]
+        \draw[violet, ->, thick] (0,0) -- (1.5,0.5);
+        \node[violet, right] at (1.55,0.55) {$2\rho$};
+        \foreach \p in {(1,0),(-1,0),(0,1),(0,-1),(1,1),(-1,1),(-1,-1),(1,-1)}
+            {\filldraw[orange!80!black] \p circle (1.6pt);
+             \node[above right, font=\scriptsize] at \p {$1$};}
+        \filldraw (0,0) circle (1.8pt);
+        \node[below left, font=\scriptsize] at (0,0) {$2$};
+    \end{tikzpicture}
+    \end{center}
+    Writing weights in the orthonormal basis $e_1, e_2$, the highest root is $\omega = e_1 + e_2$ and
+    $2\rho = 3 e_1 + e_2$, with positive roots $e_1, e_2, e_1 - e_2, e_1 + e_2$. We compute the
+    multiplicity $m_0$ of the zero weight (only $j = 1$ contributes, with $m_\alpha = 1$):
+    \[
+        m_0 = \frac{2 \sum_{\alpha \in \Phi_+} (\alpha, \alpha)\, m_\alpha}{(\omega, \omega + 2\rho)}
+            = \frac{2\,(1 + 1 + 2 + 2)}{(e_1 + e_2,\; 4 e_1 + 2 e_2)}
+            = \frac{2 \cdot 6}{6} = 2.
+    \]
+}
+
+\section{The Weyl character formula}
+
+The weight lattice $\Lambda_W$ is an abelian group, so we may form its group algebra
+$\mathbb{C}[\Lambda_W]$. We write $e^\lambda$ for the basis element corresponding to
+$\lambda \in \Lambda_W$ and think of these as formal exponentials,
+\[
+    e^\lambda \cdot e^{\lambda'} = e^{\lambda + \lambda'},
+    \qquad
+    e^\lambda\, e^{-\lambda} = 1.
+\]
+
+\defn{Character}{
+    For a finite-dimensional representation $V = \bigoplus_\lambda V_\lambda$ we define the element
+    \[
+        \chi_V := \sum_\lambda m_\lambda\, e^\lambda \in \mathbb{C}[\Lambda_W].
+    \]
+    The corresponding function
+    \[
+        \chi_V : \mathfrak{g}_0 \to \mathbb{C},
+        \qquad
+        H \mapsto \sum_\lambda m_\lambda\, e^{\lambda(H)},
+    \]
+    is called the \textbf{character} of $V$. One can also regard $\chi_V$ as a function on
+    $\mathfrak{g}_0^*$.
+    \index{character}
+}
+
+\ex{
+    Let $V = V_k$ be a highest weight representation of $\mathfrak{sl}(2)$ of weight
+    $k \in \mathbb{N}_{\geq 0}$. Its weights are $k, k-2, \dots, -k$, each with multiplicity $1$, so
+    by the geometric series
+    \[
+        \chi_{V_k}(tH) = \sum_{i=0}^{k} e^{(k - 2i)t}
+            = \frac{e^{(k+1)t} - e^{-(k+1)t}}{e^t - e^{-t}}
+            = \frac{\sinh\big((k+1)t\big)}{\sinh(t)}.
+    \]
+}
+
+\rmkb{
+    \begin{itemize}
+        \item For a finite-dimensional representation $V = \bigoplus_{\lambda \in \mathfrak{g}_0^*} V_\lambda$
+        and $H \in \mathfrak{g}_0$ we have
+        \[
+            \operatorname{tr}_V\!\big(\exp(\rho(H))\big) = \sum_\lambda m_\lambda \exp\big(\lambda(H)\big) = \chi_V(H).
+        \]
+        \item For any element $w \in W(\mathfrak{g})$ we have $m_\lambda = m_{w(\lambda)}$ (this follows
+        again from the fact that $\mathfrak{sl}(2)$-representations are symmetric).
+    \end{itemize}
+    Thinking of the characters as functions on $\mathfrak{g}_0^*$ via
+    $\alpha \mapsto \sum_\lambda m_\lambda \exp\big((\lambda, \alpha)\big)$, they are Weyl-invariant:
+    \[
+        \chi_V\big(w(\alpha)\big)
+            = \sum_\lambda m_\lambda \exp\big((\lambda, w(\alpha))\big)
+            = \sum_\lambda m_{w^{-1}(\lambda)} \exp\big((w^{-1}(\lambda), \alpha)\big)
+            = \chi_V(\alpha).
+    \]
+}
+
+\defn{Sign of a Weyl group element}{
+    For an element $w \in W(\mathfrak{g})$ we define $\operatorname{sign}(w) \in \{\pm 1\}$ as
+    $\det(w)$, where we view $w$ as an orthogonal automorphism of the root space.
+    \index{Weyl group!sign}
+}
+
+\thm{Weyl character formula}{
+    For a highest weight module $V_\Lambda$ with $\Lambda \in \Lambda_W$ we have
+    \[
+        \chi_{V_\Lambda}(\mu) = \frac{\sum_{w \in W} \operatorname{sign}(w)\, \exp\big((w(\Lambda + \rho),\, \mu)\big)}
+                                     {\sum_{w \in W} \operatorname{sign}(w)\, \exp\big((w(\rho),\, \mu)\big)},
+    \]
+    where the denominator can be written as
+    \[
+        \sum_{w \in W} \operatorname{sign}(w)\, \exp\big((w(\rho),\, \mu)\big)
+            = \prod_{\alpha \in \Phi_+} \Big( \exp\big(\tfrac{1}{2}(\alpha, \mu)\big)
+                - \exp\big(-\tfrac{1}{2}(\alpha, \mu)\big) \Big).
+    \]
+    \index{Weyl character formula}\index{character!Weyl character formula}
+}
+
+\cor{
+    \textbf{Weyl dimension formula.} Setting $\mu = 0$,
+    \[
+        \dim(V_\Lambda) = \chi_{V_\Lambda}(0)
+            = \prod_{\alpha \in \Phi_+} \frac{(\Lambda + \rho,\, \alpha)}{(\rho,\, \alpha)}.
+    \]
+    \index{Weyl dimension formula}
+}
+
+\ex{
+    Weyl dimension formula for $\mathfrak{so}(5) = B_2$, with $\rho = \tfrac{3}{2} e_1 + \tfrac{1}{2} e_2$
+    and positive roots $e_1, e_2, e_1 + e_2, e_1 - e_2$.
+    \begin{itemize}
+        \item \textbf{Adjoint representation.} Here $\Lambda = e_1 + e_2$, so
+        $\Lambda + \rho = \tfrac{5}{2} e_1 + \tfrac{3}{2} e_2$, and
+        \begin{center}
+        \begin{tikzpicture}[scale=0.9, >=Stealth, baseline=(current bounding box.center)]
+            \foreach \p in {(1,0),(-1,0),(0,1),(0,-1),(1,1),(-1,1),(-1,-1),(1,-1),(0,0)}
+                \filldraw[gray] \p circle (1.3pt);
+            \draw[red, ->, thick] (0,0) -- (1,1);
+            \node[red, above right, font=\scriptsize] at (1,1) {$\Lambda = e_1 + e_2$};
+            \draw[violet, ->, thick] (0,0) -- (1.5,0.5);
+            \node[violet, right, font=\scriptsize] at (1.5,0.5) {$\rho$};
+        \end{tikzpicture}
+        \end{center}
+        \[
+            \dim = \prod_{\alpha \in \Phi_+}
+                \frac{\big(\tfrac{5}{2} e_1 + \tfrac{3}{2} e_2,\, \alpha\big)}{\big(\tfrac{3}{2} e_1 + \tfrac{1}{2} e_2,\, \alpha\big)}
+            = \underset{e_1}{\tfrac{5}{3}} \cdot \underset{e_2}{3} \cdot \underset{e_1 + e_2}{2} \cdot \underset{e_1 - e_2}{1}
+            = 10.
+        \]
+
+        \item \textbf{The representation with highest weight $w_1 + w_2 = \tfrac{3}{2} e_1 + \tfrac{1}{2} e_2$.}
+        Here $\Lambda + \rho = 3 e_1 + e_2$, and
+        \begin{center}
+        \begin{tikzpicture}[scale=0.4, >=Stealth, baseline=(current bounding box.center)]
+            \draw[orange, dotted, very thick] (-1,-1) rectangle (1,1);
+            \draw[orange, dotted, very thick] (-1,1) rectangle (1,3);
+            \draw[orange, dotted, very thick] (-1,-3) rectangle (1,-1);
+            \draw[orange, dotted, very thick] (1,-1) rectangle (3,1);
+            \draw[orange, dotted, very thick] (-3,-1) rectangle (-1,1);
+            \foreach \p in {(1,3),(-1,3),(1,-3),(-1,-3),(3,1),(3,-1),(-3,1),(-3,-1),%
+                             (1,1),(-1,1),(1,-1),(-1,-1)}
+                \filldraw \p circle (2.5pt);
+            \draw[red, ->, thick] (0,0) -- (3,1);
+            \node[red, right, font=\scriptsize] at (3,1) {$w_1 + w_2$};
+        \end{tikzpicture}
+        \end{center}
+        \[
+            \dim = \prod_{\alpha \in \Phi_+}
+                \frac{(3 e_1 + e_2,\, \alpha)}{\big(\tfrac{3}{2} e_1 + \tfrac{1}{2} e_2,\, \alpha\big)}
+            = 2 \cdot 2 \cdot 2 \cdot 2 = 16.
+        \]
+    \end{itemize}
+}
+
+\fact{
+    Some facts about characters:
+    \begin{itemize}
+        \item $\chi_{V \oplus W} = \chi_V + \chi_W$,
+        \item $\chi_{V \otimes W} = \chi_V \cdot \chi_W$,
+        \item they determine the representation uniquely.
+    \end{itemize}
+}
+

@@ -1,0 +1,203 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{Attarddressingfieldmethodgaugesymmetryreductionreviewexamples2017}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=7c24173986d3fd34f08a7083c36f3674}{%
+           family={Attard},
+           familyi={A\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=2,uniquepart=given,hash=ae0a8d495a5a9e91b08524d1501675f4}{%
+           family={François},
+           familyi={F\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=2}}%
+        {{un=0,uniquepart=base,hash=2fc24162632587c0840d91d3bc803d15}{%
+           family={Lazzarini},
+           familyi={L\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc4c520c45ebd30421cd6d5d892334d5}{%
+           family={Masson},
+           familyi={M\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{fullhash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{fullhashraw}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{bibnamehash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{authorbibnamehash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{authornamehash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{authorfullhash}{a4ee99f18bc4ad955ff974b11030a14c}
+      \strng{authorfullhashraw}{a4ee99f18bc4ad955ff974b11030a14c}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Gauge symmetries are a cornerstone of modern physics but they come with technical difficulties when it comes to quantization, to accurately describe particles phenomenology or to extract observables in general. These shortcomings must be met by essentially finding a way to effectively reduce gauge symmetries. We propose a review of a way to do so which we call the dressing field method. We show how the BRST algebra satisfied by gauge fields, encoding their gauge transformations, is modified. We outline noticeable applications of the method, such as the electroweak sector of the Standard Model and the local twistors of Penrose.}
+      \field{title}{The Dressing Field Method of Gauge Symmetry Reduction, a Review with Examples}
+      \field{urlday}{13}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{version}{1}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/ARXIV.1702.02753
+      \endverb
+      \verb{file}
+      \verb /Users/jonasvonstein/Zotero/storage/NUZSR5R2/Attard et al. - 2017 - The dressing field method of gauge symmetry reduction, a review with examples.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1702.02753
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1702.02753
+      \endverb
+      \keyw{arXiv,BFT-BFV,BV Formalism,Differential Geometry (math.DG),Dressing Field Method,Electroweak Theory,FOS: Mathematics,FOS: Physical sciences,Gauge Symmetry Reduction,General Relativity and Quantum Cosmology (gr-qc),Higgs Mechanism,High Energy Physics - Theory (hep-th),Mathematical Physics (math-ph),Thesis Literature}
+    \endentry
+    \entry{FrancoisDifferentialgeometrygaugetheoryintroduction2021}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{un=2,uniquepart=given,hash=3ae950bfeeee6f38ed67d90ddb35dd77}{%
+           family={François},
+           familyi={F\bibinitperiod},
+           given={Jordan},
+           giveni={J\bibinitperiod},
+           givenun=2}}%
+      }
+      \list{location}{1}{%
+        {Brussels, Belgium}%
+      }
+      \list{publisher}{1}{%
+        {Sissa Medialab}%
+      }
+      \strng{namehash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{fullhash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{fullhashraw}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{bibnamehash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{authorbibnamehash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{authornamehash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{authorfullhash}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \strng{authorfullhashraw}{3ae950bfeeee6f38ed67d90ddb35dd77}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{12}
+      \field{eventtitle}{{{XVI Modave Summer School}} in {{Mathematical Physics}}}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{shorttitle}{Differential Geometry of Gauge Theory}
+      \field{title}{Differential Geometry of Gauge Theory: An Introduction}
+      \field{urlday}{27}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{002}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.22323/1.389.0002
+      \endverb
+      \verb{file}
+      \verb /Users/jonasvonstein/Zotero/storage/8LRUQ3HG/Differential geometry of gauge theory an introduction.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pos.sissa.it/389/002
+      \endverb
+      \verb{url}
+      \verb https://pos.sissa.it/389/002
+      \endverb
+    \endentry
+    \entry{FultonRepresentationTheory2004}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=205bfcbd8ec5b58401ee1d5cbd94a5de}{%
+           family={Fulton},
+           familyi={F\bibinitperiod},
+           given={William},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=38017df6aee91d3bb1c985bade8eb930}{%
+           family={Harris},
+           familyi={H\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{fullhash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{fullhashraw}{dc874865e376c50bda90a6157bd8e260}
+      \strng{bibnamehash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{authorbibnamehash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{authornamehash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{authorfullhash}{dc874865e376c50bda90a6157bd8e260}
+      \strng{authorfullhashraw}{dc874865e376c50bda90a6157bd8e260}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-540-00539-1 978-1-4612-0979-9}
+      \field{series}{Graduate {{Texts}} in {{Mathematics}}}
+      \field{title}{Representation {{Theory}}}
+      \field{urlday}{12}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{129}
+      \field{year}{2004}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1007/978-1-4612-0979-9
+      \endverb
+      \verb{urlraw}
+      \verb http://link.springer.com/10.1007/978-1-4612-0979-9
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/978-1-4612-0979-9
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

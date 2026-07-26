@@ -97,6 +97,17 @@
     \end{thmpf}
 }
 
+% Referenceable theorem with proof: \thmpr{Title}{label}{body}{proof} -> \cref{thm:label}
+\NewDocumentCommand{\thmpr}{mm+m+m}{
+    \begin{mytheorem}{#1}{#2}
+        #3
+    \end{mytheorem}
+
+    \begin{thmpf}
+        #4
+    \end{thmpf}
+}
+
 % Lemma
 \newtcbtheorem[use counter from=mydefinition]{mylemma}{Lemma}
 {
@@ -262,24 +273,25 @@
     \end{clmpf}
 }
 
-% Fact
-\newtcbtheorem[use counter from=mydefinition]{myfact}{Fact}
-{
-    enhanced,
-    frame hidden,
-    titlerule=0mm,
-    toptitle=1mm,
-    bottomtitle=1mm,
-    fonttitle=\bfseries\large,
-    coltitle=black,
-    colbacktitle=purple!20!white,
-    colback=purple!10!white,
-}{fact}
+% Fact (styled like a remark: not numbered, blue side rule)
+\newenvironment{factenv}{
+    \par
+    \vspace{5pt}
+    \noindent\textbf{Fact.}
+    \begin{tcolorbox}[
+        blanker, breakable, left=5mm, parbox=false,
+        before upper={\parindent0pt},
+        after skip=10pt,
+        borderline west={1mm}{0pt}{cyan!10!white}]
+}{
+    \end{tcolorbox}
+    \vspace{5pt}
+}
 
 \NewDocumentCommand{\fact}{+m}{
-    \begin{myfact}{}{}
+    \begin{factenv}
         #1
-    \end{myfact}
+    \end{factenv}
 }
 
 
